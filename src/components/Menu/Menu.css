@@ -1,0 +1,11 @@
+.transition-max-height {
+  transition: max-height 0.3s ease-in-out;
+}
+
+.max-h-0 {
+  max-height: 0;
+}
+
+.max-h-96 {
+  max-height: 24rem; /* Adjust as necessary for the content */
+}
