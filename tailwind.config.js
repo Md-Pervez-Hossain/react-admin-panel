@@ -11,11 +11,10 @@ export default {
         inter: ["Inter", "sans-serif"],
       },
       colors: {
-
-        primary: "#40282C",
-        secondary: "#fff",
-
+        primary: "#9B52FA",
+        secondary: "#837DFA",
       },
+
     },
   },
   plugins: [],

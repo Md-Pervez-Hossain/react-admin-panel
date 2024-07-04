@@ -8,6 +8,7 @@ import User from "./page/User/User";
 import Dashboard from "./page/Dashboard/Dashboard";
 import Header from "./components/Header/Header";
 import Menu from "./components/Menu/Menu";
+import Settings from "./page/Settings/Settings";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(
@@ -28,6 +29,7 @@ function App() {
             { path: "/dashboard", element: <Dashboard /> },
             { path: "/home", element: <Home /> },
             { path: "/user", element: <User /> },
+            { path: "/settings", element: <Settings /> },
             { path: "/product", element: <Product /> },
           ],
         },
@@ -42,7 +44,9 @@ function App() {
 
     return (
       <div className="flex">
-        <Menu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+        <div className=" sticky top-0">
+          <Menu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+        </div>
         <div className="flex-1">
           <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
           <div className="min-h-[calc(100vh-92px)]   bg-zinc-50 p-8">

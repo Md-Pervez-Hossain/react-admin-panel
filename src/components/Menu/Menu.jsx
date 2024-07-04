@@ -28,7 +28,7 @@ const menuData = {
     {
       name: "Profile",
       icon: FaRegUser,
-      path: "",
+      path: "/",
       subItems: [
         {
           name: "User",
@@ -82,17 +82,19 @@ const Menu = ({ isMenuOpen }) => {
   return (
     <>
       {isMenuOpen && (
-        <div className="flex flex-col justify-between min-h-screen gap-4 py-6 px-10 pt-[25px]  bg-white font-poppins font-normal text-[18px]">
-          <div>
+        <div className="flex flex-col min-h-screen bg-white font-poppins font-normal text-[18px]">
+          <div className="sticky top-0 z-10 bg-white py-6 px-10">
             <Logo />
-            <div className="flex flex-col gap-8 ">
+          </div>
+          <div className="flex-1 overflow-y-auto py-6 px-10">
+            <div className="flex flex-col gap-8">
               {menuData.menu.map((item, index) => (
                 <div key={index}>
                   <div
                     onClick={() => handleMainItemClick(index)}
-                    className={`flex items-center gap-3 cursor-pointer  ${
+                    className={`flex items-center gap-3 cursor-pointer ${
                       activeMainItem === index
-                        ? "text-green-500 bg-zinc-50 p-3    rounded-md"
+                        ? "text-primary bg-zinc-50 p-3 font-semibold rounded-md"
                         : ""
                     }`}
                   >
@@ -112,7 +114,7 @@ const Menu = ({ isMenuOpen }) => {
                   </div>
 
                   {expandedMenu === index && item.subItems.length > 0 && (
-                    <div className="flex flex-col gap-3 pl-8 mt-5 ">
+                    <div className="flex flex-col gap-3 pl-8 mt-5">
                       {item.subItems.map((subItem, subIndex) => (
                         <Link
                           to={subItem.path}
@@ -121,7 +123,7 @@ const Menu = ({ isMenuOpen }) => {
                           className={`flex items-center gap-2 bg-zinc-50 p-3 rounded-md ${
                             activeMainItem === index &&
                             activeSubItem === subIndex
-                              ? "text-green-500 bg-zinc-50 p-3  "
+                              ? "text-primary bg-zinc-50 p-3 font-semibold"
                               : ""
                           }`}
                         >
@@ -133,16 +135,6 @@ const Menu = ({ isMenuOpen }) => {
                 </div>
               ))}
             </div>
-          </div>
-          <div>
-            <Link to="/settings">
-              <p className="flex items-center gap-3">
-                <span>
-                  <IoSettingsOutline />
-                </span>
-                Settings
-              </p>
-            </Link>
           </div>
         </div>
       )}
