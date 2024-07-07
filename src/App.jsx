@@ -33,7 +33,7 @@ function App() {
             { path: "/dashboard", element: <Dashboard /> },
             { path: "/home", element: <Home /> },
             { path: "/user", element: <User /> },
-            { path: "/user/edit-user", element: <EditUser /> },
+            { path: "/user/edit-user/:id", element: <EditUser /> },
             { path: "/product/product-details", element: <ProductDetails /> },
             { path: "/product/edit-product", element: <EditProduct /> },
             { path: "/settings", element: <Settings /> },

@@ -55,7 +55,7 @@ const User = () => {
             id={id}
             isOpen={isOpen}
             toggleDropdown={toggleDropdown}
-            onEdit="/user/edit-user"
+            onEdit={`/user/edit-user/${id}`}
             onDelete={openDeleteModal}
             onDetails={openDetailsModal}
           />
