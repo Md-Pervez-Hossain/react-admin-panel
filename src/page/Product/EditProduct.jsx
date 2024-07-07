@@ -1,12 +1,12 @@
 import React from "react";
 import Breadcrumb from "../../share/Breadcrumb/Breadcrumb";
 
-const AddUser = () => {
+const EditProduct = () => {
   return (
     <div>
-      <Breadcrumb title="Add User" />
+      <Breadcrumb title="Edit Product" />
     </div>
   );
 };
 
-export default AddUser;
+export default EditProduct;

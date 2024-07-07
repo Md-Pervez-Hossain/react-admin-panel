@@ -1,9 +1,8 @@
-import React from "react";
-
 const AddProduct = () => {
   return (
     <div>
-      <h2>Add Product pls</h2>
+      {/* <Breadcrumb tittle="Add Product" /> */}
+      <h2>Add Product</h2>
     </div>
   );
 };

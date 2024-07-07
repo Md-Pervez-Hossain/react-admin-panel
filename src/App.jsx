@@ -10,6 +10,9 @@ import Header from "./components/Header/Header";
 import Menu from "./components/Menu/Menu";
 import Settings from "./page/Settings/Settings";
 import AddUser from "./page/User/AddUser";
+import ProductDetails from "./page/Product/ProductDetails";
+import EditProduct from "./page/Product/EditProduct";
+import EditUser from "./page/User/EditUser";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(
@@ -30,7 +33,9 @@ function App() {
             { path: "/dashboard", element: <Dashboard /> },
             { path: "/home", element: <Home /> },
             { path: "/user", element: <User /> },
-            { path: "/user/add-user", element: <AddUser /> },
+            { path: "/user/edit-user", element: <EditUser /> },
+            { path: "/product/product-details", element: <ProductDetails /> },
+            { path: "/product/edit-product", element: <EditProduct /> },
             { path: "/settings", element: <Settings /> },
             { path: "/product", element: <Product /> },
           ],

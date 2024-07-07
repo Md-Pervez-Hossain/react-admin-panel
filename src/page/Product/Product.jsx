@@ -56,9 +56,9 @@ const Product = () => {
             id={id}
             isOpen={isOpen}
             toggleDropdown={toggleDropdown}
-            onEdit={openEditModal}
+            onEdit="/product/edit-product"
             onDelete={openDeleteModal}
-            onDetails={openDetailsModal}
+            onDetails="/product/product-details"
           />
         );
       },
@@ -87,7 +87,7 @@ const Product = () => {
       <ActionModal
         isOpen={isAddModalOpen}
         closeModal={closeModals}
-        title="Add User"
+        title="Add Product"
         actionContent={<AddProduct />}
       />
 
