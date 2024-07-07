@@ -9,6 +9,7 @@ import Dashboard from "./page/Dashboard/Dashboard";
 import Header from "./components/Header/Header";
 import Menu from "./components/Menu/Menu";
 import Settings from "./page/Settings/Settings";
+import AddUser from "./page/User/AddUser";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(
@@ -29,6 +30,7 @@ function App() {
             { path: "/dashboard", element: <Dashboard /> },
             { path: "/home", element: <Home /> },
             { path: "/user", element: <User /> },
+            { path: "/user/add-user", element: <AddUser /> },
             { path: "/settings", element: <Settings /> },
             { path: "/product", element: <Product /> },
           ],
