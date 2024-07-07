@@ -1,131 +1,114 @@
+import { useRef } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
-import { useModal } from "../../../hooks/useModal";
-import Modal from "../../share/Modal/Modal";
-import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import Table from "../../share/Table/Table";
 import { usersData } from "../../share/Data/Data";
 import Breadcrumb from "../../share/Breadcrumb/Breadcrumb";
+import DropdownMenu from "../../share/DropdownMenu/DropdownMenu";
+import ActionModal from "../../share/ActionModal/ActionModal";
+import useClickOutside from "../../../hooks/useClickOutside";
+import useModalDropdown from "../../../hooks/useModalDropdown";
 
 const User = () => {
-  const { isModalOpen, closeModal, openModal } = useModal();
-  const roomHeader = [
+  const {
+    dropdownOpenId,
+    selectedUserId,
+    isAddModalOpen,
+    isEditModalOpen,
+    isDeleteModalOpen,
+    isDetailsModalOpen,
+    toggleDropdown,
+    openAddModal,
+    openEditModal,
+    openDeleteModal,
+    openDetailsModal,
+    closeModals,
+  } = useModalDropdown();
+  const dropdownRef = useRef(null);
+
+  useClickOutside(dropdownRef, () => toggleDropdown(null));
+
+  const header = [
+    { header: "Sl", accessorKey: "id" },
     {
-      header: "Room Number",
-      accessorKey: "room_number",
+      header: "Image",
+      accessorKey: "image",
+      cell: ({ row }) => (
+        <img
+          src={row.original.image}
+          alt=""
+          className="w-12 h-12 rounded-full"
+        />
+      ),
     },
+    { header: "Name", accessorKey: "username" },
+    { header: "Category", accessorKey: "category" },
+    { header: "Gender", accessorKey: "gender" },
     {
-      header: "Room Number",
-      accessorKey: "room_number",
-    },
-    {
-      header: "Class",
-      accessorKey: "class_name",
+      header: "Action",
+      id: "action",
       cell: ({ row }) => {
-        const { class_name } = row.original;
+        const { id } = row.original;
+        const isOpen = dropdownOpenId === id;
+
         return (
-          <>
-            {class_name ? (
-              <span>{class_name}</span>
-            ) : (
-              <span className="text-red-300">Empty</span>
-            )}
-          </>
+          <DropdownMenu
+            id={id}
+            isOpen={isOpen}
+            toggleDropdown={toggleDropdown}
+            onEdit={openEditModal}
+            onDelete={openDeleteModal}
+            onDetails={openDetailsModal}
+          />
         );
       },
     },
-    {
-      header: "Section",
-      accessorKey: "section_name",
-      cell: ({ row }) => {
-        const { section_name } = row.original;
-        return (
-          <>
-            {section_name ? (
-              <span>{section_name}</span>
-            ) : (
-              <span className="text-red-300">Empty</span>
-            )}
-          </>
-        );
-      },
-    },
-
-    // {
-    //   header: "Created At",
-    //   accessorKey: "created_at",
-    //   cell: ({ row }) => {
-    //     const { created_at } = row.original;
-    //     return (
-    //       <>
-    //         {created_at && (
-    //           <span>{dayjs(created_at).format("DD MMM YYYY")}</span>
-    //         )}
-    //       </>
-    //     );
-    //   },
-    // },
-    // {
-    //   header: "Action",
-    //   id: "action",
-    //   cell: ({ row }) => {
-    //     const { id } = row.original;
-    //     return (
-    //       <div>
-    //         <div className="dropdown dropdown-top dropdown-end z-50 ">
-    //           <label tabIndex={0} className="cursor-pointer">
-    //             <HiOutlineDotsHorizontal />
-    //           </label>
-    //           <ul
-    //             tabIndex={0}
-    //             className="dropdown-content z-[1] menu p-2 shadow-lg bg-base-100 rounded-box w-52"
-    //           >
-    //             <li>
-    //               <button onClick={() => setEditModalId(row.original)}>
-    //                 Edit
-    //               </button>
-    //             </li>
-
-    //             <li onClick={() => setDeleteModalId(row.original)}>
-    //               <a>Delete</a>
-    //             </li>
-    //           </ul>
-    //         </div>
-    //       </div>
-    //     );
-    //   },
-    // },
   ];
-  return (
-    <div className="font-poppins ">
-      <div className="flex items-center justify-between">
-        <Breadcrumb title="User Page" />
 
+  return (
+    <div className="font-poppins">
+      <Breadcrumb title="User Page" />
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="font-poppins font-semibold text-[30px]">
+          All Users List
+        </h2>
         <button
-          onClick={openModal}
-          className="flex  items-center gap-2 bg-primary/80 px-6 py-3  text-white rounded-lg"
+          onClick={openAddModal}
+          className="flex items-center gap-2 bg-primary/80 px-6 py-3 text-white rounded-lg"
         >
-          <AiOutlinePlus className="font-semibold"></AiOutlinePlus>
-          <span>Add Room</span>
+          <AiOutlinePlus className="font-semibold" />
+          <span>Add User</span>
         </button>
       </div>
-      <Table
-        columns={roomHeader}
-        tabelData={usersData}
-        // pagination={pagination}
-        // setPagination={setPagination}
-        // totalData={totalData}
-        // loading={loading}
-        // search={search}
-        // setSearch={setSearch}
+
+      <Table columns={header} tabelData={usersData} />
+
+      <ActionModal
+        isOpen={isAddModalOpen}
+        closeModal={closeModals}
+        title="Add User"
+        actionContent={<div>Add User Form </div>}
       />
-      <Modal
-        isOpen={isModalOpen}
-        openModal={openModal}
-        closeModal={closeModal}
-        title="Add Room Number"
-      >
-        <div>Heelo</div>
-      </Modal>
+
+      <ActionModal
+        isOpen={isEditModalOpen}
+        closeModal={closeModals}
+        title="Edit User"
+        actionContent={<div>Edit User Form {selectedUserId}</div>}
+      />
+
+      <ActionModal
+        isOpen={isDeleteModalOpen}
+        closeModal={closeModals}
+        title="Delete User"
+        actionContent={<div>Delete User Confirmation {selectedUserId}</div>}
+      />
+
+      <ActionModal
+        isOpen={isDetailsModalOpen}
+        closeModal={closeModals}
+        title="User Details"
+        actionContent={<div>User Details Information {selectedUserId}</div>}
+      />
     </div>
   );
 };

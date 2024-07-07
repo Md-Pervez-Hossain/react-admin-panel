@@ -94,7 +94,7 @@ const Menu = ({ isMenuOpen }) => {
                     onClick={() => handleMainItemClick(index)}
                     className={`flex items-center gap-3 cursor-pointer ${
                       activeMainItem === index
-                        ? "text-primary bg-zinc-50 p-3 font-semibold rounded-md"
+                        ? "text-primary bg-primary/10 p-3 font-semibold rounded-md"
                         : ""
                     }`}
                   >
@@ -120,10 +120,10 @@ const Menu = ({ isMenuOpen }) => {
                           to={subItem.path}
                           key={subIndex}
                           onClick={() => handleSubItemClick(index, subIndex)}
-                          className={`flex items-center gap-2 bg-zinc-50 p-3 rounded-md ${
+                          className={`flex items-center gap-2 bg-primary/10 p-3 rounded-md ${
                             activeMainItem === index &&
                             activeSubItem === subIndex
-                              ? "text-primary bg-zinc-50 p-3 font-semibold"
+                              ? "text-primary bg-primary/10 p-3 font-semibold"
                               : ""
                           }`}
                         >
