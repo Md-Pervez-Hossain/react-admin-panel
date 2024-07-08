@@ -97,11 +97,11 @@ const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
   return (
     <>
       {/* Desktop version sidebar */}
-      <div className="hidden lg:flex flex-col min-h-screen bg-white font-poppins font-normal text-[18px] ">
-        <div className="sticky top-0 z-50 bg-white py-6 px-10">
+      <div className="hidden lg:flex flex-col min-h-screen bg-white font-poppins font-normal text-[18px] sticky top-0 z-50">
+        {/* <div className="sticky top-0 z-50 bg-white py-6 px-10">
           <Logo />
-        </div>
-        <div className="flex-1 overflow-y-auto py-6 px-10">
+        </div> */}
+        <div className="flex-1 overflow-y-auto p-4 min-w-[250px]">
           <div className="flex flex-col gap-8">
             {menuData.menu.map((item, index) => (
               <div key={index}>
@@ -154,11 +154,11 @@ const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
 
       {/* Mobile version sidebar */}
       {isMenuOpen && (
-        <div className="lg:hidden flex flex-col min-h-screen bg-white font-poppins font-normal text-[18px] absolute z-50 w-72">
-          <div className="sticky top-0 z-50 bg-white py-6 px-10">
+        <div className="lg:hidden mt-60px flex flex-col min-h-screen bg-white font-poppins font-normal text-[18px] absolute z-50 w-72">
+          {/* <div className="sticky top-0 z-50 bg-white py-6 px-10">
             <Logo />
-          </div>
-          <div className="flex-1 overflow-y-auto py-6 px-10">
+          </div> */}
+          <div className="flex-1 overflow-y-auto p-4">
             <div className="flex flex-col gap-8">
               {menuData.menu.map((item, index) => (
                 <div key={index}>

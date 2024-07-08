@@ -7,6 +7,7 @@ import DropdownMenu from "../../share/DropdownMenu/DropdownMenu";
 import ActionModal from "../../share/ActionModal/ActionModal";
 import useClickOutside from "../../../hooks/useClickOutside";
 import useModalDropdown from "../../../hooks/useModalDropdown";
+import Container from "../../share/ui/Container/Container";
 
 const User = () => {
   const {
@@ -65,51 +66,53 @@ const User = () => {
   ];
 
   return (
-    <div className="font-poppins">
-      <Breadcrumb title="User Page" />
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="font-poppins font-semibold text-3xl sm:text-4xl">
-          All Users List
-        </h2>
-        <button
-          onClick={openAddModal}
-          className="flex items-center gap-2 bg-primary/80 px-6 py-3 text-white rounded-lg"
-        >
-          <AiOutlinePlus className="font-semibold" />
-          <span>Add User</span>
-        </button>
+    <Container>
+      <div className="font-poppins">
+        <Breadcrumb title="User Page" />
+        <div className="flex items-center justify-between  mb-4">
+          <h2 className="font-poppins font-semibold   mb-2 sm:mb-0">
+            All Users List
+          </h2>
+          <button
+            onClick={openAddModal}
+            className="flex items-center gap-2 bg-primary/80 px-6 py-3 text-white rounded-lg"
+          >
+            <AiOutlinePlus className="font-semibold" />
+            <span className="">Add </span>
+          </button>
+        </div>
+
+        <Table columns={header} tabelData={usersData} />
+
+        <ActionModal
+          isOpen={isAddModalOpen}
+          closeModal={closeModals}
+          title="Add User"
+          actionContent={<div>Add User Form </div>}
+        />
+
+        <ActionModal
+          isOpen={isEditModalOpen}
+          closeModal={closeModals}
+          title="Edit User"
+          actionContent={<div>Edit User Form {selectedUserId}</div>}
+        />
+
+        <ActionModal
+          isOpen={isDeleteModalOpen}
+          closeModal={closeModals}
+          title="Delete User"
+          actionContent={<div>Delete User Confirmation {selectedUserId}</div>}
+        />
+
+        <ActionModal
+          isOpen={isDetailsModalOpen}
+          closeModal={closeModals}
+          title="User Details"
+          actionContent={<div>User Details Information {selectedUserId}</div>}
+        />
       </div>
-
-      <Table columns={header} tabelData={usersData} />
-
-      <ActionModal
-        isOpen={isAddModalOpen}
-        closeModal={closeModals}
-        title="Add User"
-        actionContent={<div>Add User Form </div>}
-      />
-
-      <ActionModal
-        isOpen={isEditModalOpen}
-        closeModal={closeModals}
-        title="Edit User"
-        actionContent={<div>Edit User Form {selectedUserId}</div>}
-      />
-
-      <ActionModal
-        isOpen={isDeleteModalOpen}
-        closeModal={closeModals}
-        title="Delete User"
-        actionContent={<div>Delete User Confirmation {selectedUserId}</div>}
-      />
-
-      <ActionModal
-        isOpen={isDetailsModalOpen}
-        closeModal={closeModals}
-        title="User Details"
-        actionContent={<div>User Details Information {selectedUserId}</div>}
-      />
-    </div>
+    </Container>
   );
 };
 

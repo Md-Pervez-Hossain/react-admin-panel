@@ -35,7 +35,7 @@ const Header = ({ isMenuOpen, toggleMenu }) => {
   }, [isPopoverOpen]);
 
   return (
-    <div className="bg-white py-4 flex items-center justify-between sticky top-0 z-50 px-6">
+    <div className="bg-white py-4 flex items-center justify-between sticky top-0 z-50 px-3">
       <div className="flex items-center gap-2">
         <Logo />
       </div>

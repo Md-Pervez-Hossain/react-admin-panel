@@ -46,18 +46,35 @@ function Layout({ setIsMenuOpen, isMenuOpen }) {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <div className="flex">
-      <div className={isMenuOpen ? "" : "hidden lg:block sticky top-0"}>
-        <Menu
-          isMenuOpen={isMenuOpen}
-          toggleMenu={toggleMenu}
-          setIsMenuOpen={setIsMenuOpen}
-        />
+    <div>
+      <div className=" hidden lg:flex ">
+        <div>
+          <Menu
+            isMenuOpen={isMenuOpen}
+            toggleMenu={toggleMenu}
+            setIsMenuOpen={setIsMenuOpen}
+          />
+        </div>
+        <div className="flex-1">
+          <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+          <div className="min-h-screen bg-zinc-50  overflow-x-auto min-w-full">
+            <Outlet />
+          </div>
+        </div>
       </div>
-      <div className="flex-1">
-        <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-        <div className="min-h-[calc(100vh-92px)] bg-zinc-50 p-8">
-          <Outlet />
+      <div className="lg:hidden">
+        <div>
+          <Menu
+            isMenuOpen={isMenuOpen}
+            toggleMenu={toggleMenu}
+            setIsMenuOpen={setIsMenuOpen}
+          />
+        </div>
+        <div>
+          <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+          <div className="min-h-screen bg-zinc-50  overflow-x-auto min-w-full">
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>
