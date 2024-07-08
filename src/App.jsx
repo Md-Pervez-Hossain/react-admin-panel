@@ -12,6 +12,7 @@ import Settings from "./page/Settings/Settings";
 import ProductDetails from "./page/Product/ProductDetails";
 import EditProduct from "./page/Product/EditProduct";
 import EditUser from "./page/User/EditUser";
+import "./index.css";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -46,35 +47,31 @@ function Layout({ setIsMenuOpen, isMenuOpen }) {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <div>
-      <div className=" hidden lg:flex ">
-        <div>
-          <Menu
-            isMenuOpen={isMenuOpen}
-            toggleMenu={toggleMenu}
-            setIsMenuOpen={setIsMenuOpen}
-          />
-        </div>
-        <div className="flex-1">
-          <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-          <div className="min-h-screen bg-zinc-50  overflow-x-auto min-w-full">
-            <Outlet />
-          </div>
-        </div>
+    <div className="flex h-screen overflow-hidden">
+      {/* Sidebar for Desktop */}
+      <div className="hidden lg:flex flex-col w-64 bg-white overflow-y-auto scrollbar-hide example">
+        <Menu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       </div>
-      <div className="lg:hidden">
-        <div>
-          <Menu
-            isMenuOpen={isMenuOpen}
-            toggleMenu={toggleMenu}
-            setIsMenuOpen={setIsMenuOpen}
+
+      {/* Sidebar for Mobile */}
+      {isMenuOpen && (
+        <div className="lg:hidden fixed inset-0 z-50 flex">
+          <div className="flex flex-col w-64 bg-white overflow-y-auto example">
+            <Menu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+          </div>
+          <div
+            className="flex-grow"
+            onClick={toggleMenu}
+            style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
           />
         </div>
-        <div>
-          <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-          <div className="min-h-screen bg-zinc-50  overflow-x-auto min-w-full">
-            <Outlet />
-          </div>
+      )}
+
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+        <div className="flex-1 bg-zinc-50 overflow-auto">
+          <Outlet />
         </div>
       </div>
     </div>

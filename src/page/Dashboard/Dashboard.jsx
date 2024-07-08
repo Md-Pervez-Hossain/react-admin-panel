@@ -62,6 +62,36 @@ const Dashboard = () => {
           <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
             <BarCharts />
           </div>
+          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
+            <BarCharts />
+          </div>
+          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
+            <BarCharts />
+          </div>
+          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
+            <BarCharts />
+          </div>
+          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
+            <BarCharts />
+          </div>
+          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
+            <BarCharts />
+          </div>
+          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
+            <BarCharts />
+          </div>
+          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
+            <BarCharts />
+          </div>
+          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
+            <BarCharts />
+          </div>
+          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
+            <BarCharts />
+          </div>
+          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
+            <BarCharts />
+          </div>
         </div>
       </div>
     </Container>

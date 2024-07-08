@@ -11,6 +11,7 @@ import { RxDashboard } from "react-icons/rx";
 import { GoDot } from "react-icons/go";
 import Logo from "../Logo/Logo";
 
+// Define your menu data
 const menuData = {
   menu: [
     {
@@ -28,18 +29,217 @@ const menuData = {
     {
       name: "Profile",
       icon: FaRegUser,
-      path: "/",
+      path: "/user",
       subItems: [
-        {
-          name: "User",
-          path: "/user",
-        },
-        {
-          name: "Product",
-          path: "/product",
-        },
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
       ],
     },
+    {
+      name: "Profile",
+      icon: FaRegUser,
+      path: "/user",
+      subItems: [
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
+      ],
+    },
+    {
+      name: "Profile",
+      icon: FaRegUser,
+      path: "/user",
+      subItems: [
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
+      ],
+    },
+    {
+      name: "Profile",
+      icon: FaRegUser,
+      path: "/user",
+      subItems: [
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
+      ],
+    },
+    {
+      name: "Profile",
+      icon: FaRegUser,
+      path: "/user",
+      subItems: [
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
+      ],
+    },
+    {
+      name: "Profile",
+      icon: FaRegUser,
+      path: "/user",
+      subItems: [
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
+      ],
+    },
+    {
+      name: "Profile",
+      icon: FaRegUser,
+      path: "/user",
+      subItems: [
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
+      ],
+    },
+    {
+      name: "Profile",
+      icon: FaRegUser,
+      path: "/user",
+      subItems: [
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
+      ],
+    },
+    {
+      name: "Profile",
+      icon: FaRegUser,
+      path: "/user",
+      subItems: [
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
+      ],
+    },
+    {
+      name: "Profile",
+      icon: FaRegUser,
+      path: "/user",
+      subItems: [
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
+      ],
+    },
+    {
+      name: "Profile",
+      icon: FaRegUser,
+      path: "/user",
+      subItems: [
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
+      ],
+    },
+    {
+      name: "Profile",
+      icon: FaRegUser,
+      path: "/user",
+      subItems: [
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
+      ],
+    },
+    {
+      name: "Profile",
+      icon: FaRegUser,
+      path: "/user",
+      subItems: [
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
+      ],
+    },
+    {
+      name: "Profile",
+      icon: FaRegUser,
+      path: "/user",
+      subItems: [
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
+      ],
+    },
+    {
+      name: "Profile",
+      icon: FaRegUser,
+      path: "/user",
+      subItems: [
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
+      ],
+    },
+    {
+      name: "Profile",
+      icon: FaRegUser,
+      path: "/user",
+      subItems: [
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
+      ],
+    },
+    {
+      name: "Profile",
+      icon: FaRegUser,
+      path: "/user",
+      subItems: [
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
+      ],
+    },
+    {
+      name: "Profile",
+      icon: FaRegUser,
+      path: "/user",
+      subItems: [
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
+      ],
+    },
+    {
+      name: "Profile",
+      icon: FaRegUser,
+      path: "/user",
+      subItems: [
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
+      ],
+    },
+    {
+      name: "Profile",
+      icon: FaRegUser,
+      path: "/user",
+      subItems: [
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
+      ],
+    },
+    {
+      name: "Profile",
+      icon: FaRegUser,
+      path: "/user",
+      subItems: [
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
+      ],
+    },
+    {
+      name: "Profile",
+      icon: FaRegUser,
+      path: "/user",
+      subItems: [
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
+      ],
+    },
+    {
+      name: "Profile",
+      icon: FaRegUser,
+      path: "/user",
+      subItems: [
+        { name: "User", path: "/user" },
+        { name: "Product", path: "/product" },
+      ],
+    },
+    {
+      name: "Settings",
+      icon: IoSettingsOutline,
+      path: "/settings",
+      subItems: [],
+    },
+    // Add more menu items as needed
   ],
 };
 
@@ -98,9 +298,6 @@ const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
     <>
       {/* Desktop version sidebar */}
       <div className="hidden lg:flex flex-col min-h-screen bg-white font-poppins font-normal text-[18px] sticky top-0 z-50">
-        {/* <div className="sticky top-0 z-50 bg-white py-6 px-10">
-          <Logo />
-        </div> */}
         <div className="flex-1 overflow-y-auto p-4 min-w-[250px]">
           <div className="flex flex-col gap-8">
             {menuData.menu.map((item, index) => (
@@ -113,10 +310,8 @@ const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
                       : ""
                   }`}
                 >
-                  <Link to={item.path} className="flex items-center gap-3">
-                    <span>{<item.icon />}</span>
-                    {item.name}
-                  </Link>
+                  <span>{<item.icon />}</span>
+                  {item.name}
                   {item.subItems.length > 0 && (
                     <span>
                       {expandedMenu === index ? (
@@ -154,61 +349,51 @@ const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
 
       {/* Mobile version sidebar */}
       {isMenuOpen && (
-        <div className="lg:hidden mt-60px flex flex-col min-h-screen bg-white font-poppins font-normal text-[18px] absolute z-50 w-72">
-          {/* <div className="sticky top-0 z-50 bg-white py-6 px-10">
-            <Logo />
-          </div> */}
-          <div className="flex-1 overflow-y-auto p-4">
-            <div className="flex flex-col gap-8">
-              {menuData.menu.map((item, index) => (
-                <div key={index}>
-                  <div
-                    onClick={() => handleMainItemClick(index, item.path)}
-                    className={`flex items-center gap-3 cursor-pointer ${
-                      activeMainItem === index
-                        ? "text-primary bg-primary/10 p-3 font-semibold rounded-md"
-                        : ""
-                    }`}
-                  >
-                    <Link to={item.path} className="flex items-center gap-3">
-                      <span>{<item.icon />}</span>
-                      {item.name}
-                    </Link>
-                    {item.subItems.length > 0 && (
-                      <span>
-                        {expandedMenu === index ? (
-                          <MdOutlineKeyboardArrowDown className="text-[24px]" />
-                        ) : (
-                          <MdOutlineKeyboardArrowRight className="text-[24px]" />
-                        )}
-                      </span>
-                    )}
-                  </div>
-
-                  {expandedMenu === index && item.subItems.length > 0 && (
-                    <div className="flex flex-col gap-3 pl-8 mt-5">
-                      {item.subItems.map((subItem, subIndex) => (
-                        <Link
-                          to={subItem.path}
-                          key={subIndex}
-                          onClick={(e) =>
-                            handleSubItemClick(index, subIndex, e)
-                          }
-                          className={`flex items-center gap-2 bg-primary/10 p-3 rounded-md ${
-                            activeMainItem === index &&
-                            activeSubItem === subIndex
-                              ? "text-primary bg-primary/10 p-3 font-semibold"
-                              : ""
-                          }`}
-                        >
-                          <GoDot /> {subItem.name}
-                        </Link>
-                      ))}
-                    </div>
+        <div className="lg:hidden flex flex-col min-h-screen overflow-y-auto bg-white font-poppins font-normal text-[18px] absolute z-50 w-72">
+          <div className="flex flex-col gap-8 p-4 mt-[60px]">
+            {menuData.menu.map((item, index) => (
+              <div key={index}>
+                <div
+                  onClick={() => handleMainItemClick(index, item.path)}
+                  className={`flex items-center gap-3 cursor-pointer ${
+                    activeMainItem === index
+                      ? "text-primary bg-primary/10 p-3 font-semibold rounded-md"
+                      : ""
+                  }`}
+                >
+                  <span>{<item.icon />}</span>
+                  {item.name}
+                  {item.subItems.length > 0 && (
+                    <span>
+                      {expandedMenu === index ? (
+                        <MdOutlineKeyboardArrowDown className="text-[24px]" />
+                      ) : (
+                        <MdOutlineKeyboardArrowRight className="text-[24px]" />
+                      )}
+                    </span>
                   )}
                 </div>
-              ))}
-            </div>
+
+                {expandedMenu === index && item.subItems.length > 0 && (
+                  <div className="flex flex-col gap-3 pl-8 mt-5">
+                    {item.subItems.map((subItem, subIndex) => (
+                      <Link
+                        to={subItem.path}
+                        key={subIndex}
+                        onClick={(e) => handleSubItemClick(index, subIndex, e)}
+                        className={`flex items-center gap-2 bg-primary/10 p-3 rounded-md ${
+                          activeMainItem === index && activeSubItem === subIndex
+                            ? "text-primary bg-primary/10 p-3 font-semibold"
+                            : ""
+                        }`}
+                      >
+                        <GoDot /> {subItem.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       )}

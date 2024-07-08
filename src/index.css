@@ -5,3 +5,25 @@
 .gradientColor {
   @apply p-5 rounded-lg row-span-6   bg-gradient-to-r from-primary/70 from-10%  to-secondary/10 to-90%  cursor-pointer transition-all duration-700 flex items-center;
 }
+body {
+  overflow-y: hidden !important; /* Hide vertical scrollbar */
+  /* overflow-x: hidden; */
+}
+
+.example {
+  background-color: #eee;
+  width: 200px;
+
+  overflow-y: scroll; /* Add the ability to scroll */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.example::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.example {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
