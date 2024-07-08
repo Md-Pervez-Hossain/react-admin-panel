@@ -1,7 +1,9 @@
+import Breadcrumb from "../../share/Breadcrumb/Breadcrumb";
+
 const Home = () => {
   return (
     <div>
-      <h2>Home Page</h2>
+      <Breadcrumb title="Home Page" />
     </div>
   );
 };

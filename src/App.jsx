@@ -9,26 +9,21 @@ import Dashboard from "./page/Dashboard/Dashboard";
 import Header from "./components/Header/Header";
 import Menu from "./components/Menu/Menu";
 import Settings from "./page/Settings/Settings";
-import AddUser from "./page/User/AddUser";
 import ProductDetails from "./page/Product/ProductDetails";
 import EditProduct from "./page/Product/EditProduct";
 import EditUser from "./page/User/EditUser";
 
 function App() {
-  const [isMenuOpen, setIsMenuOpen] = useState(
-    localStorage.getItem("isMenuOpen") === "true"
-  );
-
-  useEffect(() => {
-    localStorage.setItem("isMenuOpen", isMenuOpen);
-  }, [isMenuOpen]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <RouterProvider
       router={createBrowserRouter([
         {
           path: "/",
-          element: <Layout />,
+          element: (
+            <Layout setIsMenuOpen={setIsMenuOpen} isMenuOpen={isMenuOpen} />
+          ),
           children: [
             { path: "/dashboard", element: <Dashboard /> },
             { path: "/home", element: <Home /> },
@@ -45,24 +40,28 @@ function App() {
       ])}
     />
   );
+}
 
-  function Layout() {
-    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+function Layout({ setIsMenuOpen, isMenuOpen }) {
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-    return (
-      <div className="flex">
-        <div className=" sticky top-0">
-          <Menu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-        </div>
-        <div className="flex-1">
-          <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-          <div className="min-h-[calc(100vh-92px)]   bg-zinc-50 p-8">
-            <Outlet />
-          </div>
+  return (
+    <div className="flex">
+      <div className={isMenuOpen ? "" : "hidden lg:block sticky top-0"}>
+        <Menu
+          isMenuOpen={isMenuOpen}
+          toggleMenu={toggleMenu}
+          setIsMenuOpen={setIsMenuOpen}
+        />
+      </div>
+      <div className="flex-1">
+        <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+        <div className="min-h-[calc(100vh-92px)] bg-zinc-50 p-8">
+          <Outlet />
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default App;

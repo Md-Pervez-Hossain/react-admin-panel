@@ -68,7 +68,7 @@ const User = () => {
     <div className="font-poppins">
       <Breadcrumb title="User Page" />
       <div className="flex items-center justify-between mb-4">
-        <h2 className="font-poppins font-semibold text-[30px]">
+        <h2 className="font-poppins font-semibold text-3xl sm:text-4xl">
           All Users List
         </h2>
         <button
