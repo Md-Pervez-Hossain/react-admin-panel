@@ -1,3 +1,5 @@
+import tailwindScrollbarHide from 'tailwind-scrollbar-hide';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -14,9 +16,10 @@ export default {
         primary: "#9B52FA",
         secondary: "#837DFA",
       },
-
     },
   },
-  plugins: [],
-}
-
+  plugins: [
+    tailwindScrollbarHide,
+    // Other plugins...
+  ],
+};

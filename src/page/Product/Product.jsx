@@ -72,14 +72,14 @@ const Product = () => {
         <Breadcrumb title="Product Page" />
 
         <div className="flex items-center justify-between mb-4">
-          <h2 className="font-poppins font-semibold text-[24px]">
+          <h2 className="font-poppins font-medium text-[20px]">
             All Product List
           </h2>
           <button
             onClick={openAddModal}
             className="flex items-center gap-2 bg-primary/80 px-6 py-3 text-white rounded-lg"
           >
-            <AiOutlinePlus className="font-semibold" />
+            <AiOutlinePlus className="font-medium" />
             <span>Add Product</span>
           </button>
         </div>

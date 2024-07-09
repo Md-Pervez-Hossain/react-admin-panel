@@ -1,12 +1,13 @@
+import React from "react";
 import Breadcrumb from "../../share/Breadcrumb/Breadcrumb";
 import Container from "../../share/ui/Container/Container";
 
-const EditUser = () => {
+const Profile = () => {
   return (
     <Container>
-      <Breadcrumb title="Edit User" />
+      <Breadcrumb title="Profile Page" />
     </Container>
   );
 };
 
-export default EditUser;
+export default Profile;

@@ -7,10 +7,67 @@ import BarCharts from "../../share/Charts/BarChart/BarCharts";
 import Heading from "../../share/ui/Heading/Heading";
 import Paragraph from "../../share/ui/Paragraph/Paragraph";
 import Container from "../../share/ui/Container/Container";
+import { useRef } from "react";
+import useClickOutside from "../../../hooks/useClickOutside";
+import DropdownMenu from "../../share/DropdownMenu/DropdownMenu";
+import Table from "../../share/Table/Table";
+import { usersData } from "../../share/Data/Data";
 
 const Dashboard = () => {
-  const { selectedUserId, isAddModalOpen, openAddModal, closeModals } =
-    useModalDropdown();
+  const {
+    dropdownOpenId,
+    selectedUserId,
+    isAddModalOpen,
+    isEditModalOpen,
+    isDeleteModalOpen,
+    isDetailsModalOpen,
+    toggleDropdown,
+    openAddModal,
+    openEditModal,
+    openDeleteModal,
+    openDetailsModal,
+    closeModals,
+  } = useModalDropdown();
+  const dropdownRef = useRef(null);
+
+  useClickOutside(dropdownRef, () => toggleDropdown(null));
+
+  const header = [
+    { header: "Sl", accessorKey: "id" },
+    {
+      header: "Image",
+      accessorKey: "image",
+      cell: ({ row }) => (
+        <img
+          src={row.original.image}
+          alt=""
+          className="w-12 h-12 rounded-full"
+        />
+      ),
+    },
+    { header: "Name", accessorKey: "username" },
+    { header: "Category", accessorKey: "category" },
+    { header: "Gender", accessorKey: "gender" },
+    {
+      header: "Action",
+      id: "action",
+      cell: ({ row }) => {
+        const { id } = row.original;
+        const isOpen = dropdownOpenId === id;
+
+        return (
+          <DropdownMenu
+            id={id}
+            isOpen={isOpen}
+            toggleDropdown={toggleDropdown}
+            onEdit=""
+            onDelete=""
+            onDetails={openDetailsModal}
+          />
+        );
+      },
+    },
+  ];
 
   return (
     <Container>
@@ -51,48 +108,30 @@ const Dashboard = () => {
           </div>
 
           {/* Area Chart */}
-          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
+          <div className="bg-white p-5 rounded-lg row-span-6 ">
             <AreaCharts />
           </div>
 
           {/* Bar Chart */}
-          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
+          <div className="bg-white p-5 rounded-lg row-span-6 ">
             <BarCharts />
           </div>
-          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
-            <BarCharts />
-          </div>
-          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
-            <BarCharts />
-          </div>
-          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
-            <BarCharts />
-          </div>
-          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
-            <BarCharts />
-          </div>
-          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
-            <BarCharts />
-          </div>
-          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
-            <BarCharts />
-          </div>
-          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
-            <BarCharts />
-          </div>
-          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
-            <BarCharts />
-          </div>
-          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
-            <BarCharts />
-          </div>
-          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
-            <BarCharts />
-          </div>
-          <div className="bg-white p-5 rounded-lg row-span-6 transition-all duration-700 hover:scale-105 hover:shadow-lg">
-            <BarCharts />
+          {/* Area Chart */}
+          <div className="bg-white p-5 rounded-lg row-span-6 ">
+            <AreaCharts />
           </div>
         </div>
+        <div className=" rounded-lg row-span-6  mt-3">
+          <Table columns={header} tabelData={usersData} />
+        </div>
+        <ActionModal
+          isOpen={isDetailsModalOpen}
+          closeModal={closeModals}
+          title="User Details"
+          actionContent={
+            <div className="p-5">User Details Information {selectedUserId}</div>
+          }
+        />
       </div>
     </Container>
   );
