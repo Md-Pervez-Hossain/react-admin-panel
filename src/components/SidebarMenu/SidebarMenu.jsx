@@ -1,11 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   MdOutlineKeyboardArrowRight,
   MdOutlineKeyboardArrowDown,
   MdLogout,
 } from "react-icons/md";
-
 import { GoDot } from "react-icons/go";
 import { menuData } from "./Menu";
 import { IoIosArrowForward } from "react-icons/io";
@@ -70,9 +69,10 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen }) => {
     setIsPopoverOpen((prev) => !prev);
   };
 
-  const handleProfileLinkClick = () => {
+  const handleProfileLinkClick = (path) => {
     setIsMenuOpen(false); // Close sidebar
     setIsPopoverOpen(false); // Close profile popover
+    navigate(path); // Navigate to the profile page
   };
 
   const menuVariants = {
@@ -109,7 +109,6 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen }) => {
         duration: 0.3,
       },
     },
-
     animate: {
       opacity: 1,
       y: 0,
@@ -240,28 +239,6 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen }) => {
               </span>
             </h2>
           </div>
-          {/* <AnimatePresence>
-            {isPopoverOpen && (
-              <motion.div
-                initial="initial"
-                animate="animate"
-                exit="initial"
-                variants={profilePopoverVariants}
-                className="absolute mt-[80px] w-48 bg-white border-2 right-[35px] border-primary/10 rounded-lg shadow-lg z-10"
-              >
-                <div className="flex flex-col items-start gap-3 p-4 font-poppins font-normal text-base">
-                  <Link onClick={handleProfileLinkClick} to="./profile">
-                    <button className="flex items-center gap-3">
-                      <FaRegUser /> <span>Profile</span>
-                    </button>
-                  </Link>
-                  <button className="flex items-center gap-3">
-                    <MdLogout /> <span>Logout</span>
-                  </button>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence> */}
 
           <AnimatePresence>
             {isPopoverOpen && (
@@ -274,12 +251,14 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen }) => {
                 className="absolute mt-[75px] w-48 bg-white border-2 right-[42px] border-primary/10 rounded-lg shadow-lg z-10"
               >
                 <div className="flex flex-col items-start gap-3 p-4 font-poppins font-normal text-base">
-                  <button
-                    className="flex items-center gap-3"
-                    onClick={handleProfileLinkClick}
+                  <Link
+                    to="./profile"
+                    onClick={() => handleProfileLinkClick("./profile")}
                   >
-                    <FaRegUser /> <span>Profile</span>
-                  </button>
+                    <button className="flex items-center gap-3">
+                      <FaRegUser /> <span>Profile</span>
+                    </button>
+                  </Link>
                   <button className="flex items-center gap-3">
                     <MdLogout /> <span>Logout</span>
                   </button>
@@ -287,7 +266,8 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen }) => {
               </motion.div>
             )}
           </AnimatePresence>
-          <div className="flex flex-col gap-8 ">
+
+          <div className="flex flex-col gap-8">
             {menuData.menu.map((item, index) => (
               <div key={index}>
                 <div

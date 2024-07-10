@@ -3,15 +3,23 @@ import useModalDropdown from "../../../hooks/useModalDropdown";
 import Breadcrumb from "../../share/Breadcrumb/Breadcrumb";
 import ActionModal from "../../share/ActionModal/ActionModal";
 import Container from "../../share/ui/Container/Container";
-
+import usePageAnimation from "../../../hooks/usePageAnimation";
+import { motion } from "framer-motion";
 const Home = () => {
   const { selectedUserId, isAddModalOpen, openAddModal, closeModals } =
     useModalDropdown();
+
+  const { parentVariant, childVariant } = usePageAnimation();
   return (
     <Container>
-      <div>
-        <Breadcrumb title="Home Page" />
-        <div className="flex items-center justify-between mb-4">
+      <motion.div variants={parentVariant} initial="hidden" animate="visible">
+        <motion.div variants={childVariant}>
+          <Breadcrumb title="Home Page" />
+        </motion.div>
+        <motion.div
+          variants={childVariant}
+          className="flex items-center justify-between mb-4"
+        >
           <h2 className="font-poppins font-medium text-[20px]">
             All Product List
           </h2>
@@ -22,15 +30,14 @@ const Home = () => {
             <AiOutlinePlus className="font-medium" />
             <span>Add </span>
           </button>
-        </div>
-
-        <ActionModal
-          isOpen={isAddModalOpen}
-          closeModal={closeModals}
-          title="Add "
-          actionContent={<div>Add User Form </div>}
-        />
-      </div>
+        </motion.div>
+      </motion.div>
+      <ActionModal
+        isOpen={isAddModalOpen}
+        closeModal={closeModals}
+        title="Add "
+        actionContent={<div>Add User Form </div>}
+      />
     </Container>
   );
 };

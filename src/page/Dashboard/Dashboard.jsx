@@ -12,19 +12,15 @@ import useClickOutside from "../../../hooks/useClickOutside";
 import DropdownMenu from "../../share/DropdownMenu/DropdownMenu";
 import Table from "../../share/Table/Table";
 import { usersData } from "../../share/Data/Data";
-
+import usePageAnimation from "../../../hooks/usePageAnimation";
+import { motion } from "framer-motion";
 const Dashboard = () => {
+  const { parentVariant, childVariant } = usePageAnimation();
   const {
     dropdownOpenId,
     selectedUserId,
-    isAddModalOpen,
-    isEditModalOpen,
-    isDeleteModalOpen,
     isDetailsModalOpen,
     toggleDropdown,
-    openAddModal,
-    openEditModal,
-    openDeleteModal,
     openDetailsModal,
     closeModals,
   } = useModalDropdown();
@@ -71,11 +67,21 @@ const Dashboard = () => {
 
   return (
     <Container>
-      <div className="font-poppins">
-        <Breadcrumb title="Dashboard" />
+      <motion.div
+        variants={parentVariant}
+        initial="hidden"
+        animate="visible"
+        className="font-poppins"
+      >
+        <motion.div variants={childVariant}>
+          <Breadcrumb title="Dashboard" />
+        </motion.div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
           {/* Weekly Sales */}
-          <div className="p-5 rounded-lg bg-gradient-to-r from-primary/70 to-secondary/10 cursor-pointer transition-all duration-700 flex items-center justify-center hover:scale-105 hover:shadow-lg">
+          <motion.div
+            variants={childVariant}
+            className="p-5 rounded-lg bg-gradient-to-r from-primary/70 to-secondary/10 cursor-pointer "
+          >
             <div className="text-center">
               <h2 className="font-semibold text-[24px] text-white">
                 Weekly Sales
@@ -83,10 +89,13 @@ const Dashboard = () => {
               <p className="font-normal text-white">$ 500000</p>
               <p className="font-normal text-white">Increase by 30%</p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Monthly Sales */}
-          <div className="p-5 rounded-lg bg-gradient-to-r from-secondary/70 to-secondary/10 cursor-pointer transition-all duration-700 flex items-center justify-center hover:scale-105 hover:shadow-lg">
+          <motion.div
+            variants={childVariant}
+            className="p-5 rounded-lg bg-gradient-to-r from-secondary/70 to-secondary/10 cursor-pointer "
+          >
             <div className="text-center">
               <h2 className="font-semibold text-[24px] text-white">
                 Monthly Sales
@@ -94,10 +103,13 @@ const Dashboard = () => {
               <p className="font-normal text-white">$ 500000</p>
               <p className="font-normal text-white">Increase by 20%</p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Yearly Sales */}
-          <div className="p-5 rounded-lg bg-gradient-to-r from-primary/70 to-secondary/10 cursor-pointer transition-all duration-700 flex items-center justify-center hover:scale-105 hover:shadow-lg">
+          <motion.div
+            variants={childVariant}
+            className="p-5 rounded-lg bg-gradient-to-r from-primary/70 to-secondary/10 cursor-pointer "
+          >
             <div className="text-center">
               <h2 className="font-semibold text-[24px] text-white">
                 Yearly Sales
@@ -105,34 +117,46 @@ const Dashboard = () => {
               <p className="font-normal text-white">$ 500000</p>
               <p className="font-normal text-white">Increase by 10%</p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Area Chart */}
-          <div className="bg-white p-5 rounded-lg row-span-6 ">
+          <motion.div
+            variants={childVariant}
+            className="bg-white p-5 rounded-lg row-span-6 "
+          >
             <AreaCharts />
-          </div>
+          </motion.div>
 
           {/* Bar Chart */}
-          <div className="bg-white p-5 rounded-lg row-span-6 ">
+          <motion.div
+            variants={childVariant}
+            className="bg-white p-5 rounded-lg row-span-6 "
+          >
             <BarCharts />
-          </div>
+          </motion.div>
           {/* Area Chart */}
-          <div className="bg-white p-5 rounded-lg row-span-6 ">
+          <motion.div
+            variants={childVariant}
+            className="bg-white p-5 rounded-lg row-span-6 "
+          >
             <AreaCharts />
-          </div>
+          </motion.div>
         </div>
-        <div className=" rounded-lg row-span-6  mt-3">
+        <motion.div
+          variants={childVariant}
+          className=" rounded-lg row-span-6  mt-3"
+        >
           <Table columns={header} tabelData={usersData} />
-        </div>
-        <ActionModal
-          isOpen={isDetailsModalOpen}
-          closeModal={closeModals}
-          title="User Details"
-          actionContent={
-            <div className="p-5">User Details Information {selectedUserId}</div>
-          }
-        />
-      </div>
+        </motion.div>
+      </motion.div>
+      <ActionModal
+        isOpen={isDetailsModalOpen}
+        closeModal={closeModals}
+        title="User Details"
+        actionContent={
+          <div className="p-5">User Details Information {selectedUserId}</div>
+        }
+      />
     </Container>
   );
 };
