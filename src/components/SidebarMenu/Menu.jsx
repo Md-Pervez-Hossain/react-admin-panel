@@ -19,7 +19,7 @@ export const menuData = {
     {
       name: "Profile",
       icon: FaRegUser,
-      path: "/profile",
+      path: "",
       subItems: [
         { name: "Product", path: "/product" },
         { name: "User", path: "/user" },

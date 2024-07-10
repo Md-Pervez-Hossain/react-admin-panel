@@ -8,8 +8,10 @@ import ActionModal from "../../share/ActionModal/ActionModal";
 import useClickOutside from "../../../hooks/useClickOutside";
 import useModalDropdown from "../../../hooks/useModalDropdown";
 import Container from "../../share/ui/Container/Container";
-
+import usePageAnimation from "../../../hooks/usePageAnimation";
+import { motion } from "framer-motion";
 const User = () => {
+  const { parentVariant, childVariant } = usePageAnimation();
   const {
     dropdownOpenId,
     selectedUserId,
@@ -67,9 +69,19 @@ const User = () => {
 
   return (
     <Container>
-      <div className="font-poppins">
-        <Breadcrumb title="User Page" />
-        <div className="flex items-center justify-between  mb-4">
+      <motion.div
+        variants={parentVariant}
+        initial="hidden"
+        animate="visible"
+        className="font-poppins"
+      >
+        <motion.div variants={childVariant}>
+          <Breadcrumb title="User Page" />
+        </motion.div>
+        <motion.div
+          variants={childVariant}
+          className="flex items-center justify-between  mb-4"
+        >
           <h2 className="font-poppins font-semibold   mb-2 sm:mb-0">
             All Users List
           </h2>
@@ -80,38 +92,40 @@ const User = () => {
             <AiOutlinePlus className="font-semibold" />
             <span className="">Add </span>
           </button>
-        </div>
+        </motion.div>
 
-        <Table columns={header} tabelData={usersData} />
+        <motion.div variants={childVariant}>
+          <Table columns={header} tabelData={usersData} />
+        </motion.div>
+      </motion.div>
 
-        <ActionModal
-          isOpen={isAddModalOpen}
-          closeModal={closeModals}
-          title="Add User"
-          actionContent={<div>Add User Form </div>}
-        />
+      <ActionModal
+        isOpen={isAddModalOpen}
+        closeModal={closeModals}
+        title="Add User"
+        actionContent={<div>Add User Form </div>}
+      />
 
-        <ActionModal
-          isOpen={isEditModalOpen}
-          closeModal={closeModals}
-          title="Edit User"
-          actionContent={<div>Edit User Form {selectedUserId}</div>}
-        />
+      <ActionModal
+        isOpen={isEditModalOpen}
+        closeModal={closeModals}
+        title="Edit User"
+        actionContent={<div>Edit User Form {selectedUserId}</div>}
+      />
 
-        <ActionModal
-          isOpen={isDeleteModalOpen}
-          closeModal={closeModals}
-          title="Delete User"
-          actionContent={<div>Delete User Confirmation {selectedUserId}</div>}
-        />
+      <ActionModal
+        isOpen={isDeleteModalOpen}
+        closeModal={closeModals}
+        title="Delete User"
+        actionContent={<div>Delete User Confirmation {selectedUserId}</div>}
+      />
 
-        <ActionModal
-          isOpen={isDetailsModalOpen}
-          closeModal={closeModals}
-          title="User Details"
-          actionContent={<div>User Details Information {selectedUserId}</div>}
-        />
-      </div>
+      <ActionModal
+        isOpen={isDetailsModalOpen}
+        closeModal={closeModals}
+        title="User Details"
+        actionContent={<div>User Details Information {selectedUserId}</div>}
+      />
     </Container>
   );
 };
