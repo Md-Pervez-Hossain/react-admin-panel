@@ -1,18 +1,44 @@
+import { motion, AnimatePresence } from "framer-motion";
 import { useClickAway } from "@uidotdev/usehooks";
+
 const Modal = ({ isOpen, closeModal, children, title }) => {
   const modalRef = useClickAway(() => {
     closeModal();
   });
 
   return (
-    <>
+    <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/50">
-          <div
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className="fixed inset-0 flex items-center justify-center z-50 bg-black/50"
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5, y: -50 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              transition: {
+                duration: 0.5,
+              },
+            }}
+            exit={{
+              opacity: 0,
+              y: -50,
+              scale: 0.5,
+              transition: {
+                duration: 0.5,
+              },
+            }}
+            transition={{ duration: 0.3, delay: 0.1 }}
             ref={modalRef}
-            className="w-[50%] max-h-[90%] overflow-y-auto min-w-[300px] max-w-5xl bg-white text-black rounded-lg z-[60]  modal-content transition-transform transform scale-100 mx-auto"
+            className="w-[90%] max-w-5xl bg-white text-black rounded-lg z-[60] modal-content transform scale-100 mx-auto max-h-[80vh] overflow-y-auto"
           >
-            <div className="flex justify-between bg-[#F1F3F7] p-5 rounded-lg sticky top-0 z-50">
+            <div className="flex justify-between bg-[#F1F3F7] p-5 rounded-t-lg sticky top-0 z-50">
               <h2 className="text-[18px] font-[500]">{title}</h2>
               <button onClick={closeModal}>
                 <svg
@@ -39,11 +65,11 @@ const Modal = ({ isOpen, closeModal, children, title }) => {
                 </svg>
               </button>
             </div>
-            {children}
-          </div>
-        </div>
+            <div className="p-5">{children}</div>
+          </motion.div>
+        </motion.div>
       )}
-    </>
+    </AnimatePresence>
   );
 };
 

@@ -9,8 +9,8 @@ import {
 import { GoDot } from "react-icons/go";
 import { menuData } from "./Menu";
 import { IoIosArrowForward } from "react-icons/io";
-import useClickOutside from "../../../hooks/useClickOutside";
 import { FaRegUser } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
 
 const SidebarMenu = ({ isMenuOpen, setIsMenuOpen }) => {
   const location = useLocation();
@@ -75,12 +75,88 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen }) => {
     setIsPopoverOpen(false); // Close profile popover
   };
 
+  const menuVariants = {
+    initial: {
+      opacity: 0,
+      y: -20,
+      transition: {
+        duration: 0.3,
+      },
+    },
+    animate: {
+      opacity: 1,
+      y: 0,
+      height: "auto",
+      transition: {
+        duration: 0.3,
+      },
+    },
+    exit: {
+      opacity: 0,
+      height: 0,
+      y: -20,
+      transition: {
+        duration: 0.3,
+      },
+    },
+  };
+
+  const submenuVariants = {
+    initial: {
+      opacity: 0,
+      y: -20,
+      transition: {
+        duration: 0.3,
+      },
+    },
+
+    animate: {
+      opacity: 1,
+      y: 0,
+      height: "auto",
+      transition: {
+        duration: 0.3,
+      },
+    },
+    exit: {
+      opacity: 0,
+      height: 0,
+      y: -20,
+      transition: {
+        duration: 0.3,
+      },
+    },
+  };
+
+  const profilePopoverVariants = {
+    hidden: {
+      opacity: 0,
+      scale: 0.5,
+      transition: {
+        duration: 0.3,
+      },
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.3,
+      },
+    },
+  };
+
   return (
     <>
       {/* Desktop version sidebar */}
-      <div className="hidden lg:flex flex-col min-h-screen bg-white font-poppins font-normal text-[20px] sticky top-0 z-50 p-4 min-w-[250px]  border-r-2 border-r-primary/10">
+      <div className="hidden lg:flex flex-col min-h-screen bg-white font-poppins font-normal text-[20px] sticky top-0 z-50 p-4 min-w-[250px] border-r-2 border-r-primary/10">
         <div className="flex-1 overflow-y-auto scrollbar-hide p-4">
-          <div className="flex flex-col gap-8">
+          <motion.div
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={menuVariants}
+            className="flex flex-col gap-8"
+          >
             {menuData.menu.map((item, index) => (
               <div key={index}>
                 <div
@@ -104,33 +180,50 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen }) => {
                   )}
                 </div>
 
-                {expandedMenu === index && item.subItems.length > 0 && (
-                  <div className="flex flex-col gap-3 pl-8 mt-5">
-                    {item.subItems.map((subItem, subIndex) => (
-                      <Link
-                        to={subItem.path}
-                        key={subIndex}
-                        onClick={(e) => handleSubItemClick(index, subIndex, e)}
-                        className={`flex items-center gap-2 bg-primary/10 p-3 rounded-md ${
-                          activeMainItem === index && activeSubItem === subIndex
-                            ? "text-primary bg-primary/10 p-3 font-semibold"
-                            : ""
-                        }`}
-                      >
-                        <GoDot /> {subItem.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
+                <AnimatePresence>
+                  {expandedMenu === index && item.subItems.length > 0 && (
+                    <motion.div
+                      className="flex flex-col gap-3 pl-8 mt-3"
+                      initial="initial"
+                      animate="animate"
+                      exit="exit"
+                      variants={submenuVariants}
+                    >
+                      {item.subItems.map((subItem, subIndex) => (
+                        <Link
+                          to={subItem.path}
+                          key={subIndex}
+                          onClick={(e) =>
+                            handleSubItemClick(index, subIndex, e)
+                          }
+                          className={`flex items-center gap-2 bg-primary/10 p-3 rounded-md ${
+                            activeMainItem === index &&
+                            activeSubItem === subIndex
+                              ? "text-primary bg-primary/10 p-3 font-semibold"
+                              : ""
+                          }`}
+                        >
+                          <GoDot /> {subItem.name}
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
 
       {/* Mobile version sidebar */}
       {isMenuOpen && (
-        <div className="lg:hidden pt-[100px] flex flex-col min-h-screen overflow-y-auto bg-white font-poppins font-normal text-[18px] absolute z-50 min-w-[250px] p-4  ">
+        <motion.div
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          variants={menuVariants}
+          className="lg:hidden pt-[100px] flex flex-col min-h-screen overflow-y-auto bg-white font-poppins font-normal text-[18px] absolute z-50 min-w-[250px] p-4"
+        >
           <div
             className="flex items-center gap-3 mb-8"
             onClick={handleProfileClick}
@@ -147,23 +240,53 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen }) => {
               </span>
             </h2>
           </div>
-          {isPopoverOpen && (
-            <div
-              className="absolute mt-[80px] w-48 bg-white border-2 right-[35px] border-primary/10 rounded-lg shadow-lg z-10"
-              ref={popoverRef}
-            >
-              <div className="flex flex-col items-start gap-3 p-4 font-poppins font-normal text-base">
-                <Link onClick={handleProfileLinkClick} to="./profile">
+          {/* <AnimatePresence>
+            {isPopoverOpen && (
+              <motion.div
+                initial="initial"
+                animate="animate"
+                exit="initial"
+                variants={profilePopoverVariants}
+                className="absolute mt-[80px] w-48 bg-white border-2 right-[35px] border-primary/10 rounded-lg shadow-lg z-10"
+              >
+                <div className="flex flex-col items-start gap-3 p-4 font-poppins font-normal text-base">
+                  <Link onClick={handleProfileLinkClick} to="./profile">
+                    <button className="flex items-center gap-3">
+                      <FaRegUser /> <span>Profile</span>
+                    </button>
+                  </Link>
                   <button className="flex items-center gap-3">
+                    <MdLogout /> <span>Logout</span>
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence> */}
+
+          <AnimatePresence>
+            {isPopoverOpen && (
+              <motion.div
+                ref={popoverRef}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                variants={profilePopoverVariants}
+                className="absolute mt-[75px] w-48 bg-white border-2 right-[42px] border-primary/10 rounded-lg shadow-lg z-10"
+              >
+                <div className="flex flex-col items-start gap-3 p-4 font-poppins font-normal text-base">
+                  <button
+                    className="flex items-center gap-3"
+                    onClick={handleProfileLinkClick}
+                  >
                     <FaRegUser /> <span>Profile</span>
                   </button>
-                </Link>
-                <button className="flex items-center gap-3">
-                  <MdLogout /> <span>Logout</span>
-                </button>
-              </div>
-            </div>
-          )}
+                  <button className="flex items-center gap-3">
+                    <MdLogout /> <span>Logout</span>
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
           <div className="flex flex-col gap-8 ">
             {menuData.menu.map((item, index) => (
               <div key={index}>
@@ -188,28 +311,39 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen }) => {
                   )}
                 </div>
 
-                {expandedMenu === index && item.subItems.length > 0 && (
-                  <div className="flex flex-col gap-3 pl-8 mt-5">
-                    {item.subItems.map((subItem, subIndex) => (
-                      <Link
-                        to={subItem.path}
-                        key={subIndex}
-                        onClick={(e) => handleSubItemClick(index, subIndex, e)}
-                        className={`flex items-center gap-2 bg-primary/10 p-3 rounded-md ${
-                          activeMainItem === index && activeSubItem === subIndex
-                            ? "text-primary bg-primary/10 p-3 font-semibold"
-                            : ""
-                        }`}
-                      >
-                        <GoDot /> {subItem.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
+                <AnimatePresence>
+                  {expandedMenu === index && item.subItems.length > 0 && (
+                    <motion.div
+                      className="flex flex-col gap-3 pl-8 mt-3"
+                      initial="initial"
+                      animate="animate"
+                      exit="exit"
+                      variants={submenuVariants}
+                    >
+                      {item.subItems.map((subItem, subIndex) => (
+                        <Link
+                          to={subItem.path}
+                          key={subIndex}
+                          onClick={(e) =>
+                            handleSubItemClick(index, subIndex, e)
+                          }
+                          className={`flex items-center gap-2 bg-primary/10 p-3 rounded-md ${
+                            activeMainItem === index &&
+                            activeSubItem === subIndex
+                              ? "text-primary bg-primary/10 p-3 font-semibold"
+                              : ""
+                          }`}
+                        >
+                          <GoDot /> {subItem.name}
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
       )}
     </>
   );
