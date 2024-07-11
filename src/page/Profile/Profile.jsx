@@ -7,7 +7,12 @@ const Profile = () => {
   const { parentVariant, childVariant } = usePageAnimation();
   return (
     <Container>
-      <motion.div variants={parentVariant} initial="hidden" animate="visible">
+      <motion.div
+        variants={parentVariant}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+      >
         <motion.div variants={childVariant}>
           <Breadcrumb title="Profile Page" />
         </motion.div>

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import useModalDropdown from "../../../hooks/useModalDropdown";
 import useClickOutside from "../../../hooks/useClickOutside";
@@ -75,6 +75,7 @@ const Product = () => {
         variants={parentVariant}
         initial="hidden"
         animate="visible"
+        exit="exit"
         className="font-poppins"
       >
         <motion.div variants={childVariant} className="mb-8">

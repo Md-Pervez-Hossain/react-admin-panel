@@ -160,7 +160,7 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen }) => {
               <div key={index}>
                 <div
                   onClick={() => handleMainItemClick(index, item.path)}
-                  className={`flex items-center gap-3 cursor-pointer ${
+                  className={`flex items-center gap-3 cursor-pointer text-base ${
                     activeMainItem === index
                       ? "text-primary bg-primary/10 p-3 font-semibold rounded-md"
                       : ""
@@ -195,7 +195,7 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen }) => {
                           onClick={(e) =>
                             handleSubItemClick(index, subIndex, e)
                           }
-                          className={`flex items-center gap-2 bg-primary/10 p-3 rounded-md ${
+                          className={`flex items-center gap-2 bg-primary/10 p-3 rounded-md text-base ${
                             activeMainItem === index &&
                             activeSubItem === subIndex
                               ? "text-primary bg-primary/10 p-3 font-semibold"
@@ -221,7 +221,7 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen }) => {
           animate="animate"
           exit="exit"
           variants={menuVariants}
-          className="lg:hidden pt-[100px] flex flex-col min-h-screen overflow-y-auto bg-white font-poppins font-normal text-[18px] absolute z-50 min-w-[250px] p-4"
+          className="lg:hidden border-r-2 border-r-primary/10 pt-[100px] flex flex-col min-h-screen overflow-y-auto bg-white font-poppins font-normal text-[18px] absolute z-50 min-w-[250px] p-4"
         >
           <div
             className="flex items-center gap-3 mb-8"
@@ -230,7 +230,7 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen }) => {
             <img
               src="../../../public/assets/avatar.png"
               alt=""
-              className="w-[64px] h-[65px] rounded-full p-2 bg-primary/10"
+              className="w-[50px] h-[50px] rounded-full p-2 bg-primary/10"
             />
             <h2 className="font-poppins font-normal text-[20px] flex items-center gap-2">
               Admin{" "}

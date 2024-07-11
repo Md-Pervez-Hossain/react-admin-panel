@@ -10,6 +10,13 @@ const usePageAnimation = () => {
         delayChildren: 0.1,
       },
     },
+    exit: {
+      opacity: 0,
+      y: 140,
+      transition: {
+        duration: 0.5,
+      },
+    },
   };
   const childVariant = {
     hidden: { opacity: 0, y: -40 },

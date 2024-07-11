@@ -12,6 +12,7 @@ import EditProduct from "../page/Product/EditProduct";
 import EditUser from "../page/User/EditUser";
 import Profile from "../page/Profile/Profile";
 import Layout from "../Layout/Layout";
+import { AnimatePresence } from "framer-motion";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,14 @@ const router = createBrowserRouter([
       { path: "/", element: <Dashboard /> },
       { path: "/home", element: <Home /> },
       { path: "/user", element: <User /> },
-      { path: "/profile", element: <Profile /> },
+      {
+        path: "/profile",
+        element: (
+          <AnimatePresence mode="wait">
+            <Profile />
+          </AnimatePresence>
+        ),
+      },
       { path: "/user/edit-user/:id", element: <EditUser /> },
       { path: "/product/product-details", element: <ProductDetails /> },
       { path: "/product/edit-product", element: <EditProduct /> },
