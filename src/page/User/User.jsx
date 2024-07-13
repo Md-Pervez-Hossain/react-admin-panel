@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { useRef } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import Table from "../../share/Table/Table";
@@ -10,7 +11,11 @@ import useModalDropdown from "../../../hooks/useModalDropdown";
 import Container from "../../share/ui/Container/Container";
 import usePageAnimation from "../../../hooks/usePageAnimation";
 import { motion } from "framer-motion";
+import { useGetGroupQuery } from "../../redux/features/user/userApi";
+
 const User = () => {
+  const { data: user } = useGetGroupQuery();
+
   const { parentVariant, childVariant } = usePageAnimation();
   const {
     dropdownOpenId,
@@ -21,13 +26,12 @@ const User = () => {
     isDetailsModalOpen,
     toggleDropdown,
     openAddModal,
-    openEditModal,
     openDeleteModal,
     openDetailsModal,
     closeModals,
   } = useModalDropdown();
-  const dropdownRef = useRef(null);
 
+  const dropdownRef = useRef(null);
   useClickOutside(dropdownRef, () => toggleDropdown(null));
 
   const header = [
@@ -77,6 +81,7 @@ const User = () => {
       >
         <motion.div variants={childVariant}>
           <Breadcrumb title="User Page" />
+          {user?.title}
         </motion.div>
         <motion.div
           variants={childVariant}
