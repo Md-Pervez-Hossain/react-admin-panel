@@ -10,7 +10,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import Logo from "../Logo/Logo";
 import { useNavigate } from "react-router-dom";
 
-const Header = ({ isMenuOpen, toggleMenu }) => {
+const Header = ({
+  isMenuOpen,
+  toggleMenu,
+  isdesktopSidebarOpen,
+  toogleDesktopSidebar,
+}) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const popoverRef = useRef(null);
   const navigate = useNavigate();
@@ -44,7 +49,20 @@ const Header = ({ isMenuOpen, toggleMenu }) => {
 
   return (
     <div className="bg-white border-b-2 border-b-primary/10 py-4 flex items-center justify-between sticky top-0 z-50 lg:pe-12 lg:ps-8 px-3 transition-shadow duration-300">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-4">
+        <div className="hidden lg:flex ">
+          {isdesktopSidebarOpen ? (
+            <FaBars
+              className="text-[20px] cursor-pointer"
+              onClick={toogleDesktopSidebar}
+            />
+          ) : (
+            <IoClose
+              className="text-[30px] cursor-pointer font-semibold"
+              onClick={toogleDesktopSidebar}
+            />
+          )}
+        </div>
         <Logo />
       </div>
       <div className="lg:hidden flex items-center gap-4">

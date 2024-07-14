@@ -9,9 +9,9 @@ import { GoDot } from "react-icons/go";
 import { menuData } from "./Menu";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, delay } from "framer-motion";
 
-const SidebarMenu = ({ isMenuOpen, setIsMenuOpen }) => {
+const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [expandedMenu, setExpandedMenu] = useState(null);
@@ -75,26 +75,48 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen }) => {
     navigate(path); // Navigate to the profile page
   };
 
-  const menuVariants = {
-    initial: {
-      opacity: 0,
-      y: -20,
-      transition: {
-        duration: 0.3,
-      },
-    },
-    animate: {
+  const sidebarVariants = {
+    hidden: { x: "-100%", opacity: 0 },
+    visible: {
+      x: 0,
       opacity: 1,
-      y: 0,
-      height: "auto",
       transition: {
         duration: 0.3,
       },
     },
     exit: {
+      x: "-100%",
+      opacity: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
+  const menuVariants = {
+    initial: {
+      opacity: 0,
+      x: -50,
+      transition: {
+        duration: 0.3,
+        delay: 0.2,
+      },
+    },
+    animate: {
+      opacity: 1,
+      x: 0,
+      height: "auto",
+      transition: {
+        duration: 0.3,
+        delay: 0.2,
+        // type: "spring",
+        // bounce: 0.5,
+      },
+    },
+    exit: {
       opacity: 0,
       height: 0,
-      y: -20,
+      x: -20,
       transition: {
         duration: 0.3,
       },
@@ -147,72 +169,83 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen }) => {
   return (
     <>
       {/* Desktop version sidebar */}
-      <div className="hidden lg:flex flex-col min-h-screen bg-white font-poppins font-normal text-[20px] sticky top-0 z-50 p-4 min-w-[250px] border-r-2 border-r-primary/10">
-        <div className="flex-1 overflow-y-auto scrollbar-hide p-4">
-          <motion.div
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            variants={menuVariants}
-            className="flex flex-col gap-8"
-          >
-            {menuData.menu.map((item, index) => (
-              <div key={index}>
-                <div
-                  onClick={() => handleMainItemClick(index, item.path)}
-                  className={`flex items-center gap-3 cursor-pointer text-base ${
-                    activeMainItem === index
-                      ? "text-primary bg-primary/10 p-3 font-semibold rounded-md"
-                      : ""
-                  }`}
-                >
-                  <span>{<item.icon />}</span>
-                  {item.name}
-                  {item.subItems.length > 0 && (
-                    <span>
-                      {expandedMenu === index ? (
-                        <MdOutlineKeyboardArrowDown className="text-[24px]" />
-                      ) : (
-                        <MdOutlineKeyboardArrowRight className="text-[24px]" />
-                      )}
-                    </span>
-                  )}
-                </div>
 
-                <AnimatePresence>
-                  {expandedMenu === index && item.subItems.length > 0 && (
-                    <motion.div
-                      className="flex flex-col gap-3 pl-8 mt-3"
-                      initial="initial"
-                      animate="animate"
-                      exit="exit"
-                      variants={submenuVariants}
+      <AnimatePresence>
+        {isdesktopSidebarOpen && (
+          <motion.div
+            className="hidden lg:flex flex-col min-h-screen bg-white font-poppins font-normal text-[20px] sticky top-0 z-50 p-4 min-w-[250px] border-r-2 border-r-primary/10"
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={sidebarVariants}
+          >
+            <div className="flex-1 overflow-y-auto scrollbar-hide p-4">
+              <motion.div
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                variants={menuVariants}
+                className="flex flex-col gap-8"
+              >
+                {menuData.menu.map((item, index) => (
+                  <div key={index}>
+                    <div
+                      onClick={() => handleMainItemClick(index, item.path)}
+                      className={`flex items-center gap-3 cursor-pointer text-base ${
+                        activeMainItem === index
+                          ? "text-primary bg-primary/10 p-3 font-semibold rounded-md"
+                          : ""
+                      }`}
                     >
-                      {item.subItems.map((subItem, subIndex) => (
-                        <Link
-                          to={subItem.path}
-                          key={subIndex}
-                          onClick={(e) =>
-                            handleSubItemClick(index, subIndex, e)
-                          }
-                          className={`flex items-center gap-2 bg-primary/10 p-3 rounded-md text-base ${
-                            activeMainItem === index &&
-                            activeSubItem === subIndex
-                              ? "text-primary bg-primary/10 p-3 font-semibold"
-                              : ""
-                          }`}
+                      <span>{<item.icon />}</span>
+                      {item.name}
+                      {item.subItems.length > 0 && (
+                        <span>
+                          {expandedMenu === index ? (
+                            <MdOutlineKeyboardArrowDown className="text-[24px]" />
+                          ) : (
+                            <MdOutlineKeyboardArrowRight className="text-[24px]" />
+                          )}
+                        </span>
+                      )}
+                    </div>
+
+                    <AnimatePresence>
+                      {expandedMenu === index && item.subItems.length > 0 && (
+                        <motion.div
+                          className="flex flex-col gap-3 pl-8 mt-3"
+                          initial="initial"
+                          animate="animate"
+                          exit="exit"
+                          variants={submenuVariants}
                         >
-                          <GoDot /> {subItem.name}
-                        </Link>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
+                          {item.subItems.map((subItem, subIndex) => (
+                            <Link
+                              to={subItem.path}
+                              key={subIndex}
+                              onClick={(e) =>
+                                handleSubItemClick(index, subIndex, e)
+                              }
+                              className={`flex items-center gap-2 bg-primary/10 p-3 rounded-md text-base ${
+                                activeMainItem === index &&
+                                activeSubItem === subIndex
+                                  ? "text-primary bg-primary/10 p-3 font-semibold"
+                                  : ""
+                              }`}
+                            >
+                              <GoDot /> {subItem.name}
+                            </Link>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
           </motion.div>
-        </div>
-      </div>
+        )}
+      </AnimatePresence>
 
       {/* Mobile version sidebar */}
       {isMenuOpen && (
