@@ -11,6 +11,7 @@ import ActionModal from "../../share/ActionModal/ActionModal";
 import AddProduct from "./AddProduct";
 import Container from "../../share/ui/Container/Container";
 import usePageAnimation from "../../../hooks/usePageAnimation";
+import PrimaryButton from "../../share/Buttons/PrimaryButton";
 
 const Product = () => {
   const { parentVariant, childVariant } = usePageAnimation();
@@ -89,13 +90,12 @@ const Product = () => {
           <motion.h2 className="font-poppins font-medium text-[20px]">
             All Product List
           </motion.h2>
-          <motion.button
-            onClick={openAddModal}
-            className="flex items-center gap-2 bg-primary/80 px-6 py-3 text-white rounded-lg"
-          >
-            <AiOutlinePlus className="font-medium" />
-            <span>Add Product</span>
-          </motion.button>
+          <motion.div variants={childVariant} onClick={openAddModal}>
+            <PrimaryButton className=" flex items-center gap-2 ">
+              <AiOutlinePlus className="font-medium" />
+              Add Product
+            </PrimaryButton>
+          </motion.div>
         </motion.div>
 
         <motion.div variants={childVariant} className="mb-8">

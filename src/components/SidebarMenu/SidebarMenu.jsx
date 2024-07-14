@@ -182,15 +182,15 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                 animate="animate"
                 exit="exit"
                 variants={menuVariants}
-                className="flex flex-col gap-8"
+                className="flex flex-col gap-5"
               >
                 {menuData.menu.map((item, index) => (
                   <div key={index}>
                     <div
                       onClick={() => handleMainItemClick(index, item.path)}
-                      className={`flex items-center gap-3 cursor-pointer text-base ${
+                      className={`flex items-center gap-[6px] text-[16px] cursor-pointer text-base ${
                         activeMainItem === index
-                          ? "text-primary bg-primary/10 p-3 font-semibold rounded-md"
+                          ? "text-primary bg-primary/10 p-3  rounded-md text-[16px]"
                           : ""
                       }`}
                     >
@@ -199,9 +199,9 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                       {item.subItems.length > 0 && (
                         <span>
                           {expandedMenu === index ? (
-                            <MdOutlineKeyboardArrowDown className="text-[24px]" />
+                            <MdOutlineKeyboardArrowDown className="text-[20px]" />
                           ) : (
-                            <MdOutlineKeyboardArrowRight className="text-[24px]" />
+                            <MdOutlineKeyboardArrowRight className="text-[20px]" />
                           )}
                         </span>
                       )}
@@ -226,7 +226,7 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                               className={`flex items-center gap-2 bg-primary/10 p-3 rounded-md text-base ${
                                 activeMainItem === index &&
                                 activeSubItem === subIndex
-                                  ? "text-primary bg-primary/10 p-3 font-semibold"
+                                  ? "text-primary bg-primary/10 p-3 "
                                   : ""
                               }`}
                             >
@@ -314,7 +314,7 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                       onClick={() => handleMainItemClick(index, item.path)}
                       className={`flex items-center gap-3 cursor-pointer text-base ${
                         activeMainItem === index
-                          ? "text-primary bg-primary/10 px-[6px] py-[4px] font-semibold rounded-md"
+                          ? "text-primary bg-primary/10 p-2 font-semibold rounded-md"
                           : ""
                       }`}
                     >
@@ -347,10 +347,10 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                               onClick={(e) =>
                                 handleSubItemClick(index, subIndex, e)
                               }
-                              className={`flex items-center gap-2 bg-primary/10 p-3 rounded-md text-base ${
+                              className={`flex items-center gap-2 bg-primary/10 p-2 rounded-md text-base ${
                                 activeMainItem === index &&
                                 activeSubItem === subIndex
-                                  ? "text-primary bg-primary/10 p-3 font-semibold"
+                                  ? "text-primary bg-primary/10 p-3 font-medium"
                                   : ""
                               }`}
                             >

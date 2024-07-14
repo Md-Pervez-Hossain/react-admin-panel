@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { useRef } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import Table from "../../share/Table/Table";
@@ -12,9 +11,11 @@ import Container from "../../share/ui/Container/Container";
 import usePageAnimation from "../../../hooks/usePageAnimation";
 import { motion } from "framer-motion";
 import { useGetGroupQuery } from "../../redux/features/user/userApi";
+import PrimaryButton from "../../share/Buttons/PrimaryButton";
 
 const User = () => {
   const { data: user } = useGetGroupQuery();
+  console.log(user);
 
   const { parentVariant, childVariant } = usePageAnimation();
   const {
@@ -87,16 +88,15 @@ const User = () => {
           variants={childVariant}
           className="flex items-center justify-between  mb-4"
         >
-          <h2 className="font-poppins font-semibold   mb-2 sm:mb-0">
-            All Users List
-          </h2>
-          <button
-            onClick={openAddModal}
-            className="flex items-center gap-2 bg-primary/80 px-6 py-3 text-white rounded-lg"
-          >
-            <AiOutlinePlus className="font-semibold" />
-            <span className="">Add </span>
-          </button>
+          <motion.h2 className="font-poppins font-medium text-[20px]">
+            All User List
+          </motion.h2>
+          <motion.div variants={childVariant} onClick={openAddModal}>
+            <PrimaryButton className=" flex items-center gap-2 ">
+              <AiOutlinePlus className="font-medium" />
+              Add User
+            </PrimaryButton>
+          </motion.div>
         </motion.div>
 
         <motion.div variants={childVariant}>

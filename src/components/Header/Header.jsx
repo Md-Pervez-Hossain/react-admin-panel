@@ -53,12 +53,12 @@ const Header = ({
         <div className="hidden lg:flex ">
           {isdesktopSidebarOpen ? (
             <FaBars
-              className="text-[20px] cursor-pointer"
+              className="text-[17px] cursor-pointer"
               onClick={toogleDesktopSidebar}
             />
           ) : (
             <IoClose
-              className="text-[30px] cursor-pointer font-semibold"
+              className="text-[28px] cursor-pointer font-semibold"
               onClick={toogleDesktopSidebar}
             />
           )}
