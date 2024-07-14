@@ -9,7 +9,7 @@ import { GoDot } from "react-icons/go";
 import { menuData } from "./Menu";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa";
-import { motion, AnimatePresence, delay } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
   const location = useLocation();
@@ -109,8 +109,6 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
       transition: {
         duration: 0.3,
         delay: 0.2,
-        // type: "spring",
-        // bounce: 0.5,
       },
     },
     exit: {
@@ -169,7 +167,6 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
   return (
     <>
       {/* Desktop version sidebar */}
-
       <AnimatePresence>
         {isdesktopSidebarOpen && (
           <motion.div
@@ -248,116 +245,128 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
       </AnimatePresence>
 
       {/* Mobile version sidebar */}
-      {isMenuOpen && (
-        <motion.div
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          variants={menuVariants}
-          className="lg:hidden border-r-2 border-r-primary/10 pt-[100px] flex flex-col min-h-screen overflow-y-auto bg-white font-poppins font-normal text-[18px] absolute z-50 min-w-[250px] p-4"
-        >
-          <div
-            className="flex items-center gap-3 mb-8"
-            onClick={handleProfileClick}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={sidebarVariants}
+            className="lg:hidden border-r-2 border-r-primary/10 pt-[90px] flex flex-col min-h-screen overflow-y-auto bg-white font-poppins font-normal text-[18px] absolute z-50 min-w-[250px] p-4"
           >
-            <img
-              src="../../../public/assets/avatar.png"
-              alt=""
-              className="w-[50px] h-[50px] rounded-full p-2 bg-primary/10"
-            />
-            <h2 className="font-poppins font-normal text-[20px] flex items-center gap-2">
-              Admin{" "}
-              <span>
-                <IoIosArrowForward className="text-[16px]" />
-              </span>
-            </h2>
-          </div>
+            <div
+              className="flex items-center gap-3  mb-5"
+              onClick={handleProfileClick}
+            >
+              <img
+                src="../../../public/assets/avatar.png"
+                alt=""
+                className="w-[50px] h-[50px] rounded-full p-2 bg-primary/10"
+              />
+              <h2 className="font-poppins font-normal text-[20px] flex items-center gap-2">
+                Admin{" "}
+                <span>
+                  <IoIosArrowForward className="text-[16px]" />
+                </span>
+              </h2>
+            </div>
 
-          <AnimatePresence>
-            {isPopoverOpen && (
-              <motion.div
-                ref={popoverRef}
-                initial="hidden"
-                animate="visible"
-                exit="hidden"
-                variants={profilePopoverVariants}
-                className="absolute mt-[75px] w-48 bg-white border-2 right-[42px] border-primary/10 rounded-lg shadow-lg z-10"
-              >
-                <div className="flex flex-col items-start gap-3 p-4 font-poppins font-normal text-base">
-                  <Link
-                    to="./profile"
-                    onClick={() => handleProfileLinkClick("./profile")}
-                  >
-                    <button className="flex items-center gap-3">
-                      <FaRegUser /> <span>Profile</span>
-                    </button>
-                  </Link>
-                  <button className="flex items-center gap-3">
-                    <MdLogout /> <span>Logout</span>
-                  </button>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          <div className="flex flex-col gap-8">
-            {menuData.menu.map((item, index) => (
-              <div key={index}>
-                <div
-                  onClick={() => handleMainItemClick(index, item.path)}
-                  className={`flex items-center gap-3 cursor-pointer ${
-                    activeMainItem === index
-                      ? "text-primary bg-primary/10 p-3 font-semibold rounded-md"
-                      : ""
-                  }`}
+            <AnimatePresence>
+              {isPopoverOpen && (
+                <motion.div
+                  ref={popoverRef}
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                  variants={profilePopoverVariants}
+                  className="absolute mt-[60px] w-48 bg-white border-2 right-[42px] border-primary/10 rounded-lg shadow-md"
                 >
-                  <span>{<item.icon />}</span>
-                  {item.name}
-                  {item.subItems.length > 0 && (
-                    <span>
-                      {expandedMenu === index ? (
-                        <MdOutlineKeyboardArrowDown className="text-[24px]" />
-                      ) : (
-                        <MdOutlineKeyboardArrowRight className="text-[24px]" />
-                      )}
-                    </span>
-                  )}
-                </div>
+                  <Link
+                    to="/profile"
+                    onClick={() => handleProfileLinkClick("/profile")}
+                    className="flex items-center gap-2 p-3"
+                  >
+                    <FaRegUser /> Profile
+                  </Link>
 
-                <AnimatePresence>
-                  {expandedMenu === index && item.subItems.length > 0 && (
-                    <motion.div
-                      className="flex flex-col gap-3 pl-8 mt-3"
-                      initial="initial"
-                      animate="animate"
-                      exit="exit"
-                      variants={submenuVariants}
+                  <Link
+                    to="/logout"
+                    onClick={() => handleProfileLinkClick("/logout")}
+                    className="flex items-center gap-2 p-3"
+                  >
+                    <MdLogout /> Logout
+                  </Link>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <div className="flex-1 overflow-y-auto scrollbar-hide ">
+              <motion.div
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                variants={menuVariants}
+                className="flex flex-col gap-3"
+              >
+                {menuData.menu.map((item, index) => (
+                  <div key={index}>
+                    <div
+                      onClick={() => handleMainItemClick(index, item.path)}
+                      className={`flex items-center gap-3 cursor-pointer text-base ${
+                        activeMainItem === index
+                          ? "text-primary bg-primary/10 px-[6px] py-[4px] font-semibold rounded-md"
+                          : ""
+                      }`}
                     >
-                      {item.subItems.map((subItem, subIndex) => (
-                        <Link
-                          to={subItem.path}
-                          key={subIndex}
-                          onClick={(e) =>
-                            handleSubItemClick(index, subIndex, e)
-                          }
-                          className={`flex items-center gap-2 bg-primary/10 p-3 rounded-md ${
-                            activeMainItem === index &&
-                            activeSubItem === subIndex
-                              ? "text-primary bg-primary/10 p-3 font-semibold"
-                              : ""
-                          }`}
+                      <span>{<item.icon />}</span>
+                      {item.name}
+                      {item.subItems.length > 0 && (
+                        <span>
+                          {expandedMenu === index ? (
+                            <MdOutlineKeyboardArrowDown className="text-[24px]" />
+                          ) : (
+                            <MdOutlineKeyboardArrowRight className="text-[24px]" />
+                          )}
+                        </span>
+                      )}
+                    </div>
+
+                    <AnimatePresence>
+                      {expandedMenu === index && item.subItems.length > 0 && (
+                        <motion.div
+                          className="flex flex-col gap-3 pl-8 mt-3"
+                          initial="initial"
+                          animate="animate"
+                          exit="exit"
+                          variants={submenuVariants}
                         >
-                          <GoDot /> {subItem.name}
-                        </Link>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      )}
+                          {item.subItems.map((subItem, subIndex) => (
+                            <Link
+                              to={subItem.path}
+                              key={subIndex}
+                              onClick={(e) =>
+                                handleSubItemClick(index, subIndex, e)
+                              }
+                              className={`flex items-center gap-2 bg-primary/10 p-3 rounded-md text-base ${
+                                activeMainItem === index &&
+                                activeSubItem === subIndex
+                                  ? "text-primary bg-primary/10 p-3 font-semibold"
+                                  : ""
+                              }`}
+                            >
+                              <GoDot /> {subItem.name}
+                            </Link>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
