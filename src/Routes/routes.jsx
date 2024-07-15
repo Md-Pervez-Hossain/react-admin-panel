@@ -13,6 +13,7 @@ import EditUser from "../page/User/EditUser";
 import Profile from "../page/Profile/Profile";
 import Layout from "../Layout/Layout";
 import { AnimatePresence } from "framer-motion";
+import Signup from "../page/Signup/Signup";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
     ],
   },
   { path: "/login", element: <Login /> },
+  { path: "/signup", element: <Signup /> },
   { path: "/registration", element: <Registration /> },
 ]);
 

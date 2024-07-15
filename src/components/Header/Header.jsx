@@ -9,6 +9,7 @@ import { IoClose } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
 import Logo from "../Logo/Logo";
 import { useNavigate } from "react-router-dom";
+import { useLogoutMutation } from "../../redux/features/auth/authApi";
 
 const Header = ({
   isMenuOpen,
@@ -19,6 +20,14 @@ const Header = ({
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const popoverRef = useRef(null);
   const navigate = useNavigate();
+  const [logout] = useLogoutMutation();
+  const handleLogout = async () => {
+    console.log("clicked");
+    const res = await logout();
+    if (res?.data?.msg) {
+      navigate("/login");
+    }
+  };
 
   const togglePopover = () => {
     setIsPopoverOpen(!isPopoverOpen);
@@ -112,7 +121,10 @@ const Header = ({
               >
                 <FaRegUser /> <span>Profile</span>
               </button>
-              <button className="flex items-center gap-3">
+              <button
+                className="flex items-center gap-3"
+                onClick={handleLogout}
+              >
                 <MdLogout /> <span>Logout</span>
               </button>
             </div>
