@@ -26,12 +26,12 @@ const BarCharts = () => {
             dataKey="name"
             axisLine={false}
             tickLine={false}
-            stroke="#999"
+            stroke="#006B77"
           />
-          <YAxis stroke="#999" axisLine={false} tickLine={false} />
+          <YAxis stroke="#006B77" axisLine={false} tickLine={false} />
           <Tooltip />
-          <Bar dataKey="girl" fill="#9B52FA" barSize={15} />
-          <Bar dataKey="boy" fill="#837DFA" barSize={15} />
+          <Bar dataKey="girl" fill="#006B77" barSize={15} />
+          <Bar dataKey="boy" fill="#f08d76" barSize={15} />
         </BarChart>
       </ResponsiveContainer>
     </div>

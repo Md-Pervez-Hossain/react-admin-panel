@@ -47,18 +47,18 @@ const AreaCharts = () => {
         <AreaChart width={500} height={400} data={data}>
           <defs>
             <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#9B52FA" stopOpacity={0.4} />
-              <stop offset="100%" stopColor="#837DFA" stopOpacity={0} />
+              <stop offset="50%" stopColor="#006B77" stopOpacity={0.4} />
+              <stop offset="100%" stopColor="#006B77" stopOpacity={0} />
             </linearGradient>
           </defs>
           <XAxis
             dataKey="name"
             axisLine={false}
             tickLine={false}
-            stroke="#999"
+            stroke="#006B77"
           />
           <YAxis
-            stroke="#999"
+            stroke="#006B77"
             axisLine={false}
             tickLine={false}
             domain={[0, 5000]}
@@ -72,7 +72,7 @@ const AreaCharts = () => {
           <Area
             type="monotone"
             dataKey="uv"
-            stroke="#9B52FA"
+            stroke="#006B77"
             fillOpacity={1}
             fill="url(#colorUv)"
           />

@@ -1,19 +1,22 @@
 import { useRef } from "react";
-import { motion } from "framer-motion";
-import useModalDropdown from "../../../hooks/useModalDropdown";
-import useClickOutside from "../../../hooks/useClickOutside";
-import DropdownMenu from "../../share/DropdownMenu/DropdownMenu";
-import Breadcrumb from "../../share/Breadcrumb/Breadcrumb";
 import { AiOutlinePlus } from "react-icons/ai";
-import { usersData } from "../../share/Data/Data";
 import Table from "../../share/Table/Table";
+import { usersData } from "../../share/Data/Data";
+import Breadcrumb from "../../share/Breadcrumb/Breadcrumb";
+import DropdownMenu from "../../share/DropdownMenu/DropdownMenu";
 import ActionModal from "../../share/ActionModal/ActionModal";
-import AddProduct from "./AddProduct";
+import useClickOutside from "../../../hooks/useClickOutside";
+import useModalDropdown from "../../../hooks/useModalDropdown";
 import Container from "../../share/ui/Container/Container";
 import usePageAnimation from "../../../hooks/usePageAnimation";
+import { motion } from "framer-motion";
+import { useGetGroupQuery } from "../../redux/features/user/userApi";
 import PrimaryButton from "../../share/Buttons/PrimaryButton";
 
-const Product = () => {
+const Users = () => {
+  const { data: user } = useGetGroupQuery();
+  console.log(user);
+
   const { parentVariant, childVariant } = usePageAnimation();
   const {
     dropdownOpenId,
@@ -24,13 +27,12 @@ const Product = () => {
     isDetailsModalOpen,
     toggleDropdown,
     openAddModal,
-
     openDeleteModal,
-
+    openDetailsModal,
     closeModals,
   } = useModalDropdown();
-  const dropdownRef = useRef(null);
 
+  const dropdownRef = useRef(null);
   useClickOutside(dropdownRef, () => toggleDropdown(null));
 
   const header = [
@@ -61,9 +63,9 @@ const Product = () => {
             id={id}
             isOpen={isOpen}
             toggleDropdown={toggleDropdown}
-            onEdit="/product/edit-product"
+            onEdit={`/user/edit-user/${id}`}
             onDelete={openDeleteModal}
-            onDetails="/product/product-details"
+            onDetails={openDetailsModal}
           />
         );
       },
@@ -76,29 +78,28 @@ const Product = () => {
         variants={parentVariant}
         initial="hidden"
         animate="visible"
-        exit="exit"
         className="font-poppins"
       >
-        <motion.div variants={childVariant} className="mb-8">
-          <Breadcrumb title="Product Page" />
+        <motion.div variants={childVariant}>
+          <Breadcrumb title="User Page" />
+          {user?.title}
         </motion.div>
-
         <motion.div
           variants={childVariant}
-          className="flex items-center justify-between mb-4"
+          className="flex items-center justify-between  mb-4"
         >
           <motion.h2 className="font-poppins font-medium text-[20px]">
-            All Product List
+            All User List
           </motion.h2>
           <motion.div variants={childVariant} onClick={openAddModal}>
             <PrimaryButton className=" flex items-center gap-2 ">
               <AiOutlinePlus className="font-medium" />
-              Add Product
+              Add User
             </PrimaryButton>
           </motion.div>
         </motion.div>
 
-        <motion.div variants={childVariant} className="mb-8">
+        <motion.div variants={childVariant}>
           <Table columns={header} tabelData={usersData} />
         </motion.div>
       </motion.div>
@@ -106,8 +107,8 @@ const Product = () => {
       <ActionModal
         isOpen={isAddModalOpen}
         closeModal={closeModals}
-        title="Add Product"
-        actionContent={<AddProduct />}
+        title="Add User"
+        actionContent={<div>Add User Form </div>}
       />
 
       <ActionModal
@@ -134,4 +135,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default Users;

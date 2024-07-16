@@ -1,21 +1,22 @@
+import Container from "../../../share/ui/Container/Container";
+import Breadcrumb from "../../../share/Breadcrumb/Breadcrumb";
+import usePageAnimation from "../../../../hooks/usePageAnimation";
+import useModalDropdown from "../../../../hooks/useModalDropdown";
 import { useRef } from "react";
-import { AiOutlinePlus } from "react-icons/ai";
-import Table from "../../share/Table/Table";
-import { usersData } from "../../share/Data/Data";
-import Breadcrumb from "../../share/Breadcrumb/Breadcrumb";
-import DropdownMenu from "../../share/DropdownMenu/DropdownMenu";
-import ActionModal from "../../share/ActionModal/ActionModal";
-import useClickOutside from "../../../hooks/useClickOutside";
-import useModalDropdown from "../../../hooks/useModalDropdown";
-import Container from "../../share/ui/Container/Container";
-import usePageAnimation from "../../../hooks/usePageAnimation";
+import useClickOutside from "../../../../hooks/useClickOutside";
+import DropdownMenu from "../../../share/DropdownMenu/DropdownMenu";
+import Table from "../../../share/Table/Table";
+import { usersData } from "../../../share/Data/Data";
+import ActionModal from "../../../share/ActionModal/ActionModal";
 import { motion } from "framer-motion";
-import { useGetGroupQuery } from "../../redux/features/user/userApi";
-import PrimaryButton from "../../share/Buttons/PrimaryButton";
+import PrimaryButton from "../../../share/Buttons/PrimaryButton";
+import { AiOutlinePlus } from "react-icons/ai";
+import AddApiClients from "./AddApiClients";
+import { useGetAPiClientsQuery } from "../../../redux/features/apiClients/apiClients";
 
-const User = () => {
-  const { data: user } = useGetGroupQuery();
-  console.log(user);
+const ApiClients = () => {
+  const { data: apiClientsData, isLoading, isError } = useGetAPiClientsQuery();
+  console.log(apiClientsData);
 
   const { parentVariant, childVariant } = usePageAnimation();
   const {
@@ -38,19 +39,12 @@ const User = () => {
   const header = [
     { header: "Sl", accessorKey: "id" },
     {
-      header: "Image",
-      accessorKey: "image",
-      cell: ({ row }) => (
-        <img
-          src={row.original.image}
-          alt=""
-          className="w-12 h-12 rounded-full"
-        />
-      ),
+      header: "User Name",
+      accessorKey: "username",
     },
-    { header: "Name", accessorKey: "username" },
-    { header: "Category", accessorKey: "category" },
-    { header: "Gender", accessorKey: "gender" },
+    { header: "Email", accessorKey: "email" },
+    { header: "Organisation", accessorKey: "organization" },
+    { header: "Balance", accessorKey: "balance" },
     {
       header: "Action",
       id: "action",
@@ -72,6 +66,20 @@ const User = () => {
     },
   ];
 
+  let content;
+  if (isLoading && !isError) {
+    content = <p>Loading</p>;
+  }
+  if (!isLoading && isError) {
+    content = <p>Error</p>;
+  }
+  if (!isLoading && !isError && apiClientsData?.results?.length == 0) {
+    content = <p>NoData Founf</p>;
+  }
+  if (!isLoading && !isError && apiClientsData?.results?.length > 0) {
+    content = <Table columns={header} tabelData={apiClientsData?.results} />;
+  }
+
   return (
     <Container>
       <motion.div
@@ -81,34 +89,31 @@ const User = () => {
         className="font-poppins"
       >
         <motion.div variants={childVariant}>
-          <Breadcrumb title="User Page" />
-          {user?.title}
+          <Breadcrumb title="Api Clients" />
         </motion.div>
         <motion.div
           variants={childVariant}
           className="flex items-center justify-between  mb-4"
         >
-          <motion.h2 className="font-poppins font-medium text-[20px]">
-            All User List
+          <motion.h2 className="font-poppins  text-[20px]">
+            All Api Clients List
           </motion.h2>
           <motion.div variants={childVariant} onClick={openAddModal}>
             <PrimaryButton className=" flex items-center gap-2 ">
-              <AiOutlinePlus className="font-medium" />
-              Add User
+              <AiOutlinePlus className="" />
+              Add Api Clients
             </PrimaryButton>
           </motion.div>
         </motion.div>
 
-        <motion.div variants={childVariant}>
-          <Table columns={header} tabelData={usersData} />
-        </motion.div>
+        <motion.div variants={childVariant}>{content}</motion.div>
       </motion.div>
 
       <ActionModal
         isOpen={isAddModalOpen}
         closeModal={closeModals}
-        title="Add User"
-        actionContent={<div>Add User Form </div>}
+        title="Add Api Clients"
+        actionContent={<AddApiClients closeModal={closeModals} />}
       />
 
       <ActionModal
@@ -135,4 +140,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default ApiClients;

@@ -170,7 +170,7 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
       <AnimatePresence>
         {isdesktopSidebarOpen && (
           <motion.div
-            className="hidden lg:flex flex-col min-h-screen bg-white font-poppins font-normal text-[20px] sticky top-0 z-50 p-4 min-w-[250px] border-r-2 border-r-primary/10"
+            className="hidden lg:flex flex-col min-h-screen  bg-primary text-white font-poppins  text-[16px]  font-light sticky top-0 z-50 p-4 min-w-[250px] "
             initial="hidden"
             animate="visible"
             exit="exit"
@@ -188,9 +188,9 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                   <div key={index}>
                     <div
                       onClick={() => handleMainItemClick(index, item.path)}
-                      className={`flex items-center gap-[6px] text-[16px] cursor-pointer text-base ${
+                      className={`flex items-center gap-[10px] !text-[16px]  font-light cursor-pointer hover:text-secondary hover:font-semibold transition-all duration-300  font-poppins ${
                         activeMainItem === index
-                          ? "text-primary bg-primary/10 p-3  rounded-md text-[16px]"
+                          ? "text-secondary  !text-[18px] !font-semibold"
                           : ""
                       }`}
                     >
@@ -199,9 +199,9 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                       {item.subItems.length > 0 && (
                         <span>
                           {expandedMenu === index ? (
-                            <MdOutlineKeyboardArrowDown className="text-[20px]" />
+                            <MdOutlineKeyboardArrowDown className="text-[20px]  font-light" />
                           ) : (
-                            <MdOutlineKeyboardArrowRight className="text-[20px]" />
+                            <MdOutlineKeyboardArrowRight className="text-[20px]  font-light" />
                           )}
                         </span>
                       )}
@@ -210,7 +210,7 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                     <AnimatePresence>
                       {expandedMenu === index && item.subItems.length > 0 && (
                         <motion.div
-                          className="flex flex-col gap-3 pl-8 mt-3"
+                          className="flex flex-col gap-3 pl-[22px] mt-3"
                           initial="initial"
                           animate="animate"
                           exit="exit"
@@ -223,10 +223,10 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                               onClick={(e) =>
                                 handleSubItemClick(index, subIndex, e)
                               }
-                              className={`flex items-center gap-2 bg-primary/10 p-3 rounded-md text-base ${
+                              className={`flex items-center gap-2  rounded-md  text-[16px]  font-normal ${
                                 activeMainItem === index &&
                                 activeSubItem === subIndex
-                                  ? "text-primary bg-primary/10 p-3 "
+                                  ? "text-secondary  font-medium"
                                   : ""
                               }`}
                             >
@@ -252,7 +252,7 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
             animate="visible"
             exit="exit"
             variants={sidebarVariants}
-            className="lg:hidden border-r-2 border-r-primary/10 pt-[90px] flex flex-col min-h-screen overflow-y-auto bg-white font-poppins font-normal text-[18px] absolute z-50 min-w-[250px] p-4"
+            className="lg:hidden border-r-2 border-r-primary/10 pt-[90px] flex flex-col min-h-screen overflow-y-auto bg-white font-poppins font-normal text-[16px]  font-light absolute z-50 min-w-[250px] p-4"
           >
             <div
               className="flex items-center gap-3  mb-5"
@@ -263,7 +263,7 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                 alt=""
                 className="w-[50px] h-[50px] rounded-full p-2 bg-primary/10"
               />
-              <h2 className="font-poppins font-normal text-[20px] flex items-center gap-2">
+              <h2 className="font-poppins font-normal text-[16px]  font-light flex items-center gap-2">
                 Admin{" "}
                 <span>
                   <IoIosArrowForward className="text-[16px]" />
@@ -312,10 +312,8 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                   <div key={index}>
                     <div
                       onClick={() => handleMainItemClick(index, item.path)}
-                      className={`flex items-center gap-3 cursor-pointer text-base ${
-                        activeMainItem === index
-                          ? "text-primary bg-primary/10 p-2 font-semibold rounded-md"
-                          : ""
+                      className={`flex items-center gap-3 cursor-pointer  text-[16px]  font-light ${
+                        activeMainItem === index ? "text-primary " : ""
                       }`}
                     >
                       <span>{<item.icon />}</span>
@@ -347,10 +345,10 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                               onClick={(e) =>
                                 handleSubItemClick(index, subIndex, e)
                               }
-                              className={`flex items-center gap-2 bg-primary/10 p-2 rounded-md text-base ${
+                              className={`flex items-center gap-2 bg-primary/10 p-2 rounded-md  text-[16px]  font-light ${
                                 activeMainItem === index &&
                                 activeSubItem === subIndex
-                                  ? "text-primary bg-primary/10 p-3 font-medium"
+                                  ? "text-primary "
                                   : ""
                               }`}
                             >

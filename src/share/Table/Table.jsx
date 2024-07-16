@@ -46,11 +46,11 @@ const Table = ({
       <table className="w-full table-auto min-w-max shadow-lg  bg-white ">
         <thead>
           {table?.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id} className="bg-primary/10 rounded-lg ">
-              {headerGroup.headers.map((header) => (
+            <tr key={headerGroup?.id} className="bg-primary/10 rounded-lg ">
+              {headerGroup?.headers?.map((header) => (
                 <th key={header.id} className="p-5 text-start font-semibold">
                   {flexRender(
-                    header.column.columnDef.header,
+                    header?.column?.columnDef?.header,
                     header.getContext()
                   )}
                 </th>
@@ -59,7 +59,7 @@ const Table = ({
           ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows?.length > 0 ? (
+          {table?.getRowModel().rows?.length > 0 ? (
             table?.getRowModel()?.rows?.map((row) => (
               <tr
                 key={row.id}
@@ -67,7 +67,7 @@ const Table = ({
               >
                 {row?.getVisibleCells()?.map((cell) => (
                   <td
-                    key={cell.id}
+                    key={cell?.id}
                     className="p-5 font-[400] text-grayText text-start "
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

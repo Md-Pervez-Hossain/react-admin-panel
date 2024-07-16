@@ -80,21 +80,21 @@ const Dashboard = () => {
           {/* Weekly Sales */}
           <motion.div
             variants={childVariant}
-            className="p-5 rounded-lg bg-gradient-to-r from-primary/70 to-secondary/10 cursor-pointer "
+            className="p-5 rounded-lg bg-primary cursor-pointer "
           >
             <div className="text-center">
-              <h2 className="font-semibold text-[24px] text-white">
-                Weekly Sales
-              </h2>
-              <p className="font-normal text-white">$ 500000</p>
-              <p className="font-normal text-white">Increase by 30%</p>
+              <h2 className="font-medium text-[20px] text-white">Daily SMS</h2>
+              <p className="font-normal text-secondary">5000</p>
+              <p className="font-normal text-white">
+                Increase by <span className="text-secondary">30%</span>
+              </p>
             </div>
           </motion.div>
 
           {/* Monthly Sales */}
           <motion.div
             variants={childVariant}
-            className="p-5 rounded-lg bg-gradient-to-r from-secondary/70 to-secondary/10 cursor-pointer "
+            className="p-5 rounded-lg bg-secondary  cursor-pointer "
           >
             <div className="text-center">
               <h2 className="font-semibold text-[24px] text-white">
@@ -108,7 +108,7 @@ const Dashboard = () => {
           {/* Yearly Sales */}
           <motion.div
             variants={childVariant}
-            className="p-5 rounded-lg bg-gradient-to-r from-primary/70 to-secondary/10 cursor-pointer "
+            className="p-5 rounded-lg bg-tertiary cursor-pointer "
           >
             <div className="text-center">
               <h2 className="font-semibold text-[24px] text-white">

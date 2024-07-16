@@ -1,7 +1,7 @@
 .breadcrumbs > * {
   display: flex;
   margin-right: 10px;
-  font-size: 18px;
+  font-size: 14px;
   font-family: "poppins";
   gap: 10px;
 }
@@ -16,7 +16,7 @@
 }
 
 .breadcrumbs .crumb:last-child {
-  color: #9b52fa;
+  color: #006b77;
 }
 
 .breadcrumbs .crumb {

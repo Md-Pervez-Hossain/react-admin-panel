@@ -1,19 +1,18 @@
 // src/routes.js
 import { createBrowserRouter } from "react-router-dom";
-import Home from "../page/Home/Home";
-import Product from "../page/Product/Product";
 import Login from "../page/Login/Login";
-import Registration from "../page/RegistrationPage/Registration";
-import User from "../page/User/User";
+
 import Dashboard from "../page/Dashboard/Dashboard";
-import Settings from "../page/Settings/Settings";
-import ProductDetails from "../page/Product/ProductDetails";
-import EditProduct from "../page/Product/EditProduct";
-import EditUser from "../page/User/EditUser";
-import Profile from "../page/Profile/Profile";
 import Layout from "../Layout/Layout";
-import { AnimatePresence } from "framer-motion";
 import Signup from "../page/Signup/Signup";
+import Users from "../page/Users/Users";
+import Sms from "../page/Sms/Sms";
+import History from "../page/History/History";
+import Status from "../page/Status/Status";
+import Device from "../page/Device/Device";
+import Sim from "../page/Sim/Sim";
+import ApiClients from "../page/Clients/ApiClients/ApiClients";
+import BulkSmsClients from "../page/Clients/BulkSmsClients/BulkSmsClients";
 
 const router = createBrowserRouter([
   {
@@ -21,26 +20,18 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: "/", element: <Dashboard /> },
-      { path: "/home", element: <Home /> },
-      { path: "/user", element: <User /> },
-      {
-        path: "/profile",
-        element: (
-          <AnimatePresence mode="wait">
-            <Profile />
-          </AnimatePresence>
-        ),
-      },
-      { path: "/user/edit-user/:id", element: <EditUser /> },
-      { path: "/product/product-details", element: <ProductDetails /> },
-      { path: "/product/edit-product", element: <EditProduct /> },
-      { path: "/settings", element: <Settings /> },
-      { path: "/product", element: <Product /> },
+      { path: "/clients/api-clients", element: <ApiClients /> },
+      { path: "/clients/bulk-sms-clients", element: <BulkSmsClients /> },
+      { path: "/users", element: <Users /> },
+      { path: "/sms", element: <Sms /> },
+      { path: "/history", element: <History /> },
+      { path: "/status", element: <Status /> },
+      { path: "/device", element: <Device /> },
+      { path: "/sim", element: <Sim /> },
     ],
   },
   { path: "/login", element: <Login /> },
   { path: "/signup", element: <Signup /> },
-  { path: "/registration", element: <Registration /> },
 ]);
 
 export default router;

@@ -5,6 +5,7 @@ const baseQueryFn = fetchBaseQuery({
   baseUrl: "http://192.168.1.225:8000",
   prepareHeaders: async (headers, { getState }) => {
     const token = getState()?.auth?.accessToken;
+
     if (token) {
       headers.set("Authorization", `Token ${token}`);
     }
@@ -18,11 +19,11 @@ export const api = createApi({
     const result = await baseQueryFn(args, api, extraOptions);
     if (result?.error?.status === 401) {
       api.dispatch(userLogout(undefined));
-      localStorage.clear();
+
     }
     return result;
   },
-  tagTypes: ["category", "subCategory", "user", "photoGallery", "videoGallery", "post", "tramsCondition", "aboutUs", "package", "Social", "Subscribe", "ads", "dashboardInfo"],
+  tagTypes: ["apiClients"],
   endpoints: (builder) => ({
 
   }),

@@ -7,7 +7,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isLoading },
   } = useForm();
   const [login] = useLoginMutation();
 
@@ -47,7 +47,7 @@ const Login = () => {
               type="submit "
               className="bg-primary text-white px-[12px] py-[8px] rounded-lg cursor-pointer"
             >
-              Submit
+              {isLoading ? "Processing" : "Submit"}
             </button>
           </div>
         </form>

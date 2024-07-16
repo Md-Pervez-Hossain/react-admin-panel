@@ -14,7 +14,7 @@ const Modal = ({ isOpen, closeModal, children, title }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 flex items-center justify-center z-50 bg-black/50"
+          className="fixed inset-0 flex items-center justify-center z-50 bg-black/80"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.5, y: -50 }}
@@ -36,9 +36,9 @@ const Modal = ({ isOpen, closeModal, children, title }) => {
             }}
             transition={{ duration: 0.3, delay: 0.1 }}
             ref={modalRef}
-            className="w-[90%] max-w-5xl bg-white text-black rounded-lg z-[60] modal-content transform scale-100 mx-auto max-h-[80vh] overflow-y-auto"
+            className="w-[90%] max-w-5xl bg-white text-black rounded-lg z-[60] modal-content transform scale-100 mx-auto max-h-[90vh] overflow-y-auto"
           >
-            <div className="flex justify-between bg-[#F1F3F7] p-5 rounded-t-lg sticky top-0 z-50">
+            <div className="flex justify-between bg-primary/10 text-black p-5 rounded-t-lg sticky top-0 z-50">
               <h2 className="text-[18px] font-[500]">{title}</h2>
               <button onClick={closeModal}>
                 <svg
