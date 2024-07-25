@@ -97,11 +97,13 @@ const Dashboard = () => {
             className="p-5 rounded-lg bg-secondary  cursor-pointer "
           >
             <div className="text-center">
-              <h2 className="font-semibold text-[24px] text-white">
-                Monthly Sales
+              <h2 className="font-medium text-[20px] text-white">
+                Monthly SMS
               </h2>
-              <p className="font-normal text-white">$ 500000</p>
-              <p className="font-normal text-white">Increase by 20%</p>
+              <p className="font-normal text-primary">3000</p>
+              <p className="font-normal text-white">
+                Increase by <span className="text-primary">20%</span>
+              </p>
             </div>
           </motion.div>
 
@@ -111,11 +113,11 @@ const Dashboard = () => {
             className="p-5 rounded-lg bg-tertiary cursor-pointer "
           >
             <div className="text-center">
-              <h2 className="font-semibold text-[24px] text-white">
-                Yearly Sales
-              </h2>
-              <p className="font-normal text-white">$ 500000</p>
-              <p className="font-normal text-white">Increase by 10%</p>
+              <h2 className="font-medium text-[20px] text-white">Yearly SMS</h2>
+              <p className="font-normal text-primary">7000</p>
+              <p className="font-normal text-white">
+                Increase by <span className="text-primary">40%</span>
+              </p>
             </div>
           </motion.div>
 
