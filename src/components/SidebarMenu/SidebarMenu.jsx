@@ -44,16 +44,22 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
       setIsMenuOpen(false); // Close sidebar if no sub-items
       navigate(path); // Navigate to the clicked menu item
     } else {
+      // Check if we're collapsing the expanded menu
+      const isCollapsing = expandedMenu === index;
+
       // Toggle the expansion of the menu
       setExpandedMenu((prev) => (prev === index ? null : index));
       setActiveMainItem(index);
       setActiveSubItem(null);
 
-      // Navigate to the main item path if it exists, or the first sub-item
-      if (path) {
-        navigate(path);
-      } else if (menuData.menu[index].subItems.length > 0) {
-        navigate(menuData.menu[index].subItems[0].path);
+      // Only navigate if we're expanding the menu, not collapsing
+      if (!isCollapsing) {
+        // Navigate to the main item path if it exists, or the first sub-item
+        if (path) {
+          navigate(path);
+        } else if (menuData.menu[index].subItems.length > 0) {
+          navigate(menuData.menu[index].subItems[0].path);
+        }
       }
     }
   };
@@ -190,7 +196,7 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                       onClick={() => handleMainItemClick(index, item.path)}
                       className={`flex items-center gap-[10px] !text-[16px]  font-light cursor-pointer hover:text-secondary hover:font-semibold transition-all duration-300  font-poppins ${
                         activeMainItem === index
-                          ? "text-secondary  !text-[18px] !font-semibold"
+                          ? "text-secondary  text-[18px] font-semibold"
                           : ""
                       }`}
                     >
@@ -211,10 +217,11 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                       {expandedMenu === index && item.subItems.length > 0 && (
                         <motion.div
                           className="flex flex-col gap-3 pl-[22px] mt-3"
+                          variants={submenuVariants}
                           initial="initial"
                           animate="animate"
                           exit="exit"
-                          variants={submenuVariants}
+                          layout
                         >
                           {item.subItems.map((subItem, subIndex) => (
                             <Link
@@ -230,7 +237,10 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                                   : ""
                               }`}
                             >
-                              <GoDot /> {subItem.name}
+                              <span>
+                                <GoDot className="text-[12px]" />
+                              </span>
+                              {subItem.name}
                             </Link>
                           ))}
                         </motion.div>
@@ -239,6 +249,39 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                   </div>
                 ))}
               </motion.div>
+            </div>
+
+            {/* Desktop Profile Icon */}
+            <div
+              className="relative mt-auto flex items-center cursor-pointer"
+              ref={popoverRef}
+            >
+              <FaRegUser
+                onClick={handleProfileClick}
+                className="text-secondary text-[20px]"
+              />
+              <AnimatePresence>
+                {isPopoverOpen && (
+                  <motion.div
+                    className="absolute bottom-[50px] left-0 w-[200px] bg-primary p-4 shadow-md rounded-md"
+                    initial="hidden"
+                    animate="visible"
+                    exit="hidden"
+                    variants={profilePopoverVariants}
+                  >
+                    {menuData.profileLinks.map((link, index) => (
+                      <div
+                        key={index}
+                        onClick={() => handleProfileLinkClick(link.path)}
+                        className="flex items-center gap-2 cursor-pointer hover:text-secondary transition-all duration-300"
+                      >
+                        <span>{<link.icon />}</span>
+                        {link.name}
+                      </div>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </motion.div>
         )}
@@ -248,72 +291,28 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
+            className="fixed lg:hidden top-0 left-0 min-h-screen bg-primary text-white font-poppins z-50 p-4 w-[80%] max-w-[300px] "
             initial="hidden"
             animate="visible"
             exit="exit"
             variants={sidebarVariants}
-            className="lg:hidden border-r-2 border-r-primary/10 pt-[90px] flex flex-col min-h-screen overflow-y-auto bg-white font-poppins font-normal text-[16px]  font-light absolute z-50 min-w-[250px] p-4"
           >
-            <div
-              className="flex items-center gap-3  mb-5"
-              onClick={handleProfileClick}
-            >
-              <img
-                src="../../../public/assets/avatar.png"
-                alt=""
-                className="w-[50px] h-[50px] rounded-full p-2 bg-primary/10"
-              />
-              <h2 className="font-poppins font-normal text-[16px]  font-light flex items-center gap-2">
-                Admin{" "}
-                <span>
-                  <IoIosArrowForward className="text-[16px]" />
-                </span>
-              </h2>
-            </div>
-
-            <AnimatePresence>
-              {isPopoverOpen && (
-                <motion.div
-                  ref={popoverRef}
-                  initial="hidden"
-                  animate="visible"
-                  exit="hidden"
-                  variants={profilePopoverVariants}
-                  className="absolute mt-[60px] w-48 bg-white border-2 right-[42px] border-primary/10 rounded-lg shadow-md"
-                >
-                  <Link
-                    to="/profile"
-                    onClick={() => handleProfileLinkClick("/profile")}
-                    className="flex items-center gap-2 p-3"
-                  >
-                    <FaRegUser /> Profile
-                  </Link>
-
-                  <Link
-                    to="/logout"
-                    onClick={() => handleProfileLinkClick("/logout")}
-                    className="flex items-center gap-2 p-3"
-                  >
-                    <MdLogout /> Logout
-                  </Link>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            <div className="flex-1 overflow-y-auto scrollbar-hide ">
+            <div className="flex-1 overflow-y-auto scrollbar-hide p-4">
               <motion.div
                 initial="initial"
                 animate="animate"
                 exit="exit"
                 variants={menuVariants}
-                className="flex flex-col gap-3"
+                className="flex flex-col gap-5"
               >
                 {menuData.menu.map((item, index) => (
                   <div key={index}>
                     <div
                       onClick={() => handleMainItemClick(index, item.path)}
-                      className={`flex items-center gap-3 cursor-pointer  text-[16px]  font-light ${
-                        activeMainItem === index ? "text-primary " : ""
+                      className={`flex items-center gap-[10px] !text-[16px]  font-light cursor-pointer hover:text-secondary hover:font-semibold transition-all duration-300  font-poppins ${
+                        activeMainItem === index
+                          ? "text-secondary  text-[18px] font-semibold"
+                          : ""
                       }`}
                     >
                       <span>{<item.icon />}</span>
@@ -321,9 +320,9 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                       {item.subItems.length > 0 && (
                         <span>
                           {expandedMenu === index ? (
-                            <MdOutlineKeyboardArrowDown className="text-[24px]" />
+                            <MdOutlineKeyboardArrowDown className="text-[20px]  font-light" />
                           ) : (
-                            <MdOutlineKeyboardArrowRight className="text-[24px]" />
+                            <MdOutlineKeyboardArrowRight className="text-[20px]  font-light" />
                           )}
                         </span>
                       )}
@@ -332,11 +331,12 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                     <AnimatePresence>
                       {expandedMenu === index && item.subItems.length > 0 && (
                         <motion.div
-                          className="flex flex-col gap-3 pl-8 mt-3"
+                          className="flex flex-col gap-3 pl-[22px] mt-3"
+                          variants={submenuVariants}
                           initial="initial"
                           animate="animate"
                           exit="exit"
-                          variants={submenuVariants}
+                          layout
                         >
                           {item.subItems.map((subItem, subIndex) => (
                             <Link
@@ -345,14 +345,17 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                               onClick={(e) =>
                                 handleSubItemClick(index, subIndex, e)
                               }
-                              className={`flex items-center gap-2 bg-primary/10 p-2 rounded-md  text-[16px]  font-light ${
+                              className={`flex items-center gap-2  rounded-md  text-[16px]  font-normal ${
                                 activeMainItem === index &&
                                 activeSubItem === subIndex
-                                  ? "text-primary "
+                                  ? "text-secondary  font-medium"
                                   : ""
                               }`}
                             >
-                              <GoDot /> {subItem.name}
+                              <span>
+                                <GoDot className="text-[12px]" />
+                              </span>
+                              {subItem.name}
                             </Link>
                           ))}
                         </motion.div>
@@ -361,6 +364,39 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                   </div>
                 ))}
               </motion.div>
+            </div>
+
+            {/* Mobile Profile Icon */}
+            <div
+              className="relative mt-auto flex items-center cursor-pointer"
+              ref={popoverRef}
+            >
+              <FaRegUser
+                onClick={handleProfileClick}
+                className="text-secondary text-[20px]"
+              />
+              <AnimatePresence>
+                {isPopoverOpen && (
+                  <motion.div
+                    className="absolute bottom-[50px] left-0 w-[200px] bg-primary p-4 shadow-md rounded-md"
+                    initial="hidden"
+                    animate="visible"
+                    exit="hidden"
+                    variants={profilePopoverVariants}
+                  >
+                    {menuData.profileLinks.map((link, index) => (
+                      <div
+                        key={index}
+                        onClick={() => handleProfileLinkClick(link.path)}
+                        className="flex items-center gap-2 cursor-pointer hover:text-secondary transition-all duration-300"
+                      >
+                        <span>{<link.icon />}</span>
+                        {link.name}
+                      </div>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </motion.div>
         )}

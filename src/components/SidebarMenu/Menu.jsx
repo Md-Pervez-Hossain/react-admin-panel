@@ -31,35 +31,35 @@ export const menuData = {
       ],
     },
 
-    // {
-    //   name: "Sms",
-    //   icon: MdOutlineSms,
-    //   path: "/sms",
-    //   subItems: [],
-    // },
-    // {
-    //   name: "History",
-    //   icon: GoHistory,
-    //   path: "/history",
-    //   subItems: [],
-    // },
-    // {
-    //   name: "Status",
-    //   icon: MdOutlineSignalWifiStatusbarNull,
-    //   path: "/status",
-    //   subItems: [],
-    // },
-    // {
-    //   name: "Device",
-    //   icon: PiDeviceRotate,
-    //   path: "/device",
-    //   subItems: [],
-    // },
-    // {
-    //   name: "Sim",
-    //   icon: PiRssSimple,
-    //   path: "/sim",
-    //   subItems: [],
-    // },
+    {
+      name: "Sms",
+      icon: MdOutlineSms,
+      path: "/sms",
+      subItems: [],
+    },
+    {
+      name: "History",
+      icon: GoHistory,
+      path: "/history",
+      subItems: [],
+    },
+    {
+      name: "Status",
+      icon: MdOutlineSignalWifiStatusbarNull,
+      path: "/status",
+      subItems: [],
+    },
+    {
+      name: "Device",
+      icon: PiDeviceRotate,
+      path: "/device",
+      subItems: [],
+    },
+    {
+      name: "Sim",
+      icon: PiRssSimple,
+      path: "/sim",
+      subItems: [],
+    },
   ],
 };
