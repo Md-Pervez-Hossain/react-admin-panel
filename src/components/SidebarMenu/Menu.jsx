@@ -1,6 +1,5 @@
-import { GoHome } from "react-icons/go";
 import { RxDashboard } from "react-icons/rx";
-import { FaRegUser } from "react-icons/fa6";
+
 import { MdOutlineSms } from "react-icons/md";
 import { GoHistory } from "react-icons/go";
 import { MdOutlineSignalWifiStatusbarNull } from "react-icons/md";

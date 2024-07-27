@@ -7,7 +7,7 @@ import {
 } from "react-icons/md";
 import { GoDot } from "react-icons/go";
 import { menuData } from "./Menu";
-import { IoIosArrowForward } from "react-icons/io";
+
 import { FaRegUser } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -249,39 +249,6 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                   </div>
                 ))}
               </motion.div>
-            </div>
-
-            {/* Desktop Profile Icon */}
-            <div
-              className="relative mt-auto flex items-center cursor-pointer"
-              ref={popoverRef}
-            >
-              <FaRegUser
-                onClick={handleProfileClick}
-                className="text-secondary text-[20px]"
-              />
-              <AnimatePresence>
-                {isPopoverOpen && (
-                  <motion.div
-                    className="absolute bottom-[50px] left-0 w-[200px] bg-primary p-4 shadow-md rounded-md"
-                    initial="hidden"
-                    animate="visible"
-                    exit="hidden"
-                    variants={profilePopoverVariants}
-                  >
-                    {menuData.profileLinks.map((link, index) => (
-                      <div
-                        key={index}
-                        onClick={() => handleProfileLinkClick(link.path)}
-                        className="flex items-center gap-2 cursor-pointer hover:text-secondary transition-all duration-300"
-                      >
-                        <span>{<link.icon />}</span>
-                        {link.name}
-                      </div>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </div>
           </motion.div>
         )}
