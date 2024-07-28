@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   MdOutlineKeyboardArrowRight,
   MdOutlineKeyboardArrowDown,
-  MdLogout,
 } from "react-icons/md";
 import { GoDot } from "react-icons/go";
 import { menuData } from "./Menu";
@@ -194,9 +193,9 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                   <div key={index}>
                     <div
                       onClick={() => handleMainItemClick(index, item.path)}
-                      className={`flex items-center gap-[10px] !text-[16px]  font-light cursor-pointer hover:text-secondary hover:font-semibold transition-all duration-300  font-poppins ${
+                      className={`flex items-center gap-[10px] !text-[16px]  font-light cursor-pointer hover:text-secondary  transition-all duration-300  font-poppins ${
                         activeMainItem === index
-                          ? "text-secondary  text-[18px] font-semibold"
+                          ? "text-secondary  text-[18px] "
                           : ""
                       }`}
                     >
@@ -276,7 +275,7 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                   <div key={index}>
                     <div
                       onClick={() => handleMainItemClick(index, item.path)}
-                      className={`flex items-center gap-[10px] !text-[16px]  font-light cursor-pointer hover:text-secondary hover:font-semibold transition-all duration-300  font-poppins ${
+                      className={`flex items-center gap-[10px] !text-[16px]  font-light cursor-pointer hover:text-secondary  transition-all duration-300  font-poppins ${
                         activeMainItem === index
                           ? "text-secondary  text-[18px] font-semibold"
                           : ""

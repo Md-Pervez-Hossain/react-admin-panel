@@ -6,6 +6,7 @@ import { MdOutlineSignalWifiStatusbarNull } from "react-icons/md";
 import { PiDeviceRotate } from "react-icons/pi";
 import { PiRssSimple } from "react-icons/pi";
 import { FiUsers } from "react-icons/fi";
+import { FaRegUser } from "react-icons/fa";
 export const menuData = {
   menu: [
     {
@@ -14,12 +15,12 @@ export const menuData = {
       path: "/",
       subItems: [],
     },
-    // {
-    //   name: "Users",
-    //   icon: FaRegUser,
-    //   path: "/users",
-    //   subItems: [],
-    // },
+    {
+      name: "Users",
+      icon: FaRegUser,
+      path: "/users",
+      subItems: [],
+    },
     {
       name: "Clients",
       icon: FiUsers,
