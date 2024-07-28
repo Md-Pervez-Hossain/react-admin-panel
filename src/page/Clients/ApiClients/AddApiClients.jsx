@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useAddApiClientsMutation } from "../../../redux/features/apiClients/apiClients";
+import toast from "react-hot-toast";
 
 const AddApiClients = ({ closeModal }) => {
   const {
@@ -15,7 +16,7 @@ const AddApiClients = ({ closeModal }) => {
     const response = await addApiClients(value);
     console.log(response);
     if (response?.data?.msg) {
-      alert("Api Clients Added");
+      toast.success("Api Clients Added");
       closeModal();
     }
   };

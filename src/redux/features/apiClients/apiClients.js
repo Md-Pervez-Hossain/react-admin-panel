@@ -31,22 +31,19 @@ const userApi = api.injectEndpoints({
       },
       providesTags: ['apiClients'],
     }),
-    // getAds: builder.query({
-    //   query: (query) => `/ads/list?${query}`,
-    //   providesTags: ['ads'],
-    // },),
-    // getAdsDetails: builder.query({
-    //   query: (id) => `/ads/details?ads_no=${id}`,
-    //   providesTags: ['ads'],
-    // }),
-    // deleteAds: builder.mutation({
-    //   query: (id) => ({
-    //     url: `/ads/delete`,
-    //     method: 'DELETE',
-    //     body: id
-    //   }),
-    //   invalidatesTags: ['ads'],
-    // }),
+    deleteApiClients: builder.mutation({
+      query: (id) => {
+        const token = JSON.parse(localStorage.getItem('loginAuth'))?.accessToken;
+        return {
+          url: `/client/apiClient/${id}`,
+          method: "DELETE",
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        };
+      },
+      invalidatesTags: ['apiClients'],
+    }),
     // updateAds: builder.mutation({
     //   query: (body) => ({
     //     url: `/ads/update`,
@@ -61,5 +58,6 @@ const userApi = api.injectEndpoints({
 
 export const {
   useAddApiClientsMutation,
-  useGetAPiClientsQuery
+  useGetAPiClientsQuery,
+  useDeleteApiClientsMutation
 } = userApi;

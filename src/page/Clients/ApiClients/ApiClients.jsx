@@ -6,22 +6,27 @@ import { useRef } from "react";
 import useClickOutside from "../../../../hooks/useClickOutside";
 import DropdownMenu from "../../../share/DropdownMenu/DropdownMenu";
 import Table from "../../../share/Table/Table";
-import { usersData } from "../../../share/Data/Data";
 import ActionModal from "../../../share/ActionModal/ActionModal";
 import { motion } from "framer-motion";
 import PrimaryButton from "../../../share/Buttons/PrimaryButton";
 import { AiOutlinePlus } from "react-icons/ai";
 import AddApiClients from "./AddApiClients";
-import { useGetAPiClientsQuery } from "../../../redux/features/apiClients/apiClients";
+import {
+  useDeleteApiClientsMutation,
+  useGetAPiClientsQuery,
+} from "../../../redux/features/apiClients/apiClients";
+import DeleteModal from "../../../share/Modal/DeleteModal";
 
 const ApiClients = () => {
   const { data: apiClientsData, isLoading, isError } = useGetAPiClientsQuery();
-  console.log(apiClientsData);
+
+  const [deleteApiClients] = useDeleteApiClientsMutation();
 
   const { parentVariant, childVariant } = usePageAnimation();
   const {
     dropdownOpenId,
     selectedUserId,
+    selectedItemData,
     isAddModalOpen,
     isEditModalOpen,
     isDeleteModalOpen,
@@ -49,17 +54,17 @@ const ApiClients = () => {
       header: "Action",
       id: "action",
       cell: ({ row }) => {
-        const { id } = row.original;
-        const isOpen = dropdownOpenId === id;
+        const itemData = row.original;
+        const isOpen = dropdownOpenId === itemData.id;
 
         return (
           <DropdownMenu
-            id={id}
+            id={itemData.id}
             isOpen={isOpen}
             toggleDropdown={toggleDropdown}
-            onEdit={`/user/edit-user/${id}`}
-            onDelete={openDeleteModal}
-            onDetails={openDetailsModal}
+            onEdit={""}
+            onDelete={() => openDeleteModal(itemData)}
+            onDetails={() => openDetailsModal(itemData.id)}
           />
         );
       },
@@ -73,8 +78,8 @@ const ApiClients = () => {
   if (!isLoading && isError) {
     content = <p>Error</p>;
   }
-  if (!isLoading && !isError && apiClientsData?.results?.length == 0) {
-    content = <p>NoData Founf</p>;
+  if (!isLoading && !isError && apiClientsData?.results?.length === 0) {
+    content = <p>No Data Found</p>;
   }
   if (!isLoading && !isError && apiClientsData?.results?.length > 0) {
     content = <Table columns={header} tabelData={apiClientsData?.results} />;
@@ -127,7 +132,13 @@ const ApiClients = () => {
         isOpen={isDeleteModalOpen}
         closeModal={closeModals}
         title="Delete User"
-        actionContent={<div>Delete User Confirmation {selectedUserId}</div>}
+        actionContent={
+          <DeleteModal
+            data={selectedItemData}
+            deleteFun={deleteApiClients}
+            closeModal={closeModals}
+          />
+        }
       />
 
       <ActionModal
