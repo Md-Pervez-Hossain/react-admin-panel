@@ -1,22 +1,22 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useAddApiClientsMutation } from "../../../redux/features/apiClients/apiClients";
+import { useAddbulkSmsClientsMutation } from "../../../redux/features/bulkSmsClient/bulkSmsClient";
 import toast from "react-hot-toast";
 
-const AddApiClients = ({ closeModal }) => {
+const AddBulkSmsClients = ({ closeModal }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isLoading },
+    formState: { errors },
   } = useForm();
 
-  const [addApiClients] = useAddApiClientsMutation();
+  const [addApiClients, { isLoading }] = useAddbulkSmsClientsMutation();
 
   const handleApiClients = async (value) => {
     const response = await addApiClients(value);
     console.log(response);
     if (response?.data?.msg) {
-      toast.success("Api Clients Added");
+      toast.success("Bulk sms Clients Added");
       closeModal();
     }
   };
@@ -81,4 +81,4 @@ const AddApiClients = ({ closeModal }) => {
   );
 };
 
-export default AddApiClients;
+export default AddBulkSmsClients;

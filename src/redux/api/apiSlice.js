@@ -23,7 +23,7 @@ export const api = createApi({
     }
     return result;
   },
-  tagTypes: ["apiClients", "device"],
+  tagTypes: ["apiClients", "device", "bulkSms"],
   endpoints: (builder) => ({
 
   }),

@@ -16,6 +16,7 @@ import {
   useGetAPiClientsQuery,
 } from "../../../redux/features/apiClients/apiClients";
 import DeleteModal from "../../../share/Modal/DeleteModal";
+import EditApiClients from "./EditApiClients";
 
 const ApiClients = () => {
   const { data: apiClientsData, isLoading, isError } = useGetAPiClientsQuery();
@@ -36,6 +37,7 @@ const ApiClients = () => {
     openAddModal,
     openDeleteModal,
     openDetailsModal,
+    openEditModal,
     closeModals,
   } = useModalDropdown();
 
@@ -63,7 +65,7 @@ const ApiClients = () => {
             id={itemData.id}
             isOpen={isOpen}
             toggleDropdown={toggleDropdown}
-            onEdit={""}
+            onEdit={() => openEditModal(itemData)}
             onDelete={() => openDeleteModal(itemData)}
             onDetails={() => openDetailsModal(itemData.id)}
           />
@@ -125,14 +127,16 @@ const ApiClients = () => {
       <ActionModal
         isOpen={isEditModalOpen}
         closeModal={closeModals}
-        title="Edit User"
-        actionContent={<div>Edit User Form {selectedUserId}</div>}
+        title="Edit Api Clients"
+        actionContent={
+          <EditApiClients data={selectedItemData} closeModal={closeModals} />
+        }
       />
 
       <ActionModal
         isOpen={isDeleteModalOpen}
         closeModal={closeModals}
-        title="Delete User"
+        title="Delete Api Clients"
         actionContent={
           <DeleteModal
             data={selectedItemData}
@@ -145,7 +149,7 @@ const ApiClients = () => {
       <ActionModal
         isOpen={isDetailsModalOpen}
         closeModal={closeModals}
-        title="User Details"
+        title="Api Clients Details"
         actionContent={<div>User Details Information {selectedUserId}</div>}
       />
     </Container>

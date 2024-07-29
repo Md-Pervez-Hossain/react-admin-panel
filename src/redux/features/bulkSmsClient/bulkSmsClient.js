@@ -1,13 +1,13 @@
 import { api } from "../../api/apiSlice";
 
 
-const userApi = api.injectEndpoints({
+const bulkSmsApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    addApiClients: builder.mutation({
+    addbulkSmsClients: builder.mutation({
       query: (data) => {
         const token = JSON.parse(localStorage.getItem('loginAuth'))?.accessToken;
         return {
-          url: 'client/apiClient/create/',
+          url: 'client/bulkClient/create/',
           method: "POST",
           headers: {
             Authorization: `Token ${token}`,
@@ -16,39 +16,39 @@ const userApi = api.injectEndpoints({
         };
       },
 
-      invalidatesTags: ['apiClients'],
+      invalidatesTags: ['bulkSms'],
     }),
-    getAPiClients: builder.query({
+    getbulkSmsClients: builder.query({
       query: () => {
         const token = JSON.parse(localStorage.getItem('loginAuth'))?.accessToken;
         return {
-          url: 'client/apiClient/list/',
+          url: 'client/bulkClient/list/',
           method: "GET",
           headers: {
             Authorization: `Token ${token}`,
           },
         };
       },
-      providesTags: ['apiClients'],
+      providesTags: ['bulkSms'],
     }),
-    deleteApiClients: builder.mutation({
+    deletebulkSmsClients: builder.mutation({
       query: (id) => {
         const token = JSON.parse(localStorage.getItem('loginAuth'))?.accessToken;
         return {
-          url: `/client/apiClient/${id}`,
+          url: `client/bulkClient/${id}`,
           method: "DELETE",
           headers: {
             Authorization: `Token ${token}`,
           },
         };
       },
-      invalidatesTags: ['apiClients'],
+      invalidatesTags: ['bulkSms'],
     }),
-    editApiClients: builder.mutation({
+    editbulkSmsClients: builder.mutation({
       query: ({ data, id }) => {
         const token = JSON.parse(localStorage.getItem('loginAuth'))?.accessToken;
         return {
-          url: `client/apiClient/${id}/`,
+          url: `client/bulkClient/${id}/`,
           method: "PATCH",
           headers: {
             Authorization: `Token ${token}`,
@@ -56,15 +56,15 @@ const userApi = api.injectEndpoints({
           body: data
         };
       },
-      invalidatesTags: ['apiClients'],
+      invalidatesTags: ['bulkSms'],
     }),
 
   })
 })
 
 export const {
-  useAddApiClientsMutation,
-  useGetAPiClientsQuery,
-  useDeleteApiClientsMutation,
-  useEditApiClientsMutation
-} = userApi;
+  useAddbulkSmsClientsMutation,
+  useGetbulkSmsClientsQuery,
+  useDeletebulkSmsClientsMutation,
+  useEditbulkSmsClientsMutation
+} = bulkSmsApi;

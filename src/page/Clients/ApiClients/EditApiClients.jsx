@@ -1,22 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useAddApiClientsMutation } from "../../../redux/features/apiClients/apiClients";
+import { useEditApiClientsMutation } from "../../../redux/features/apiClients/apiClients";
 import toast from "react-hot-toast";
 
-const AddApiClients = ({ closeModal }) => {
+const EditApiClients = ({ closeModal, data }) => {
+  const { id, username, email, organization, balance } = data;
   const {
     register,
     handleSubmit,
-    formState: { errors, isLoading },
+    setValue,
+    formState: { errors },
   } = useForm();
 
-  const [addApiClients] = useAddApiClientsMutation();
+  const [editApiClients, { isLoading }] = useEditApiClientsMutation();
+  useEffect(() => {
+    setValue("username", username);
+    setValue("email", email);
+    setValue("organization", organization);
+    setValue("balance", balance);
+  }, [id, username, email, organization, balance, setValue]);
 
-  const handleApiClients = async (value) => {
-    const response = await addApiClients(value);
+  const handleApiClients = async (data) => {
+    const response = await editApiClients({ data, id });
     console.log(response);
-    if (response?.data?.msg) {
-      toast.success("Api Clients Added");
+    if (response?.data) {
+      toast.success("Api Clients Edited");
       closeModal();
     }
   };
@@ -81,4 +89,4 @@ const AddApiClients = ({ closeModal }) => {
   );
 };
 
-export default AddApiClients;
+export default EditApiClients;

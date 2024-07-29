@@ -1,25 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useAddApiClientsMutation } from "../../../redux/features/apiClients/apiClients";
 import toast from "react-hot-toast";
+import { useEditbulkSmsClientsMutation } from "../../../redux/features/bulkSmsClient/bulkSmsClient";
 
-const AddApiClients = ({ closeModal }) => {
+const EditBulkSmsClient = ({ closeModal, data }) => {
+  const { id, username, email, organization, balance } = data;
+
+  const [editBulkSmsClients, { isError, isLoading, isSuccess, error }] =
+    useEditbulkSmsClientsMutation();
   const {
     register,
     handleSubmit,
-    formState: { errors, isLoading },
+    setValue,
+    formState: { errors },
   } = useForm();
+  const handleApiClients = async (data) => {
+    const response = await editBulkSmsClients({ data, id });
 
-  const [addApiClients] = useAddApiClientsMutation();
-
-  const handleApiClients = async (value) => {
-    const response = await addApiClients(value);
-    console.log(response);
-    if (response?.data?.msg) {
-      toast.success("Api Clients Added");
+    if (response?.data) {
+      toast.success("Bulk sms Clients Added");
       closeModal();
     }
   };
+
+  useEffect(() => {
+    setValue("username", username);
+    setValue("email", email);
+    setValue("organization", organization);
+    setValue("balance", balance);
+  }, [id, username, email, organization, balance, setValue]);
 
   return (
     <div className="">
@@ -81,4 +90,4 @@ const AddApiClients = ({ closeModal }) => {
   );
 };
 
-export default AddApiClients;
+export default EditBulkSmsClient;
