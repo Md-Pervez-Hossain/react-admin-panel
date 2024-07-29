@@ -2,8 +2,19 @@ import { useForm } from "react-hook-form";
 import PrimaryButton from "../../share/Buttons/PrimaryButton";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const Login = () => {
+  const accessToken = useSelector((state) => state?.auth?.accessToken);
+  console.log(accessToken);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (accessToken) {
+      navigate("/");
+    }
+  }, [accessToken, navigate]);
   const {
     register,
     handleSubmit,
@@ -11,13 +22,11 @@ const Login = () => {
   } = useForm();
   const [login] = useLoginMutation();
 
-  const navigate = useNavigate();
-
   const handleLoginForm = async (value) => {
     const res = await login(value);
     console.log(res);
     if (res.data.token) {
-      navigate("/");
+      navigate("/dashboard");
     }
   };
 

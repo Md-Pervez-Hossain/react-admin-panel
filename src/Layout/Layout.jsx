@@ -1,11 +1,20 @@
 // src/Layout.jsx
-import { Outlet } from "react-router-dom";
-import { useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Header from "../components/Header/Header";
 import SidebarMenu from "../components/SidebarMenu/SidebarMenu";
 import { AnimatePresence, motion } from "framer-motion";
+import { useSelector } from "react-redux";
 
 const Layout = () => {
+  const accessToken = useSelector((state) => state?.auth?.accessToken);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (accessToken) {
+      navigate("/dashboard");
+    }
+  }, [accessToken, navigate]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isdesktopSidebarOpen, setIsdesktopSidebarOpen] = useState(true);
 

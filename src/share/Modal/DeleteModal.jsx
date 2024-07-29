@@ -4,7 +4,8 @@ import toast from "react-hot-toast";
 import Title from "../ui/Title/Title";
 
 const DeleteModal = ({ data, deleteFun, closeModal }) => {
-  const { id } = data;
+  const { id, username } = data;
+  console.log(data);
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleDelete = async (id) => {
@@ -29,7 +30,10 @@ const DeleteModal = ({ data, deleteFun, closeModal }) => {
   return (
     <div className="py-8 max-h-[500px] overflow-x-auto sm:w-[300px] md:w-[600px] lg:w-[800px] xl:w-[900px] mx-auto px-5">
       <div className="text-center">
-        <Title>Are You Sure? You Want To Delete!</Title>
+        <Title>
+          Are You Sure? You Want To Delete!{" "}
+          <span className="text-primary">{username}</span>
+        </Title>
         <div className="flex items-center gap-5 justify-center">
           <button
             onClick={handleCancel}

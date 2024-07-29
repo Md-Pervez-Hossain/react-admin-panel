@@ -1,37 +1,78 @@
 // src/routes.js
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import Login from "../page/Login/Login";
-
 import Dashboard from "../page/Dashboard/Dashboard";
 import Layout from "../Layout/Layout";
 import Signup from "../page/Signup/Signup";
-import Users from "../page/Users/Users";
-import Sms from "../page/Sms/Sms";
-import History from "../page/History/History";
-import Status from "../page/Status/Status";
-import Device from "../page/Device/Device";
-import Sim from "../page/Sim/Sim";
+// import Users from "../page/Users/Users";
+// import Sms from "../page/Sms/Sms";
+// import History from "../page/History/History";
+// import Status from "../page/Status/Status";
+// import Device from "../page/Device/Device";
+// import Sim from "../page/Sim/Sim";
 import ApiClients from "../page/Clients/ApiClients/ApiClients";
 import BulkSmsClients from "../page/Clients/BulkSmsClients/BulkSmsClients";
+import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <PrivateRoute>
+        <Layout />
+      </PrivateRoute>
+    ),
     children: [
-      { path: "/", element: <Dashboard /> },
-      { path: "/clients/api-clients", element: <ApiClients /> },
-      { path: "/clients/bulk-sms-clients", element: <BulkSmsClients /> },
-      { path: "/users", element: <Users /> },
-      { path: "/sms", element: <Sms /> },
-      { path: "/history", element: <History /> },
-      { path: "/status", element: <Status /> },
-      { path: "/device", element: <Device /> },
-      { path: "/sim", element: <Sim /> },
+      {
+        path: "/dashboard",
+        element: (
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/clients/api-clients",
+        element: (
+          <PrivateRoute>
+            <ApiClients />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/clients/bulk-sms-clients",
+        element: (
+          <PrivateRoute>
+            <BulkSmsClients />
+          </PrivateRoute>
+        ),
+      },
+      // { path: "/users", element: <PrivateRoute element={<Users />} /> },
+      // { path: "/sms", element: <PrivateRoute element={<Sms />} /> },
+      // { path: "/history", element: <PrivateRoute element={<History />} /> },
+      // { path: "/status", element: <PrivateRoute element={<Status />} /> },
+      // { path: "/device", element: <PrivateRoute element={<Device />} /> },
+      // { path: "/sim", element: <PrivateRoute element={<Sim />} /> },
     ],
   },
-  { path: "/login", element: <Login /> },
-  { path: "/signup", element: <Signup /> },
+  {
+    path: "/login",
+    element: (
+      <PublicRoute>
+        <Login />
+      </PublicRoute>
+    ),
+  },
+  {
+    path: "/signup",
+    element: (
+      <PublicRoute>
+        <Signup />
+      </PublicRoute>
+    ),
+  },
+  { path: "*", element: <Navigate to="/" /> },
 ]);
 
 export default router;
