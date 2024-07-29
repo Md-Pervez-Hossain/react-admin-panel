@@ -8,7 +8,7 @@ import Signup from "../page/Signup/Signup";
 // import Sms from "../page/Sms/Sms";
 // import History from "../page/History/History";
 // import Status from "../page/Status/Status";
-// import Device from "../page/Device/Device";
+import Device from "../page/Device/Device";
 // import Sim from "../page/Sim/Sim";
 import ApiClients from "../page/Clients/ApiClients/ApiClients";
 import BulkSmsClients from "../page/Clients/BulkSmsClients/BulkSmsClients";
@@ -48,11 +48,19 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "/device",
+        element: (
+          <PrivateRoute>
+            <Device />
+          </PrivateRoute>
+        ),
+      },
       // { path: "/users", element: <PrivateRoute element={<Users />} /> },
       // { path: "/sms", element: <PrivateRoute element={<Sms />} /> },
       // { path: "/history", element: <PrivateRoute element={<History />} /> },
       // { path: "/status", element: <PrivateRoute element={<Status />} /> },
-      // { path: "/device", element: <PrivateRoute element={<Device />} /> },
+      // { path: "/device", element: <PrivateRoute element={} /> },
       // { path: "/sim", element: <PrivateRoute element={<Sim />} /> },
     ],
   },

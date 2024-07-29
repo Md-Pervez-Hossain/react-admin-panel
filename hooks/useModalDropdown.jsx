@@ -15,18 +15,20 @@ const useModalDropdown = () => {
   };
 
   const openAddModal = () => setAddModalOpen(true);
-  const openEditModal = (id) => {
-    setSelectedUserId(id);
+  const openEditModal = (item) => {
+    setSelectedUserId(item?.id);
     setEditModalOpen(true);
+    setSelectedItemData(item);
   };
   const openDeleteModal = (item) => {
     setSelectedUserId(item.id);
     setSelectedItemData(item);
     setDeleteModalOpen(true);
   };
-  const openDetailsModal = (id) => {
-    setSelectedUserId(id);
+  const openDetailsModal = (item) => {
+    setSelectedUserId(item?.id);
     setDetailsModalOpen(true);
+    setSelectedItemData(item);
   };
   const closeModals = () => {
     setAddModalOpen(false);

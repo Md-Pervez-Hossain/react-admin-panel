@@ -19,6 +19,7 @@ import DeleteModal from "../../../share/Modal/DeleteModal";
 
 const ApiClients = () => {
   const { data: apiClientsData, isLoading, isError } = useGetAPiClientsQuery();
+  console.log(apiClientsData);
 
   const [deleteApiClients] = useDeleteApiClientsMutation();
 

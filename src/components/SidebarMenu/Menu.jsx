@@ -49,12 +49,12 @@ export const menuData = {
     //   path: "/status",
     //   subItems: [],
     // },
-    // {
-    //   name: "Device",
-    //   icon: PiDeviceRotate,
-    //   path: "/device",
-    //   subItems: [],
-    // },
+    {
+      name: "Device",
+      icon: PiDeviceRotate,
+      path: "/device",
+      subItems: [],
+    },
     // {
     //   name: "Sim",
     //   icon: PiRssSimple,
