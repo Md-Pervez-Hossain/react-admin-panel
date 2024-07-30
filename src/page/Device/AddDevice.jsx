@@ -73,12 +73,14 @@ const AddDevice = ({ closeModal }) => {
             {errors.deviceName && <span>{errors.deviceName.message}</span>}
           </div>
         </div>
-        <button
-          type="submit "
-          className="bg-primary text-white px-[12px] py-[8px] rounded-lg cursor-pointer mt-5 w-full"
-        >
-          {isLoading ? "Processing" : "Submit"}
-        </button>
+        <div className="flex  justify-end">
+          <button
+            type="submit "
+            className="bg-primary text-white px-[12px] py-[8px] rounded-lg cursor-pointer mt-5 "
+          >
+            {isLoading ? "Processing" : "Submit"}
+          </button>
+        </div>
       </form>
     </div>
   );

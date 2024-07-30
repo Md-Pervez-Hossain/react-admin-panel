@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useGetAPiClientsQuery } from "../../../redux/features/apiClients/apiClients";
 import { useAddbulkSmsSendMutation } from "../../../redux/features/bulkSmsSend/bulkSmsSendApi";
 import toast from "react-hot-toast";
+import { useGetbulkSmsClientsQuery } from "../../../redux/features/bulkSmsClient/bulkSmsClient";
 
 const SendBulkSms = ({ closeModal }) => {
   const {
@@ -14,7 +15,7 @@ const SendBulkSms = ({ closeModal }) => {
   const [addBulkSmsSend, { isLoading: bulkSmsSendLoading }] =
     useAddbulkSmsSendMutation();
 
-  const { data: apiClientsData, isLoading } = useGetAPiClientsQuery();
+  const { data: apiClientsData, isLoading } = useGetbulkSmsClientsQuery();
 
   const handleApiClients = async (formData) => {
     const data = new FormData();
@@ -43,7 +44,7 @@ const SendBulkSms = ({ closeModal }) => {
               <option value="">Select Client</option>
               {apiClientsData?.results?.length > 0 &&
                 apiClientsData?.results?.map((item) => (
-                  <option key={item.id} value={item.username}>
+                  <option key={item.id} value={item.id}>
                     {item.username}
                   </option>
                 ))}
