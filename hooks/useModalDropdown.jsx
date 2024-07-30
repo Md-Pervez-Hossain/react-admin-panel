@@ -9,12 +9,14 @@ const useModalDropdown = () => {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [isDetailsModalOpen, setDetailsModalOpen] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const toggleDropdown = (id) => {
     setDropdownOpenId(dropdownOpenId === id ? null : id);
   };
 
   const openAddModal = () => setAddModalOpen(true);
+  const openModal = () => setIsOpenModal(true);
   const openEditModal = (item) => {
     setSelectedUserId(item?.id);
     setEditModalOpen(true);
@@ -35,6 +37,7 @@ const useModalDropdown = () => {
     setEditModalOpen(false);
     setDeleteModalOpen(false);
     setDetailsModalOpen(false);
+    setIsOpenModal(false);
   };
 
   return {
@@ -51,6 +54,8 @@ const useModalDropdown = () => {
     openDeleteModal,
     openDetailsModal,
     closeModals,
+    openModal,
+    isOpenModal,
   };
 };
 

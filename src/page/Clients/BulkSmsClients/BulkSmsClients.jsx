@@ -17,6 +17,7 @@ import ActionModal from "../../../share/ActionModal/ActionModal";
 import DeleteModal from "../../../share/Modal/DeleteModal";
 import AddBulkSmsClients from "./AddBulkSmsClients";
 import EditBulkSmsClient from "./EditBulkSmsClient";
+import SendBulkSms from "./SendBulkSms";
 const BulkSmsClients = () => {
   const [searchText, setSearchText] = useState("");
   const query = `q=${searchText}`;
@@ -44,6 +45,8 @@ const BulkSmsClients = () => {
     openDetailsModal,
     openEditModal,
     closeModals,
+    openModal,
+    isOpenModal,
   } = useModalDropdown();
 
   const dropdownRef = useRef(null);
@@ -58,6 +61,17 @@ const BulkSmsClients = () => {
     { header: "Email", accessorKey: "email" },
     { header: "Organisation", accessorKey: "organization" },
     { header: "Balance", accessorKey: "balance" },
+    {
+      header: "Bulk Sms Send",
+      id: "action",
+      cell: ({ row }) => {
+        return (
+          <PrimaryButton className="text-center" onClick={openModal}>
+            Bulk SMS Send
+          </PrimaryButton>
+        );
+      },
+    },
     {
       header: "Action",
       id: "action",
@@ -140,6 +154,12 @@ const BulkSmsClients = () => {
         closeModal={closeModals}
         title="Add Bulk Sms Clients"
         actionContent={<AddBulkSmsClients closeModal={closeModals} />}
+      />
+      <ActionModal
+        isOpen={isOpenModal}
+        closeModal={closeModals}
+        title="Bulk Sms Send"
+        actionContent={<SendBulkSms closeModal={closeModals} />}
       />
 
       <ActionModal
