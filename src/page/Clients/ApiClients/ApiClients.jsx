@@ -2,7 +2,7 @@ import Container from "../../../share/ui/Container/Container";
 import Breadcrumb from "../../../share/Breadcrumb/Breadcrumb";
 import usePageAnimation from "../../../../hooks/usePageAnimation";
 import useModalDropdown from "../../../../hooks/useModalDropdown";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import useClickOutside from "../../../../hooks/useClickOutside";
 import DropdownMenu from "../../../share/DropdownMenu/DropdownMenu";
 import Table from "../../../share/Table/Table";
@@ -19,7 +19,14 @@ import DeleteModal from "../../../share/Modal/DeleteModal";
 import EditApiClients from "./EditApiClients";
 
 const ApiClients = () => {
-  const { data: apiClientsData, isLoading, isError } = useGetAPiClientsQuery();
+  const [searchText, setSearchText] = useState();
+  const query = `q=${searchText}`;
+  console.log(query);
+  const {
+    data: apiClientsData,
+    isLoading,
+    isError,
+  } = useGetAPiClientsQuery(query);
   console.log(apiClientsData);
 
   const [deleteApiClients] = useDeleteApiClientsMutation();
@@ -106,8 +113,21 @@ const ApiClients = () => {
           <motion.h2 className="font-poppins  text-[20px]">
             All Api Clients List
           </motion.h2>
-          <motion.div variants={childVariant} onClick={openAddModal}>
-            <PrimaryButton className=" flex items-center gap-2 ">
+          <motion.div
+            variants={childVariant}
+            className="flex items-center gap-5"
+          >
+            <motion.div>
+              <input
+                className="px-4 py-2 border border-primary/20 rounded-lg bg-transparent focus:outline-none "
+                placeholder="search"
+                onChange={(e) => setSearchText(e.target.value)}
+              />
+            </motion.div>
+            <PrimaryButton
+              className=" flex items-center gap-2 "
+              onClick={openAddModal}
+            >
               <AiOutlinePlus className="" />
               Add Api Clients
             </PrimaryButton>

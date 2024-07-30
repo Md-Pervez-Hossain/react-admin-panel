@@ -18,8 +18,27 @@ const DropdownMenu = ({
   deleteTitle,
   detailsTitle,
 }) => {
-  // const dropdownRef = useRef(null);
-  // useClickOutside(dropdownRef, () => toggleDropdown(null));
+  const dropdownRef = useRef(null);
+
+  useClickOutside(dropdownRef, () => {
+    if (isOpen) {
+      toggleDropdown(id);
+    }
+  });
+  const handleEdit = () => {
+    toggleDropdown(id);
+    onEdit();
+  };
+
+  const handleDelete = () => {
+    toggleDropdown(id);
+    onDelete();
+  };
+
+  const handleDetails = () => {
+    toggleDropdown(id);
+    onDetails();
+  };
 
   const popoverVariants = {
     hidden: {
@@ -39,7 +58,7 @@ const DropdownMenu = ({
   };
 
   return (
-    <div className="relative">
+    <div ref={dropdownRef} className="relative">
       <label
         tabIndex={0}
         className="cursor-pointer"
@@ -66,7 +85,7 @@ const DropdownMenu = ({
                   </Link>
                 ) : (
                   <button
-                    onClick={() => onEdit(id)}
+                    onClick={handleEdit}
                     className="flex items-center gap-3 w-full"
                   >
                     <LuFolderEdit />
@@ -78,7 +97,7 @@ const DropdownMenu = ({
             {onDelete && (
               <li>
                 <button
-                  onClick={() => onDelete(id)}
+                  onClick={handleDelete}
                   className="flex items-center gap-3 w-full"
                 >
                   <RiDeleteBinLine />
@@ -95,7 +114,7 @@ const DropdownMenu = ({
                   </Link>
                 ) : (
                   <button
-                    onClick={() => onDetails(id)}
+                    onClick={handleDetails}
                     className="flex items-center gap-3 w-full"
                   >
                     <CgDetailsMore />

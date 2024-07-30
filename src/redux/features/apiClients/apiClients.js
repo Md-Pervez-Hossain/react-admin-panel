@@ -19,10 +19,10 @@ const userApi = api.injectEndpoints({
       invalidatesTags: ['apiClients'],
     }),
     getAPiClients: builder.query({
-      query: () => {
+      query: (query) => {
         const token = JSON.parse(localStorage.getItem('loginAuth'))?.accessToken;
         return {
-          url: 'client/apiClient/list/',
+          url: `client/apiClient/list/?${query}`,
           method: "GET",
           headers: {
             Authorization: `Token ${token}`,

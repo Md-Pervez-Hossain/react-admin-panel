@@ -16,6 +16,8 @@ import {
 import Table from "../../share/Table/Table";
 import EditDevice from "./EditDevice";
 import CheckDeviceSim from "./CheckDeviceSim";
+import { useRef } from "react";
+import useClickOutside from "../../../hooks/useClickOutside";
 const Device = () => {
   const { parentVariant, childVariant } = usePageAnimation();
   // device add mutation
