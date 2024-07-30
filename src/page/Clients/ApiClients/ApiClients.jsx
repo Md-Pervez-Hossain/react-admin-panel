@@ -19,7 +19,7 @@ import DeleteModal from "../../../share/Modal/DeleteModal";
 import EditApiClients from "./EditApiClients";
 
 const ApiClients = () => {
-  const [searchText, setSearchText] = useState();
+  const [searchText, setSearchText] = useState("");
   const query = `q=${searchText}`;
   console.log(query);
   const {

@@ -19,10 +19,10 @@ const bulkSmsApi = api.injectEndpoints({
       invalidatesTags: ['bulkSms'],
     }),
     getbulkSmsClients: builder.query({
-      query: () => {
+      query: (query) => {
         const token = JSON.parse(localStorage.getItem('loginAuth'))?.accessToken;
         return {
-          url: 'client/bulkClient/list/',
+          url: `client/bulkClient/list/?${query}`,
           method: "GET",
           headers: {
             Authorization: `Token ${token}`,
