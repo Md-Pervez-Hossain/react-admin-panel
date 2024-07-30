@@ -39,7 +39,7 @@ const Modal = ({ isOpen, closeModal, children, title }) => {
             className="w-[90%] max-w-5xl bg-white text-black rounded-lg z-[60] modal-content transform scale-100 mx-auto max-h-[90vh] overflow-y-auto"
           >
             <div className="flex justify-between bg-primary/10 text-black p-5 rounded-t-lg sticky top-0 z-50">
-              <h2 className="text-[18px] font-[500]">{title}</h2>
+              <h2 className="text-[18px] font-[500] z-[999]">{title}</h2>
               <button onClick={closeModal}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

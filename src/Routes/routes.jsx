@@ -9,7 +9,7 @@ import Signup from "../page/Signup/Signup";
 // import History from "../page/History/History";
 // import Status from "../page/Status/Status";
 import Device from "../page/Device/Device";
-// import Sim from "../page/Sim/Sim";
+import Sim from "../page/Sim/Sim";
 import ApiClients from "../page/Clients/ApiClients/ApiClients";
 import BulkSmsClients from "../page/Clients/BulkSmsClients/BulkSmsClients";
 import PrivateRoute from "./PrivateRoute";
@@ -53,6 +53,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Device />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/sim",
+        element: (
+          <PrivateRoute>
+            <Sim />
           </PrivateRoute>
         ),
       },

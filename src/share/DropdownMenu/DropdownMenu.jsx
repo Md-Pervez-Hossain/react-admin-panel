@@ -14,6 +14,9 @@ const DropdownMenu = ({
   onEdit,
   onDelete,
   onDetails,
+  editTitle,
+  deleteTitle,
+  detailsTitle,
 }) => {
   // const dropdownRef = useRef(null);
   // useClickOutside(dropdownRef, () => toggleDropdown(null));
@@ -59,7 +62,7 @@ const DropdownMenu = ({
                 {typeof onEdit === "string" ? (
                   <Link to={onEdit} className="flex items-center gap-3">
                     <LuFolderEdit />
-                    <span>Edit</span>
+                    <span>{editTitle ? editTitle : "Edit"}</span>
                   </Link>
                 ) : (
                   <button
@@ -67,7 +70,7 @@ const DropdownMenu = ({
                     className="flex items-center gap-3 w-full"
                   >
                     <LuFolderEdit />
-                    <span>Edit</span>
+                    <span>{editTitle ? editTitle : "Edit"}</span>
                   </button>
                 )}
               </li>
@@ -79,7 +82,7 @@ const DropdownMenu = ({
                   className="flex items-center gap-3 w-full"
                 >
                   <RiDeleteBinLine />
-                  <span>Delete</span>
+                  <span>{deleteTitle ? deleteTitle : "Delete"}</span>
                 </button>
               </li>
             )}
@@ -88,7 +91,7 @@ const DropdownMenu = ({
                 {typeof onDetails === "string" ? (
                   <Link to={onDetails} className="flex items-center gap-3">
                     <CgDetailsMore />
-                    <span>Details</span>
+                    <span>{detailsTitle ? detailsTitle : "Details"}</span>
                   </Link>
                 ) : (
                   <button
@@ -96,7 +99,7 @@ const DropdownMenu = ({
                     className="flex items-center gap-3 w-full"
                   >
                     <CgDetailsMore />
-                    <span>Details</span>
+                    <span>{detailsTitle ? detailsTitle : "Details"}</span>
                   </button>
                 )}
               </li>

@@ -15,6 +15,7 @@ import {
 } from "../../redux/features/device/deviceApi";
 import Table from "../../share/Table/Table";
 import EditDevice from "./EditDevice";
+import CheckDeviceSim from "./CheckDeviceSim";
 const Device = () => {
   const { parentVariant, childVariant } = usePageAnimation();
   // device add mutation
@@ -73,7 +74,10 @@ const Device = () => {
             toggleDropdown={toggleDropdown}
             onEdit={() => openEditModal(itemData)}
             onDelete={() => openDeleteModal(itemData)}
-            onDetails={() => openDetailsModal(itemData.id)}
+            onDetails={() => openDetailsModal(itemData)}
+            editTitle=""
+            deleteTitle=""
+            detailsTitle="Check Sim"
           />
         );
       },
@@ -153,8 +157,10 @@ const Device = () => {
       <ActionModal
         isOpen={isDetailsModalOpen}
         closeModal={closeModals}
-        title="Device Details"
-        actionContent={<div>User Details Information {selectedUserId}</div>}
+        title="Device Sim"
+        actionContent={
+          <CheckDeviceSim data={selectedItemData} closeModal={closeModals} />
+        }
       />
     </Container>
   );

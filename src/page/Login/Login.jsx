@@ -18,9 +18,9 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isLoading },
+    formState: { errors },
   } = useForm();
-  const [login] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
 
   const handleLoginForm = async (value) => {
     const res = await login(value);
