@@ -31,6 +31,19 @@ const userApi = api.injectEndpoints({
       },
       providesTags: ['apiClients'],
     }),
+    getSingleAPiClients: builder.query({
+      query: (id) => {
+        const token = JSON.parse(localStorage.getItem('loginAuth'))?.accessToken;
+        return {
+          url: `client/apiClient/${id}/`,
+          method: "GET",
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        };
+      },
+      providesTags: ['apiClients'],
+    }),
     deleteApiClients: builder.mutation({
       query: (id) => {
         const token = JSON.parse(localStorage.getItem('loginAuth'))?.accessToken;
@@ -66,5 +79,6 @@ export const {
   useAddApiClientsMutation,
   useGetAPiClientsQuery,
   useDeleteApiClientsMutation,
-  useEditApiClientsMutation
+  useEditApiClientsMutation,
+  useGetSingleAPiClientsQuery
 } = userApi;

@@ -6,7 +6,7 @@ import Layout from "../Layout/Layout";
 import Signup from "../page/Signup/Signup";
 // import Users from "../page/Users/Users";
 // import Sms from "../page/Sms/Sms";
-// import History from "../page/History/History";
+import History from "../page/History/History";
 // import Status from "../page/Status/Status";
 import Device from "../page/Device/Device";
 import Sim from "../page/Sim/Sim";
@@ -61,6 +61,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Sim />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/history",
+        element: (
+          <PrivateRoute>
+            <History />
           </PrivateRoute>
         ),
       },

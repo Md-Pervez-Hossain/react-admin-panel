@@ -17,6 +17,7 @@ import {
 } from "../../../redux/features/apiClients/apiClients";
 import DeleteModal from "../../../share/Modal/DeleteModal";
 import EditApiClients from "./EditApiClients";
+import ApiClientDetails from "./ApiClientDetails";
 
 const ApiClients = () => {
   const [searchText, setSearchText] = useState("");
@@ -74,7 +75,7 @@ const ApiClients = () => {
             toggleDropdown={toggleDropdown}
             onEdit={() => openEditModal(itemData)}
             onDelete={() => openDeleteModal(itemData)}
-            onDetails={() => openDetailsModal(itemData.id)}
+            onDetails={() => openDetailsModal(itemData)}
           />
         );
       },
@@ -170,7 +171,7 @@ const ApiClients = () => {
         isOpen={isDetailsModalOpen}
         closeModal={closeModals}
         title="Api Clients Details"
-        actionContent={<div>User Details Information {selectedUserId}</div>}
+        actionContent={<ApiClientDetails data={selectedItemData} />}
       />
     </Container>
   );

@@ -37,12 +37,7 @@ export const menuData = {
     //   path: "/sms",
     //   subItems: [],
     // },
-    // {
-    //   name: "History",
-    //   icon: GoHistory,
-    //   path: "/history",
-    //   subItems: [],
-    // },
+
     // {
     //   name: "Status",
     //   icon: MdOutlineSignalWifiStatusbarNull,
@@ -53,6 +48,12 @@ export const menuData = {
       name: "Device",
       icon: PiDeviceRotate,
       path: "/device",
+      subItems: [],
+    },
+    {
+      name: "History",
+      icon: GoHistory,
+      path: "/history",
       subItems: [],
     },
     // {
