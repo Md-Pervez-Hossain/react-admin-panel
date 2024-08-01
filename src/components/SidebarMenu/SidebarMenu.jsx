@@ -229,10 +229,10 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
                               onClick={(e) =>
                                 handleSubItemClick(index, subIndex, e)
                               }
-                              className={`flex items-center gap-2  rounded-md  text-[16px]  font-normal hover:text-secondary transition-all duration-500 ${
+                              className={`flex items-center gap-2 whitespace-nowrap rounded-md  text-[16px]  font-normal hover:text-secondary transition-all duration-500 ${
                                 activeMainItem === index &&
                                 activeSubItem === subIndex
-                                  ? "text-secondary  "
+                                  ? "text-secondary   "
                                   : ""
                               }`}
                             >

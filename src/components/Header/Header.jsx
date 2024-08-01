@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { LuShoppingCart } from "react-icons/lu";
@@ -10,6 +10,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Logo from "../Logo/Logo";
 import { useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../../redux/features/auth/authApi";
+import toast from "react-hot-toast";
+import useClickOutside from "../../../hooks/useClickOutside";
 
 const Header = ({
   isMenuOpen,
@@ -21,16 +23,17 @@ const Header = ({
   const popoverRef = useRef(null);
   const navigate = useNavigate();
   const [logout] = useLogoutMutation();
+
   const handleLogout = async () => {
-    console.log("clicked");
     const res = await logout();
     if (res?.data?.msg) {
+      toast?.success(res?.data?.msg);
       navigate("/login");
     }
   };
 
   const togglePopover = () => {
-    setIsPopoverOpen(!isPopoverOpen);
+    setIsPopoverOpen((prev) => !prev);
   };
 
   const handleProfileLinkClick = () => {
@@ -48,7 +51,6 @@ const Header = ({
     },
     visible: {
       opacity: 1,
-
       scale: 1,
       transition: {
         duration: 0.3,
@@ -56,10 +58,17 @@ const Header = ({
     },
   };
 
+  // // Custom hook to close the popover when clicking outside
+  // useClickOutside(popoverRef, () => {
+  //   setTimeout(() => {
+  //     setIsPopoverOpen(false);
+  //   }, 0);
+  // });
+
   return (
-    <div className="bg-white border-b-2 border-b-primary/10 py-4 flex items-center justify-between sticky top-0 z-50 lg:pe-12 lg:ps-8 px-3 transition-shadow duration-300">
+    <div className="bg-white border-b-2 border-b-primary/10 py-4 flex items-center justify-between sticky top-0 z-50 lg:pe-8 lg:ps-8 px-3 transition-shadow duration-300">
       <div className="flex items-center gap-4">
-        <div className="hidden lg:flex ">
+        <div className="hidden lg:flex">
           {isdesktopSidebarOpen ? (
             <FaBars
               className="text-[17px] cursor-pointer"
@@ -114,7 +123,7 @@ const Header = ({
             variants={popoverVariants}
             className="absolute mt-[175px] w-48 bg-white border-2 right-[35px] border-primary/10 rounded-lg shadow-lg z-10"
           >
-            <div className="flex flex-col items-start gap-3 p-4 font-poppins font-normal text-base">
+            <div className="flex flex-col gap-2 p-4 font-poppins font-normal text-base">
               <button
                 className="flex items-center gap-3"
                 onClick={handleProfileLinkClick}

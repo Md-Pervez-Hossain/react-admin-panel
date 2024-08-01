@@ -141,7 +141,7 @@ const BulkSmsClients = () => {
               onClick={openAddModal}
             >
               <AiOutlinePlus className="" />
-              Add Api Clients
+              Add Bulk sms Clients
             </PrimaryButton>
           </motion.div>
         </motion.div>

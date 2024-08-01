@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { userLogout } from '../features/auth/authSlice';
 
 const baseQueryFn = fetchBaseQuery({
-  baseUrl: "http://192.168.124.143:8000",
+  baseUrl: "https://b701-180-94-28-218.ngrok-free.app/",
   prepareHeaders: async (headers, { getState }) => {
     const token = getState()?.auth?.accessToken;
 

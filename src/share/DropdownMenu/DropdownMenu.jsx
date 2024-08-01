@@ -19,7 +19,6 @@ const DropdownMenu = ({
   detailsTitle,
 }) => {
   const dropdownRef = useRef(null);
-
   useClickOutside(dropdownRef, () => {
     if (isOpen) {
       toggleDropdown(id);

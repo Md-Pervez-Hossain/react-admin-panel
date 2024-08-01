@@ -14,6 +14,9 @@ import ApiClients from "../page/Clients/ApiClients/ApiClients";
 import BulkSmsClients from "../page/Clients/BulkSmsClients/BulkSmsClients";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
+import Profile from "../page/Profile/Profile";
+import ApiClientsHistory from "../page/History/ApiClientsHistory/ApiClientsHistory";
+import BulkSmsClientHistory from "../page/History/BulkSmsClientHistory/BulkSmsClientHistory";
 
 const router = createBrowserRouter([
   {
@@ -65,10 +68,26 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/history",
+        path: "/api-clients-history",
         element: (
           <PrivateRoute>
-            <History />
+            <ApiClientsHistory />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/bulk-sms-clients-history",
+        element: (
+          <PrivateRoute>
+            <BulkSmsClientHistory />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRoute>
+            <Profile />
           </PrivateRoute>
         ),
       },

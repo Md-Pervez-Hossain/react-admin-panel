@@ -7,10 +7,10 @@ const AddApiClients = ({ closeModal }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isLoading },
+    formState: { errors },
   } = useForm();
 
-  const [addApiClients] = useAddApiClientsMutation();
+  const [addApiClients, { isLoading }] = useAddApiClientsMutation();
 
   const handleApiClients = async (value) => {
     const response = await addApiClients(value);
@@ -70,12 +70,14 @@ const AddApiClients = ({ closeModal }) => {
             {errors.balance && <span>{errors.balance.message}</span>}
           </div>
         </div>
-        <button
-          type="submit "
-          className="bg-primary text-white px-[12px] py-[8px] rounded-lg cursor-pointer mt-5 w-full"
-        >
-          {isLoading ? "Processing" : "Submit"}
-        </button>
+        <div className="flex justify-end">
+          <button
+            type="submit "
+            className="bg-primary text-white px-[12px] py-[8px] rounded-lg cursor-pointer mt-5 "
+          >
+            {isLoading ? "Processing" : "Submit"}
+          </button>
+        </div>
       </form>
     </div>
   );

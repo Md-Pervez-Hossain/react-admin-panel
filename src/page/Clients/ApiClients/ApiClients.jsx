@@ -21,8 +21,14 @@ import ApiClientDetails from "./ApiClientDetails";
 
 const ApiClients = () => {
   const [searchText, setSearchText] = useState("");
-  const query = `q=${searchText}`;
-  console.log(query);
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 5,
+  });
+
+  const query = `page=${pagination.pageIndex + 1}&limit=${
+    pagination.pageSize
+  }&q=${searchText}`;
   const {
     data: apiClientsData,
     isLoading,
@@ -93,7 +99,17 @@ const ApiClients = () => {
     content = <p>No Data Found</p>;
   }
   if (!isLoading && !isError && apiClientsData?.results?.length > 0) {
-    content = <Table columns={header} tabelData={apiClientsData?.results} />;
+    content = (
+      <Table
+        columns={header}
+        tabelData={apiClientsData?.results}
+        pagination={pagination}
+        setPagination={setPagination}
+        totalData={apiClientsData.count}
+        // search={searchText}
+        // setSearch={setSearchText}
+      />
+    );
   }
 
   return (
