@@ -129,7 +129,7 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
   const submenuVariants = {
     initial: {
       opacity: 0,
-      y: -20,
+      y: -10,
       transition: {
         duration: 0.3,
       },
@@ -145,7 +145,7 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
     exit: {
       opacity: 0,
       height: 0,
-      y: -20,
+      y: -10,
       transition: {
         duration: 0.3,
       },

@@ -28,7 +28,7 @@ const Breadcrumb = ({ title }) => {
 
   return (
     <div className="breadcrumbs flex flex-col gap-1 mb-5">
-      <p className="font-poppins text-[20px] font-semibold">{title}</p>
+      <p className="font-poppins text-[20px] font-medium">{title}</p>
       <div className="">{breadcrumbs}</div>
     </div>
   );

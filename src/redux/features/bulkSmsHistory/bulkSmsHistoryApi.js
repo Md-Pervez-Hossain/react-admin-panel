@@ -17,10 +17,24 @@ const bulkSmsHistoryApi = api.injectEndpoints({
       },
       providesTags: ['bulkSms'],
     }),
+    getBulkSmsHistoryDetails: builder.query({
+      query: (id) => {
+        const token = JSON.parse(localStorage.getItem('loginAuth'))?.accessToken;
+        return {
+          url: `/service/bulk-sms-history/${id}/`,
+          method: "GET",
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        };
+      },
+      providesTags: ['bulkSms'],
+    }),
 
   })
 })
 
 export const {
-  useGetBulkSmsHistoryQuery
+  useGetBulkSmsHistoryQuery,
+  useGetBulkSmsHistoryDetailsQuery
 } = bulkSmsHistoryApi;

@@ -1,4 +1,3 @@
-import React from "react";
 import usePageAnimation from "../../../../hooks/usePageAnimation";
 import { motion } from "framer-motion";
 import Breadcrumb from "../../../share/Breadcrumb/Breadcrumb";
@@ -7,35 +6,21 @@ import { useGetBulkSmsHistoryQuery } from "../../../redux/features/bulkSmsHistor
 import useModalDropdown from "../../../../hooks/useModalDropdown";
 import DropdownMenu from "../../../share/DropdownMenu/DropdownMenu";
 import Table from "../../../share/Table/Table";
-import PrimaryButton from "../../../share/Buttons/PrimaryButton";
-import { AiOutlinePlus } from "react-icons/ai";
+
 import ActionModal from "../../../share/ActionModal/ActionModal";
 import BulkSmsClientsHistoryDetails from "./BulkSmsClientsHistoryDetails";
 const BulkSmsClientHistory = () => {
   const { parentVariant, childVariant } = usePageAnimation();
 
-  const {
-    data: deviceData,
-    isLoading,
-    isError,
-    isSuccess,
-    error,
-  } = useGetBulkSmsHistoryQuery();
+  const { data: deviceData, isLoading, isError } = useGetBulkSmsHistoryQuery();
   console.log(deviceData);
 
   const {
     dropdownOpenId,
-    selectedUserId,
     selectedItemData,
-    isAddModalOpen,
-    isEditModalOpen,
-    isDeleteModalOpen,
     isDetailsModalOpen,
     toggleDropdown,
-    openAddModal,
-    openDeleteModal,
     openDetailsModal,
-    openEditModal,
     closeModals,
   } = useModalDropdown();
 
