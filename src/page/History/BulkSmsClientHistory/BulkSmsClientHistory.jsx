@@ -50,7 +50,7 @@ const BulkSmsClientHistory = () => {
             toggleDropdown={toggleDropdown}
             onEdit={""}
             onDelete={""}
-            onDetails={() => openDetailsModal(itemData)}
+            onDetails={`/bulk-sms-clients-history/${itemData.id}`}
             editTitle=""
             deleteTitle=""
             detailsTitle=""

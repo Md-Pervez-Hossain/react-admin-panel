@@ -45,12 +45,10 @@ const SidebarMenu = ({ isMenuOpen, setIsMenuOpen, isdesktopSidebarOpen }) => {
     } else {
       // Check if we're collapsing the expanded menu
       const isCollapsing = expandedMenu === index;
-
       // Toggle the expansion of the menu
       setExpandedMenu((prev) => (prev === index ? null : index));
       setActiveMainItem(index);
       setActiveSubItem(null);
-
       // Only navigate if we're expanding the menu, not collapsing
       if (!isCollapsing) {
         // Navigate to the main item path if it exists, or the first sub-item

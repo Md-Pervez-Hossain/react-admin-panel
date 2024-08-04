@@ -1,6 +1,4 @@
-import React from "react";
 import { useForm } from "react-hook-form";
-import { useGetAPiClientsQuery } from "../../../redux/features/apiClients/apiClients";
 import { useAddbulkSmsSendMutation } from "../../../redux/features/bulkSmsSend/bulkSmsSendApi";
 import toast from "react-hot-toast";
 import { useGetbulkSmsClientsQuery } from "../../../redux/features/bulkSmsClient/bulkSmsClient";
@@ -24,7 +22,6 @@ const SendBulkSms = ({ closeModal }) => {
     data.append("csvFile", formData.csvFile[0]);
 
     const response = await addBulkSmsSend(data);
-    console.log(response);
     if (response?.data?.msg) {
       toast.success("Successfully Sent Bulk SMS");
       closeModal();
@@ -35,6 +32,18 @@ const SendBulkSms = ({ closeModal }) => {
     <div className="">
       <form onSubmit={handleSubmit(handleApiClients)}>
         <div>
+          <div className="flex flex-col gap-[4px] mb-[6px]">
+            <label>Bulk Sms Name</label>
+            <input
+              {...register("jobName", {
+                required: "Attachment is required",
+              })}
+              className="px-4 py-2 border border-gray-300 focus:outline-none rounded-lg"
+              placeholder="Enter Sms Name"
+              type="text"
+            />
+            {errors.jobName && <span>{errors.jobName.message}</span>}
+          </div>
           <div className="flex flex-col gap-[4px] mb-[6px]">
             <label>Client Name</label>
             <select
