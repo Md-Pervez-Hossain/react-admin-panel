@@ -65,8 +65,12 @@ const BulkSmsClients = () => {
       header: "Bulk Sms Send",
       id: "action",
       cell: ({ row }) => {
+        const itemData = row.original;
         return (
-          <PrimaryButton className="text-center" onClick={openModal}>
+          <PrimaryButton
+            className="text-center"
+            onClick={() => openModal(itemData)}
+          >
             Bulk SMS Send
           </PrimaryButton>
         );
@@ -159,7 +163,9 @@ const BulkSmsClients = () => {
         isOpen={isOpenModal}
         closeModal={closeModals}
         title="Bulk Sms Send"
-        actionContent={<SendBulkSms closeModal={closeModals} />}
+        actionContent={
+          <SendBulkSms data={selectedItemData} closeModal={closeModals} />
+        }
       />
 
       <ActionModal

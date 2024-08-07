@@ -2,13 +2,14 @@ import { useForm } from "react-hook-form";
 import { useAddbulkSmsSendMutation } from "../../../redux/features/bulkSmsSend/bulkSmsSendApi";
 import toast from "react-hot-toast";
 import { useGetbulkSmsClientsQuery } from "../../../redux/features/bulkSmsClient/bulkSmsClient";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
-const SendBulkSms = ({ closeModal }) => {
-  const navigate = useNavigate();
+const SendBulkSms = ({ data, closeModal }) => {
+  const { id } = data;
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -17,12 +18,16 @@ const SendBulkSms = ({ closeModal }) => {
 
   const { data: apiClientsData, isLoading } = useGetbulkSmsClientsQuery();
 
+  useEffect(() => {
+    setValue("client", id);
+  });
+
   const handleApiClients = async (formData) => {
     const data = new FormData();
-    data.append("client", formData.client);
-    data.append("message", formData.message);
-    data.append("jobName", formData.jobName);
-    data.append("csvFile", formData.csvFile[0]);
+    formData.append("client", formData.client);
+    formData.append("message", formData.message);
+    formData.append("jobName", formData.jobName);
+    formData.append("csvFile", formData.csvFile[0]);
 
     const response = await addBulkSmsSend(data);
     if (response?.data?.msg) {
@@ -32,7 +37,7 @@ const SendBulkSms = ({ closeModal }) => {
   };
 
   return (
-    <div className="">
+    <div>
       <form onSubmit={handleSubmit(handleApiClients)}>
         <div>
           <div className="flex flex-col gap-[4px] mb-[6px]">
@@ -51,15 +56,14 @@ const SendBulkSms = ({ closeModal }) => {
             <label>Client Name</label>
             <select
               {...register("client", { required: "Client Name is Required" })}
-              className={`w-full px-2 py-2 rounded-lg border-2 border-borderColor focus:border-borderColor focus:ring-darkOrange outline-none`}
+              className="w-full px-2 py-2 rounded-lg border-2 border-borderColor focus:border-borderColor focus:ring-darkOrange outline-none"
             >
               <option value="">Select Client</option>
-              {apiClientsData?.results?.length > 0 &&
-                apiClientsData?.results?.map((item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.username}
-                  </option>
-                ))}
+              {apiClientsData?.results?.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.username}
+                </option>
+              ))}
             </select>
             {errors.client && (
               <p className="text-darkOrange">{errors.client.message}</p>

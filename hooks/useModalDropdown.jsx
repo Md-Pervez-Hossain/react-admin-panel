@@ -16,7 +16,10 @@ const useModalDropdown = () => {
   };
 
   const openAddModal = () => setAddModalOpen(true);
-  const openModal = () => setIsOpenModal(true);
+  const openModal = (item) => {
+    setIsOpenModal(true);
+    setSelectedItemData(item);
+  };
   const openEditModal = (item) => {
     setSelectedUserId(item?.id);
     setEditModalOpen(true);
