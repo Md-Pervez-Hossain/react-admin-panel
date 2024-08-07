@@ -2,8 +2,10 @@ import { useForm } from "react-hook-form";
 import { useAddbulkSmsSendMutation } from "../../../redux/features/bulkSmsSend/bulkSmsSendApi";
 import toast from "react-hot-toast";
 import { useGetbulkSmsClientsQuery } from "../../../redux/features/bulkSmsClient/bulkSmsClient";
+import { useNavigate } from "react-router-dom";
 
 const SendBulkSms = ({ closeModal }) => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -19,6 +21,7 @@ const SendBulkSms = ({ closeModal }) => {
     const data = new FormData();
     data.append("client", formData.client);
     data.append("message", formData.message);
+    data.append("jobName", formData.jobName);
     data.append("csvFile", formData.csvFile[0]);
 
     const response = await addBulkSmsSend(data);

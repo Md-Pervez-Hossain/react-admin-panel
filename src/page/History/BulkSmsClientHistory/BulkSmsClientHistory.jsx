@@ -6,9 +6,11 @@ import { useGetBulkSmsHistoryQuery } from "../../../redux/features/bulkSmsHistor
 import useModalDropdown from "../../../../hooks/useModalDropdown";
 import DropdownMenu from "../../../share/DropdownMenu/DropdownMenu";
 import Table from "../../../share/Table/Table";
-
+import { IoMdArrowForward } from "react-icons/io";
 import ActionModal from "../../../share/ActionModal/ActionModal";
 import BulkSmsClientsHistoryDetails from "./BulkSmsClientsHistoryDetails";
+import { Link } from "react-router-dom";
+import PrimaryButton from "../../../share/Buttons/PrimaryButton";
 const BulkSmsClientHistory = () => {
   const { parentVariant, childVariant } = usePageAnimation();
 
@@ -28,13 +30,13 @@ const BulkSmsClientHistory = () => {
 
   const header = [
     { header: "Client Name", accessorKey: "client" },
-    // {
-    //   header: "Sms Send",
-    //   accessorKey: "smsSent",
-    // },
-    // { header: "Failed Sms", accessorKey: "smsFailed" },
+    { header: "Sms Name", accessorKey: "jobName" },
+    {
+      header: "Successful",
+      accessorKey: "smsSent",
+    },
+    { header: "Failed", accessorKey: "smsFailed" },
     { header: "Total Sms", accessorKey: "totalSMS" },
-    { header: "Status", accessorKey: "processStatus" },
 
     {
       header: "Action",
@@ -44,17 +46,11 @@ const BulkSmsClientHistory = () => {
         const isOpen = dropdownOpenId === itemData.id;
 
         return (
-          <DropdownMenu
-            id={itemData.id}
-            isOpen={isOpen}
-            toggleDropdown={toggleDropdown}
-            onEdit={""}
-            onDelete={""}
-            onDetails={`/bulk-sms-clients-history/${itemData.id}`}
-            editTitle=""
-            deleteTitle=""
-            detailsTitle=""
-          />
+          <Link to={`/bulk-sms-clients-history/${itemData.id}`}>
+            <button className="flex items-center gap-2 bg-primary/70 px-4 py-2 rounded-md text-white">
+              <span> View</span> <IoMdArrowForward />
+            </button>
+          </Link>
         );
       },
     },

@@ -1,21 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useUpdateProfileMutation } from "../../redux/features/profile/profileApi";
 
-const UpdateProfile = () => {
+const UpdateProfile = ({ data, closeModal }) => {
+  const { bio, profile_picture, username, email } = data;
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isLoading },
+    setValue,
+    formState: { errors },
   } = useForm();
 
-  const handleApiClients = async (value) => {
-    console.log(value);
-    // const response = await addApiClients(value);
-    // console.log(response);
-    // if (response?.data?.msg) {
-    //   toast.success("Api Clients Added");
-    //   closeModal();
-    // }
+  const [updateProfile, { isLoading }] = useUpdateProfileMutation();
+
+  useEffect(() => {
+    setValue("username", username);
+    setValue("email", email);
+    setValue("bio", bio);
+  }, [bio, profile_picture, username, email, setValue]);
+
+  const handleApiClients = async (formData) => {
+    console.log(formData);
+    const data = new FormData();
+    data.append("username", formData.username);
+    data.append("email", formData.email);
+    data.append("bio", formData.bio);
+
+    if (formData.profile_picture[0]) {
+      data.append("profile_picture", formData.profile_picture[0]);
+    }
+
+    const response = await updateProfile(data);
+    console.log(response);
+    if (response?.data?.msg || response?.data) {
+      toast.success("Successfully Profile Updated");
+      closeModal();
+    }
   };
 
   return (
@@ -59,14 +81,11 @@ const UpdateProfile = () => {
           <div className="flex flex-col gap-[4px]">
             <label>Profile Pic</label>
             <input
-              {...register("image", {
-                required: "image is required",
-              })}
+              {...register("profile_picture")}
               className="px-4 py-2 border border-gray-300 focus:outline-none rounded-lg"
               placeholder="Enter organization"
               type="file"
             />
-            {errors.image && <span>{errors.image.message}</span>}
           </div>
         </div>
         <div className="flex justify-end">

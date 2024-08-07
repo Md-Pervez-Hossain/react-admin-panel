@@ -3,7 +3,6 @@ import Login from "../page/Login/Login";
 import Dashboard from "../page/Dashboard/Dashboard";
 import Layout from "../Layout/Layout";
 import Signup from "../page/Signup/Signup";
-import History from "../page/History/History";
 import Device from "../page/Device/Device";
 import Sim from "../page/Sim/Sim";
 import ApiClients from "../page/Clients/ApiClients/ApiClients";

@@ -7,23 +7,23 @@ import PrimaryButton from "../../share/Buttons/PrimaryButton";
 import useModalDropdown from "../../../hooks/useModalDropdown";
 import ActionModal from "../../share/ActionModal/ActionModal";
 import UpdateProfile from "./UpdateProfile";
+import { useGetProfileQuery } from "../../redux/features/profile/profileApi";
 const Profile = () => {
   const { parentVariant, childVariant } = usePageAnimation();
-  const {
-    dropdownOpenId,
-    selectedUserId,
-    selectedItemData,
-    isAddModalOpen,
-    isEditModalOpen,
-    isDeleteModalOpen,
-    isDetailsModalOpen,
-    toggleDropdown,
-    openAddModal,
-    openDeleteModal,
-    openDetailsModal,
-    openEditModal,
-    closeModals,
-  } = useModalDropdown();
+
+  const { data: profileInfo, isLoading, isError, error } = useGetProfileQuery();
+
+  let content;
+  if (isLoading && !isError) {
+    content = <p>Loading......</p>;
+  } else {
+    content = profileInfo;
+  }
+
+  console.log(content);
+
+  const { bio, profile_picture, username, email } = content;
+  const { isAddModalOpen, openAddModal, closeModals } = useModalDropdown();
   return (
     <motion.div variants={parentVariant} initial="hidden" animate="visible">
       <Container>
@@ -32,33 +32,30 @@ const Profile = () => {
 
           <motion.div
             variants={childVariant}
-            className="flex  gap-10 items-center"
+            className="grid grid-cols-3  gap-10 items-center"
           >
             <img
-              src="../../../public/assets/avatar.png"
+              src={profile_picture}
               alt="profile pic"
               className="w-full rounded-md border-2 border-primary/10"
             />
-            <div>
+            <div className="col-span-2">
               <div className="flex items-center justify-between">
-                <motion.h2
-                  variants={childVariant}
-                  className="text-2xl font-semibold "
-                >
-                  User Name
-                </motion.h2>
+                <div>
+                  <motion.h2
+                    variants={childVariant}
+                    className="text-2xl font-semibold "
+                  >
+                    {username}
+                  </motion.h2>
+                  <p>{email}</p>
+                </div>
                 <motion.div variants={childVariant} onClick={openAddModal}>
                   <PrimaryButton>Update Profile</PrimaryButton>
                 </motion.div>
               </div>
               <motion.p variants={childVariant} className="py-5">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga
-                provident consequatur labore. Earum consequuntur quod amet
-                tenetur temporibus vel accusantium alias eaque perspiciatis
-                dolorum quaerat iure praesentium, dolore, facilis quibusdam
-                expedita, velit fugiat enim tempore optio labore adipisci cum
-                ad? Esse sed voluptatum doloremque, nemo magnam sint adipisci.
-                Laborum, nobis?
+                {bio}
               </motion.p>
             </div>
           </motion.div>
@@ -68,7 +65,9 @@ const Profile = () => {
         isOpen={isAddModalOpen}
         closeModal={closeModals}
         title="Update Profile"
-        actionContent={<UpdateProfile closeModal={closeModals} />}
+        actionContent={
+          <UpdateProfile data={content} closeModal={closeModals} />
+        }
       />
     </motion.div>
   );
