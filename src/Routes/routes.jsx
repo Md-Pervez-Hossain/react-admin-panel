@@ -1,13 +1,9 @@
-// src/routes.js
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import Login from "../page/Login/Login";
 import Dashboard from "../page/Dashboard/Dashboard";
 import Layout from "../Layout/Layout";
 import Signup from "../page/Signup/Signup";
-// import Users from "../page/Users/Users";
-// import Sms from "../page/Sms/Sms";
 import History from "../page/History/History";
-// import Status from "../page/Status/Status";
 import Device from "../page/Device/Device";
 import Sim from "../page/Sim/Sim";
 import ApiClients from "../page/Clients/ApiClients/ApiClients";
@@ -30,82 +26,40 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard",
-        element: (
-          <PrivateRoute>
-            <Dashboard />
-          </PrivateRoute>
-        ),
+        element: <Dashboard />,
       },
       {
         path: "/clients/api-clients",
-        element: (
-          <PrivateRoute>
-            <ApiClients />
-          </PrivateRoute>
-        ),
+        element: <ApiClients />,
       },
       {
         path: "/clients/bulk-sms-clients",
-        element: (
-          <PrivateRoute>
-            <BulkSmsClients />
-          </PrivateRoute>
-        ),
+        element: <BulkSmsClients />,
       },
       {
         path: "/device",
-        element: (
-          <PrivateRoute>
-            <Device />
-          </PrivateRoute>
-        ),
+        element: <Device />,
       },
       {
         path: "/sim",
-        element: (
-          <PrivateRoute>
-            <Sim />
-          </PrivateRoute>
-        ),
+        element: <Sim />,
       },
       {
         path: "/api-clients-history",
-        element: (
-          <PrivateRoute>
-            <ApiClientsHistory />
-          </PrivateRoute>
-        ),
+        element: <ApiClientsHistory />,
       },
       {
         path: "/bulk-sms-clients-history",
-        element: (
-          <PrivateRoute>
-            <BulkSmsClientHistory />
-          </PrivateRoute>
-        ),
+        element: <BulkSmsClientHistory />,
       },
       {
         path: `/bulk-sms-clients-history/:id`,
-        element: (
-          <PrivateRoute>
-            <BulkSmsClientsHistoryDetails />
-          </PrivateRoute>
-        ),
+        element: <BulkSmsClientsHistoryDetails />,
       },
       {
         path: "/profile",
-        element: (
-          <PrivateRoute>
-            <Profile />
-          </PrivateRoute>
-        ),
+        element: <Profile />,
       },
-      // { path: "/users", element: <PrivateRoute element={<Users />} /> },
-      // { path: "/sms", element: <PrivateRoute element={<Sms />} /> },
-      // { path: "/history", element: <PrivateRoute element={<History />} /> },
-      // { path: "/status", element: <PrivateRoute element={<Status />} /> },
-      // { path: "/device", element: <PrivateRoute element={} /> },
-      // { path: "/sim", element: <PrivateRoute element={<Sim />} /> },
     ],
   },
   {

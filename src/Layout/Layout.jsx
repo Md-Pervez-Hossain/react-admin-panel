@@ -7,19 +7,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useSelector } from "react-redux";
 
 const Layout = () => {
-  const accessToken = useSelector((state) => state?.auth?.accessToken);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (accessToken) {
-      navigate("/dashboard");
-    }
-  }, [accessToken, navigate]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isdesktopSidebarOpen, setIsdesktopSidebarOpen] = useState(true);
-
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
   const toogleDesktopSidebar = () => {
     setIsdesktopSidebarOpen(!isdesktopSidebarOpen);
   };
