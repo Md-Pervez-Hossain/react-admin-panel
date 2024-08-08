@@ -22,7 +22,6 @@ const UpdateProfile = ({ data, closeModal }) => {
   }, [bio, profile_picture, username, email, setValue]);
 
   const handleApiClients = async (formData) => {
-    console.log(formData);
     const data = new FormData();
     data.append("username", formData.username);
     data.append("email", formData.email);

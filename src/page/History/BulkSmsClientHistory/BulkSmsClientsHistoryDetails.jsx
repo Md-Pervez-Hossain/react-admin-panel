@@ -1,15 +1,79 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useGetBulkSmsHistoryDetailsQuery } from "../../../redux/features/bulkSmsHistory/bulkSmsHistoryApi";
 import Container from "../../../share/ui/Container/Container";
+import usePageAnimation from "../../../../hooks/usePageAnimation";
+import Table from "../../../share/Table/Table";
+import { useState } from "react";
 
 const BulkSmsClientsHistoryDetails = () => {
+  const [searchText, setSearchText] = useState("");
+  console.log(searchText);
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 5,
+  });
+
+  const query = `page=${pagination.pageIndex + 1}&limit=${
+    pagination.pageSize
+  }&status=${searchText}`;
   const { id } = useParams();
-  const { data: bulkSmsHistoryDetails } = useGetBulkSmsHistoryDetailsQuery(id);
+  const {
+    data: bulkSmsHistoryDetails,
+    isLoading,
+    isError,
+    error,
+    isSuccess,
+  } = useGetBulkSmsHistoryDetailsQuery({ id, query });
   console.log(bulkSmsHistoryDetails);
+  const { parentVariant, childVariant } = usePageAnimation();
+
+  const header = [
+    { header: "Number", accessorKey: "phoneNumber" },
+    {
+      header: "status",
+      accessorKey: "status",
+      cell: ({ row }) => {
+        const { status } = row.original;
+
+        return status === "Failed" ? (
+          <span className="bg-red-200 text-red-500 px-4 py-2 rounded-md ">
+            {status}
+          </span>
+        ) : (
+          <span className="bg-green-200 text-green-600 px-4 py-2 rounded-md ">
+            {status}
+          </span>
+        );
+      },
+    },
+  ];
+
+  let content;
+  if (isLoading && !isError) {
+    content = <p>Loading</p>;
+  }
+  if (!isLoading && isError) {
+    content = <p>Error</p>;
+  }
+  if (!isLoading && !isError && bulkSmsHistoryDetails?.results?.length === 0) {
+    content = <p>No Data Found</p>;
+  }
+  if (!isLoading && !isError && bulkSmsHistoryDetails?.results?.length > 0) {
+    content = (
+      <Table
+        columns={header}
+        tabelData={bulkSmsHistoryDetails?.results}
+        pagination={pagination}
+        setPagination={setPagination}
+        totalData={bulkSmsHistoryDetails.count}
+      />
+    );
+  }
+
   return (
     <Container>
       {" "}
-      <div>
+      <div className="flex justify-between items-end">
         <div className="pt-2 pb-5 flex flex-col gap-2">
           <h2>
             {" "}
@@ -51,7 +115,19 @@ const BulkSmsClientsHistoryDetails = () => {
             {bulkSmsHistoryDetails?.message}
           </h2>
         </div>
-        <div className=" shadow-lg">
+        <div className="flex flex-col gap-[4px] mb-[6px]">
+          <select
+            onChange={(e) => setSearchText(e.target.value)}
+            className="w-full px-4 py-2 rounded-lg border-2 border-borderColor focus:border-borderColor focus:ring-darkOrange outline-none"
+          >
+            <option value="">Select </option>
+            <option value="Succeed">Success </option>
+            <option value="Failed">Failed </option>
+          </select>
+        </div>
+      </div>
+      {content}
+      {/* <div className=" shadow-lg">
           <table className="min-w-full">
             <thead className="bg-primary/10 rounded-lg">
               <tr>
@@ -79,8 +155,7 @@ const BulkSmsClientsHistoryDetails = () => {
               })}
             </tbody>
           </table>
-        </div>
-      </div>
+        </div> */}
     </Container>
   );
 };

@@ -17,7 +17,7 @@ const bulkSmsSendApi = api.injectEndpoints({
         };
       },
 
-      invalidatesTags: ['bulkSmsSend'],
+      invalidatesTags: ['bulkSmsSend', 'status'],
     }),
     // getbulkSmsClients: builder.query({
     //   query: (query) => {

@@ -2,6 +2,7 @@ import { RxDashboard } from "react-icons/rx";
 import { GoHistory } from "react-icons/go";
 import { PiDeviceRotate } from "react-icons/pi";
 import { FiUsers } from "react-icons/fi";
+import { MdOutlineSignalWifiStatusbarNull } from "react-icons/md";
 
 export const menuData = {
   menu: [
@@ -44,6 +45,12 @@ export const menuData = {
       name: "Device",
       icon: PiDeviceRotate,
       path: "/device",
+      subItems: [],
+    },
+    {
+      name: "Status",
+      icon: MdOutlineSignalWifiStatusbarNull,
+      path: "/status",
       subItems: [],
     },
     {

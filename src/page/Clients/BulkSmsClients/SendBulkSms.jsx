@@ -3,8 +3,10 @@ import { useAddbulkSmsSendMutation } from "../../../redux/features/bulkSmsSend/b
 import toast from "react-hot-toast";
 import { useGetbulkSmsClientsQuery } from "../../../redux/features/bulkSmsClient/bulkSmsClient";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SendBulkSms = ({ data, closeModal }) => {
+  const navigate = useNavigate();
   const { id } = data;
   const {
     register,
@@ -22,23 +24,25 @@ const SendBulkSms = ({ data, closeModal }) => {
     setValue("client", id);
   });
 
-  const handleApiClients = async (formData) => {
-    const data = new FormData();
-    formData.append("client", formData.client);
-    formData.append("message", formData.message);
-    formData.append("jobName", formData.jobName);
-    formData.append("csvFile", formData.csvFile[0]);
+  const handleBulkSms = async (values) => {
+    console.log(values);
+    const formData = new FormData();
+    formData.append("client", values.client);
+    formData.append("message", values.message);
+    formData.append("jobName", values.jobName);
+    formData.append("csvFile", values.csvFile[0]);
 
-    const response = await addBulkSmsSend(data);
+    const response = await addBulkSmsSend(formData);
     if (response?.data?.msg) {
       toast.success("Successfully Sent Bulk SMS");
       closeModal();
+      navigate("/status");
     }
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit(handleApiClients)}>
+      <form onSubmit={handleSubmit(handleBulkSms)}>
         <div>
           <div className="flex flex-col gap-[4px] mb-[6px]">
             <label>Bulk Sms Name</label>

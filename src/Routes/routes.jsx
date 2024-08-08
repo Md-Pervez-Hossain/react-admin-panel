@@ -13,6 +13,9 @@ import Profile from "../page/Profile/Profile";
 import ApiClientsHistory from "../page/History/ApiClientsHistory/ApiClientsHistory";
 import BulkSmsClientHistory from "../page/History/BulkSmsClientHistory/BulkSmsClientHistory";
 import BulkSmsClientsHistoryDetails from "../page/History/BulkSmsClientHistory/BulkSmsClientsHistoryDetails";
+import Status from "../page/Status/BulkSmsStatus/BulkSmsStatus";
+import BulkSmsStatus from "../page/Status/BulkSmsStatus/BulkSmsStatus";
+import BulkSmsStatusDetails from "../page/Status/BulkSmsStatus/BulkSmsStatusDetails";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +61,14 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
+      },
+      {
+        path: "/status",
+        element: <BulkSmsStatus />,
+      },
+      {
+        path: "/status/:id",
+        element: <BulkSmsStatusDetails />,
       },
     ],
   },
