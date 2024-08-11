@@ -42,7 +42,7 @@ const Table = ({
     table.resetPagination();
   }, [search]);
   return (
-    <div className="overflow-x-auto py-5 relative rounded-lg ">
+    <div className="overflow-x-auto py-5 relative rounded-lg  font-poppins ">
       <table className="w-full table-auto min-w-max shadow-lg  bg-white ">
         <thead>
           {table?.getHeaderGroups().map((headerGroup) => (
@@ -68,7 +68,7 @@ const Table = ({
                 {row?.getVisibleCells()?.map((cell) => (
                   <td
                     key={cell?.id}
-                    className="p-5 font-[400] text-grayText text-start "
+                    className="p-5  text-grayText text-start font-poppins  font-normal text-[15px]"
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>

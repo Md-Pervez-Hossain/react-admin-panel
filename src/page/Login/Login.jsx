@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import PrimaryButton from "../../share/Buttons/PrimaryButton";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -8,9 +7,7 @@ import toast from "react-hot-toast";
 
 const Login = () => {
   const accessToken = useSelector((state) => state?.auth?.accessToken);
-  console.log(accessToken);
   const navigate = useNavigate();
-
   useEffect(() => {
     if (accessToken) {
       navigate("/");
@@ -25,11 +22,11 @@ const Login = () => {
 
   const handleLoginForm = async (value) => {
     const res = await login(value);
-    try {
-      if (res?.data?.token) {
-        navigate("/dashboard");
-      }
-    } catch (error) {
+    console.log(res);
+    if (res?.data?.token) {
+      navigate("/dashboard");
+    }
+    if (res?.error?.status === 400) {
       toast?.error(res?.error?.data?.msg);
     }
   };

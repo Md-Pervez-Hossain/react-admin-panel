@@ -1,11 +1,17 @@
 import { Link, useParams } from "react-router-dom";
-import { useGetBulkSmsHistoryDetailsQuery } from "../../../redux/features/bulkSmsHistory/bulkSmsHistoryApi";
+import {
+  useAddbulkSmsHistoryResendMutation,
+  useGetBulkSmsHistoryDetailsQuery,
+} from "../../../redux/features/bulkSmsHistory/bulkSmsHistoryApi";
 import Container from "../../../share/ui/Container/Container";
 import usePageAnimation from "../../../../hooks/usePageAnimation";
 import Table from "../../../share/Table/Table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import PrimaryButton from "../../../share/Buttons/PrimaryButton";
+import { useDispatch } from "react-redux";
 
 const BulkSmsClientsHistoryDetails = () => {
+  const [resendState, setReSendState] = useState("");
   const [searchText, setSearchText] = useState("");
   console.log(searchText);
   const [pagination, setPagination] = useState({
@@ -17,6 +23,9 @@ const BulkSmsClientsHistoryDetails = () => {
     pagination.pageSize
   }&status=${searchText}`;
   const { id } = useParams();
+
+  const [resend, { isLoading: resendLoading }] =
+    useAddbulkSmsHistoryResendMutation();
   const {
     data: bulkSmsHistoryDetails,
     isLoading,
@@ -39,10 +48,16 @@ const BulkSmsClientsHistoryDetails = () => {
           <span className="bg-red-200 text-red-500 px-4 py-2 rounded-md ">
             {status}
           </span>
-        ) : (
-          <span className="bg-green-200 text-green-600 px-4 py-2 rounded-md ">
+        ) : status === "Succeed" ? (
+          <span className="bg-green-200 text-green-500 px-4 py-2 rounded-md ">
             {status}
           </span>
+        ) : status === "Resending" ? (
+          <span className="bg-gray-200 text-gray-500 px-4 py-2 rounded-md ">
+            {status}
+          </span>
+        ) : (
+          <span>{status}</span>
         );
       },
     },
@@ -70,28 +85,38 @@ const BulkSmsClientsHistoryDetails = () => {
     );
   }
 
+  const handleResend = async () => {
+    const res = await resend(id);
+    console.log(res);
+    setReSendState(res?.data?.processStatus);
+  };
+
   return (
     <Container>
       {" "}
       <div className="flex justify-between items-end">
         <div className="pt-2 pb-5 flex flex-col gap-2">
-          <h2>
-            {" "}
-            <span className="font-medium font-poppins">Client Name :</span>{" "}
-            {bulkSmsHistoryDetails?.client?.username}
-          </h2>
-          <h2>
-            {" "}
-            <span className="font-medium font-poppins">
-              Organisation :
-            </span>{" "}
-            {bulkSmsHistoryDetails?.client?.organization}
-          </h2>
-          <h2>
-            {" "}
-            <span className="font-medium font-poppins">Balance :</span>{" "}
-            {bulkSmsHistoryDetails?.client?.balance} unit
-          </h2>
+          <div className="flex items-center gap-5">
+            <h2>
+              {" "}
+              <span className="font-medium font-poppins">
+                Client Name :
+              </span>{" "}
+              {bulkSmsHistoryDetails?.client?.username}
+            </h2>
+            <h2>
+              {" "}
+              <span className="font-medium font-poppins">
+                Organisation :
+              </span>{" "}
+              {bulkSmsHistoryDetails?.client?.organization}
+            </h2>
+            <h2>
+              {" "}
+              <span className="font-medium font-poppins">Balance :</span>{" "}
+              {bulkSmsHistoryDetails?.client?.balance} unit
+            </h2>
+          </div>
           <div className="flex items-center gap-5">
             <h2>
               <span className="font-medium font-poppins">Total SMS :</span>{" "}
@@ -115,15 +140,31 @@ const BulkSmsClientsHistoryDetails = () => {
             {bulkSmsHistoryDetails?.message}
           </h2>
         </div>
-        <div className="flex flex-col gap-[4px] mb-[6px]">
-          <select
-            onChange={(e) => setSearchText(e.target.value)}
-            className="w-full px-4 py-2 rounded-lg border-2 border-borderColor focus:border-borderColor focus:ring-darkOrange outline-none"
+        <div className="flex items-center gap-5">
+          <button
+            className={`bg-primary px-4 py-2 rounded-md text-white ${
+              bulkSmsHistoryDetails?.processStatus === "Resending"
+                ? "opacity-50 cursor-not-allowed"
+                : ""
+            }`}
+            onClick={handleResend}
+            disabled={bulkSmsHistoryDetails?.processStatus === "Resending"}
           >
-            <option value="">Select </option>
-            <option value="Succeed">Success </option>
-            <option value="Failed">Failed </option>
-          </select>
+            {bulkSmsHistoryDetails?.processStatus === "Resending"
+              ? "Resending"
+              : "Re-Send"}
+          </button>
+
+          <div className="flex flex-col gap-[4px] ">
+            <select
+              onChange={(e) => setSearchText(e.target.value)}
+              className="w-full px-4 py-2 rounded-lg border-2 border-borderColor focus:border-borderColor focus:ring-darkOrange outline-none"
+            >
+              <option value="">Select </option>
+              <option value="Succeed">Success </option>
+              <option value="Failed">Failed </option>
+            </select>
+          </div>
         </div>
       </div>
       {content}

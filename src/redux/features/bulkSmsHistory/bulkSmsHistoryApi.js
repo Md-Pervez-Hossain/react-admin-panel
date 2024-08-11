@@ -4,6 +4,20 @@ import { api } from "../../api/apiSlice";
 
 const bulkSmsHistoryApi = api.injectEndpoints({
   endpoints: (builder) => ({
+    addbulkSmsHistoryResend: builder.mutation({
+      query: (id) => {
+        const token = JSON.parse(localStorage.getItem('loginAuth'))?.accessToken;
+        return {
+          url: `service/bulk-sms-resend/${id}/`,
+          method: "POST",
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+          body: id
+        };
+      },
+      invalidatesTags: ['bulkSmsResend'],
+    }),
     getBulkSmsHistory: builder.query({
       query: () => {
         const token = JSON.parse(localStorage.getItem('loginAuth'))?.accessToken;
@@ -15,7 +29,7 @@ const bulkSmsHistoryApi = api.injectEndpoints({
           },
         };
       },
-      providesTags: ['bulkSms'],
+      providesTags: ['bulkSms', 'bulkSmsResend'],
     }),
     getBulkSmsHistoryDetails: builder.query({
       query: ({ id, query }) => {
@@ -28,7 +42,7 @@ const bulkSmsHistoryApi = api.injectEndpoints({
           },
         };
       },
-      providesTags: ['bulkSms'],
+      providesTags: ['bulkSms', 'bulkSmsResend'],
     }),
 
   })
@@ -36,5 +50,7 @@ const bulkSmsHistoryApi = api.injectEndpoints({
 
 export const {
   useGetBulkSmsHistoryQuery,
-  useGetBulkSmsHistoryDetailsQuery
+  useGetBulkSmsHistoryDetailsQuery,
+  useAddbulkSmsHistoryResendMutation
+
 } = bulkSmsHistoryApi;
