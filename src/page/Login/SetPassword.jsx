@@ -1,42 +1,29 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
-import { useLoginMutation } from "../../redux/features/auth/authApi";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import toast from "react-hot-toast";
 
-const Login = ({ setShowComponent }) => {
-  const accessToken = useSelector((state) => state?.auth?.accessToken);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (accessToken) {
-      navigate("/");
-    }
-  }, [accessToken, navigate]);
-
+const SetPassword = ({ setShowComponent }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isLoading },
   } = useForm();
 
-  const [login, { isLoading }] = useLoginMutation();
+  // const [login, { isLoading }] = useLoginMutation();
 
-  const handleLoginForm = async (value) => {
-    const res = await login(value);
-    if (res?.data?.token) {
-      navigate("/dashboard");
-    } else if (res?.error?.status === 400) {
-      toast?.error(res?.error?.data?.msg);
-    }
+  const handleSetPassword = async (value) => {
+    // const res = await login(value);
+    // if (res?.data?.token) {
+    //   navigate("/dashboard");
+    // } else if (res?.error?.status === 400) {
+    //   toast?.error(res?.error?.data?.msg);
+    // }
   };
 
   return (
-    <div className="min-h-screen  flex items-center justify-center bg-gray-50">
-      <div className=" bg-white p-5 rounded-lg border-2 border-primary/10 w-96 mx-auto">
+    <div className="min-h-screen  flex items-center justify-center">
+      <div className="bg-gray-50 p-5 rounded-lg border-2 border-primary/10 w-96 mx-auto">
         <h2 className="text-center font-semibold text-xl mb-5">Log in</h2>
-        <form onSubmit={handleSubmit(handleLoginForm)}>
+        <form onSubmit={handleSubmit(handleSetPassword)}>
           <fieldset disabled={isSubmitting} className="disabled:opacity-50">
             <div className="grid grid-cols-1 gap-5">
               <input
@@ -76,4 +63,4 @@ const Login = ({ setShowComponent }) => {
   );
 };
 
-export default Login;
+export default SetPassword;

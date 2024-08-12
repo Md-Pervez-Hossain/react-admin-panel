@@ -16,6 +16,7 @@ import BulkSmsClientsHistoryDetails from "../page/History/BulkSmsClientHistory/B
 import Status from "../page/Status/BulkSmsStatus/BulkSmsStatus";
 import BulkSmsStatus from "../page/Status/BulkSmsStatus/BulkSmsStatus";
 import BulkSmsStatusDetails from "../page/Status/BulkSmsStatus/BulkSmsStatusDetails";
+import Auth from "../page/Login/Auth";
 
 const router = createBrowserRouter([
   {
@@ -76,18 +77,11 @@ const router = createBrowserRouter([
     path: "/login",
     element: (
       <PublicRoute>
-        <Login />
+        <Auth />
       </PublicRoute>
     ),
   },
-  {
-    path: "/signup",
-    element: (
-      <PublicRoute>
-        <Signup />
-      </PublicRoute>
-    ),
-  },
+
   { path: "*", element: <Navigate to="/" /> },
 ]);
 
