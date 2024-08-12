@@ -8,7 +8,6 @@ import toast from "react-hot-toast";
 const Login = ({ setShowComponent }) => {
   const accessToken = useSelector((state) => state?.auth?.accessToken);
   const navigate = useNavigate();
-
   useEffect(() => {
     if (accessToken) {
       navigate("/");

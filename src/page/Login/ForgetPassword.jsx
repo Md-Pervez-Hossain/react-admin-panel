@@ -1,15 +1,27 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useSendTokenEmailMutation } from "../../redux/features/forgetPassword/forgetPasswordApi";
+import toast from "react-hot-toast";
+import SetPassword from "./SetPassword";
 
 const ForgetPassword = ({ setShowComponent }) => {
+  const [forgetPass, { isError, isLoading, isSuccess }] =
+    useSendTokenEmailMutation();
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isLoading },
+    formState: { errors, isSubmitting },
   } = useForm();
 
-  const handleForgetPassword = () => {
-    console.log("clicked");
+  const handleForgetPassword = async (data) => {
+    const res = await forgetPass(data);
+    console.log(res);
+    if (res?.data?.status === 200) {
+      toast.success(res?.data?.msg);
+      setShowComponent("setPassword");
+    } else {
+      toast.error(res?.data?.msg);
+    }
   };
 
   return (
