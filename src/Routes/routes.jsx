@@ -13,7 +13,7 @@ import Profile from "../page/Profile/Profile";
 import ApiClientsHistory from "../page/History/ApiClientsHistory/ApiClientsHistory";
 import BulkSmsClientHistory from "../page/History/BulkSmsClientHistory/BulkSmsClientHistory";
 import BulkSmsClientsHistoryDetails from "../page/History/BulkSmsClientHistory/BulkSmsClientsHistoryDetails";
-import Status from "../page/Status/BulkSmsStatus/BulkSmsStatus";
+
 import BulkSmsStatus from "../page/Status/BulkSmsStatus/BulkSmsStatus";
 import BulkSmsStatusDetails from "../page/Status/BulkSmsStatus/BulkSmsStatusDetails";
 import Auth from "../page/Login/Auth";
