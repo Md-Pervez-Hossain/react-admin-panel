@@ -1,75 +1,189 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import usePageAnimation from "../../../hooks/usePageAnimation";
-import { motion } from "framer-motion";
+import useModalDropdown from "../../../hooks/useModalDropdown";
+import useClickOutside from "../../../hooks/useClickOutside";
+import DropdownMenu from "../../share/DropdownMenu/DropdownMenu";
 import Container from "../../share/ui/Container/Container";
 import Breadcrumb from "../../share/Breadcrumb/Breadcrumb";
+import { motion } from "framer-motion";
 import PrimaryButton from "../../share/Buttons/PrimaryButton";
-import useModalDropdown from "../../../hooks/useModalDropdown";
+import { AiOutlinePlus } from "react-icons/ai";
 import ActionModal from "../../share/ActionModal/ActionModal";
-import UpdateProfile from "./UpdateProfile";
-import { useGetProfileQuery } from "../../redux/features/profile/profileApi";
+import AddProfile from "./AddProfile";
+import EditProfile from "./EditProfile";
+import ProfileDetails from "./ProfileDetails";
+
 const Profile = () => {
+  const [searchText, setSearchText] = useState("");
+  // const [pagination, setPagination] = useState({
+  //   pageIndex: 0,
+  //   pageSize: 5,
+  // });
+
+  // const query = `page=${pagination.pageIndex + 1}&limit=${
+  //   pagination.pageSize
+  // }&q=${searchText}`;
+  // const {
+  //   data: apiClientsData,
+  //   isLoading,
+  //   isError,
+  // } = useGetAPiClientsQuery(query);
+  // console.log(apiClientsData);
+
+  // const [deleteApiClients] = useDeleteApiClientsMutation();
+
   const { parentVariant, childVariant } = usePageAnimation();
+  const {
+    dropdownOpenId,
+    selectedUserId,
+    selectedItemData,
+    isAddModalOpen,
+    isEditModalOpen,
+    isDeleteModalOpen,
+    isDetailsModalOpen,
+    toggleDropdown,
+    openAddModal,
+    openDeleteModal,
+    openDetailsModal,
+    openEditModal,
+    closeModals,
+  } = useModalDropdown();
 
-  const { data: profileInfo, isLoading, isError, error } = useGetProfileQuery();
+  const dropdownRef = useRef(null);
+  useClickOutside(dropdownRef, () => toggleDropdown(null));
 
-  let content;
-  if (isLoading && !isError) {
-    content = <p>Loading......</p>;
-  } else {
-    content = profileInfo;
-  }
+  const header = [
+    { header: "Sl", accessorKey: "id" },
+    {
+      header: "User Name",
+      accessorKey: "username",
+    },
+    { header: "Email", accessorKey: "email" },
+    { header: "Organisation", accessorKey: "organization" },
+    { header: "Balance", accessorKey: "balance" },
+    {
+      header: "Action",
+      id: "action",
+      cell: ({ row }) => {
+        const itemData = row.original;
+        const isOpen = dropdownOpenId === itemData.id;
 
-  console.log(content);
+        return (
+          <DropdownMenu
+            id={itemData.id}
+            isOpen={isOpen}
+            toggleDropdown={toggleDropdown}
+            onEdit={() => openEditModal(itemData)}
+            onDelete={() => openDeleteModal(itemData)}
+            onDetails={() => openDetailsModal(itemData)}
+          />
+        );
+      },
+    },
+  ];
 
-  const { bio, profile_picture, username, email } = content;
-  const { isAddModalOpen, openAddModal, closeModals } = useModalDropdown();
+  // let content;
+  // if (isLoading && !isError) {
+  //   content = <p>Loading</p>;
+  // }
+  // if (!isLoading && isError) {
+  //   content = <p>Error</p>;
+  // }
+  // if (!isLoading && !isError && apiClientsData?.results?.length === 0) {
+  //   content = <p>No Data Found</p>;
+  // }
+  // if (!isLoading && !isError && apiClientsData?.results?.length > 0) {
+  //   content = (
+  //     <Table
+  //       columns={header}
+  //       tabelData={apiClientsData?.results}
+  //       pagination={pagination}
+  //       setPagination={setPagination}
+  //       totalData={apiClientsData.count}
+  //       // search={searchText}
+  //       // setSearch={setSearchText}
+  //     />
+  //   );
+  // }
+
   return (
-    <motion.div variants={parentVariant} initial="hidden" animate="visible">
-      <Container>
+    <Container>
+      <motion.div
+        variants={parentVariant}
+        initial="hidden"
+        animate="visible"
+        className="font-poppins"
+      >
         <motion.div variants={childVariant}>
-          <Breadcrumb title="Profile Page" />
-
+          <Breadcrumb title="Employ Profile" />
+        </motion.div>
+        <motion.div
+          variants={childVariant}
+          className="flex items-center justify-between  mb-4"
+        >
+          <motion.h2 className="font-poppins  text-[20px]">
+            All Profile List
+          </motion.h2>
           <motion.div
             variants={childVariant}
-            className="grid grid-cols-3  gap-10 items-center"
+            className="flex items-center gap-5"
           >
-            <img
-              src={profile_picture}
-              alt="profile pic"
-              className="w-full rounded-md border-2 border-primary/10"
-            />
-            <div className="col-span-2">
-              <div className="flex items-center justify-between">
-                <div>
-                  <motion.h2
-                    variants={childVariant}
-                    className="text-2xl font-semibold "
-                  >
-                    {username}
-                  </motion.h2>
-                  <p>{email}</p>
-                </div>
-                <motion.div variants={childVariant} onClick={openAddModal}>
-                  <PrimaryButton>Update Profile</PrimaryButton>
-                </motion.div>
-              </div>
-              <motion.p variants={childVariant} className="py-5">
-                {bio}
-              </motion.p>
-            </div>
+            <motion.div>
+              <input
+                className="px-4 py-2 border border-primary/20 rounded-lg bg-transparent focus:outline-none "
+                placeholder="search"
+                onChange={(e) => setSearchText(e.target.value)}
+              />
+            </motion.div>
+            <PrimaryButton
+              className=" flex items-center gap-2 "
+              onClick={openAddModal}
+            >
+              <AiOutlinePlus className="" />
+              Add Profile
+            </PrimaryButton>
           </motion.div>
         </motion.div>
-      </Container>
+
+        {/* <motion.div variants={childVariant}>{content}</motion.div> */}
+      </motion.div>
+
       <ActionModal
         isOpen={isAddModalOpen}
         closeModal={closeModals}
-        title="Update Profile"
+        title="Add Employ Profile"
+        actionContent={<AddProfile closeModal={closeModals} />}
+      />
+
+      <ActionModal
+        isOpen={isEditModalOpen}
+        closeModal={closeModals}
+        title="Edit Employ Profile"
         actionContent={
-          <UpdateProfile data={content} closeModal={closeModals} />
+          <EditProfile data={selectedItemData} closeModal={closeModals} />
         }
       />
-    </motion.div>
+
+      {/* <ActionModal
+        isOpen={isDeleteModalOpen}
+        closeModal={closeModals}
+        title="Delete Api Clients"
+        actionContent={
+          <DeleteModa
+            data={selectedItemData}
+            deleteFun={deleteApiClients}
+            closeModal={closeModals}
+          />
+        }
+      /> */}
+
+      <ActionModal
+        isOpen={isDetailsModalOpen}
+        closeModal={closeModals}
+        title=" Profile Details"
+        actionContent={<ProfileDetails data={selectedItemData} />}
+      />
+    </Container>
   );
 };
 

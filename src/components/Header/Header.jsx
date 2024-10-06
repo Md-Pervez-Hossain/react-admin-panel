@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { useState, useRef } from "react";
+import { FaBars } from "react-icons/fa";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { LuShoppingCart } from "react-icons/lu";
 import { IoIosArrowForward } from "react-icons/io";
@@ -11,7 +11,6 @@ import Logo from "../Logo/Logo";
 import { useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../../redux/features/auth/authApi";
 import toast from "react-hot-toast";
-import useClickOutside from "../../../hooks/useClickOutside";
 
 const Header = ({
   isMenuOpen,

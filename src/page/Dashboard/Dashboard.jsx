@@ -83,7 +83,7 @@ const Dashboard = () => {
             className="p-5 rounded-lg bg-primary cursor-pointer "
           >
             <div className="text-center">
-              <h2 className="font-medium text-[20px] text-white">Daily SMS</h2>
+              <h2 className="font-medium text-[20px] text-white">Icome</h2>
               <p className="font-normal text-secondary">5000</p>
               <p className="font-normal text-white">
                 Increase by <span className="text-secondary">30%</span>
@@ -97,10 +97,8 @@ const Dashboard = () => {
             className="p-5 rounded-lg bg-secondary  cursor-pointer "
           >
             <div className="text-center">
-              <h2 className="font-medium text-[20px] text-white">
-                Monthly SMS
-              </h2>
-              <p className="font-normal text-primary">3000</p>
+              <h2 className="font-medium text-[20px] text-white">Expense</h2>
+              <p className="font-normal text-primary">500</p>
               <p className="font-normal text-white">
                 Increase by <span className="text-primary">20%</span>
               </p>
@@ -113,7 +111,7 @@ const Dashboard = () => {
             className="p-5 rounded-lg bg-tertiary cursor-pointer "
           >
             <div className="text-center">
-              <h2 className="font-medium text-[20px] text-white">Yearly SMS</h2>
+              <h2 className="font-medium text-[20px] text-white">Revenue</h2>
               <p className="font-normal text-primary">7000</p>
               <p className="font-normal text-white">
                 Increase by <span className="text-primary">40%</span>
