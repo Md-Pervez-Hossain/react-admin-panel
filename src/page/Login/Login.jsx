@@ -18,10 +18,12 @@ const Login = ({ setShowComponent }) => {
 
   const handleLoginForm = async (value) => {
     const res = await login(value);
+    console.log(res);
     if (res?.data?.token) {
       navigate("/dashboard");
+      toast?.success("Successfully Login");
     } else if (res?.error?.status === 400) {
-      toast?.error(res?.error?.data?.msg);
+      toast?.error(res?.error?.data?.detail);
     }
   };
 

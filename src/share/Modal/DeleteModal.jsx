@@ -11,13 +11,16 @@ const DeleteModal = ({ data, deleteFun, closeModal }) => {
   const handleDelete = async (id) => {
     setIsDeleting(true);
     try {
-      const response = await deleteFun(id);
-      if (response?.data === null) {
+      const response = await deleteFun(1);
+      console.log(response);
+      if (response?.data?.status === 200) {
         toast.success("Successfully Deleted");
         closeModal();
+      } else {
+        toast.error(response?.error?.data?.detail);
       }
     } catch (error) {
-      toast.error("This didn't work.", error);
+      toast.error(error?.data?.detail);
     } finally {
       setIsDeleting(false);
     }

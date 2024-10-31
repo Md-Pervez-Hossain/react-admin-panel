@@ -1,23 +1,33 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import Dashboard from "../page/Dashboard/Dashboard";
 import Layout from "../Layout/Layout";
-import ApiClients from "../page/Clients/ApiClients/ApiClients";
 import PublicRoute from "./PublicRoute";
 import Auth from "../page/Login/Auth";
 import Profile from "../page/Profile/Profile";
+import PrivateRoute from "./PrivateRoute";
+import ColorManage from "../page/ColorManage/ColorManage";
+import HeaderManage from "../page/HeaderManage/HeaderManage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      // <PrivateRoute>
-      <Layout />
-      // </PrivateRoute>
+      <PrivateRoute>
+        <Layout />
+      </PrivateRoute>
     ),
     children: [
       {
-        path: "/dashboard",
+        path: "/",
         element: <Dashboard />,
+      },
+      {
+        path: "/color-manage",
+        element: <ColorManage />,
+      },
+      {
+        path: "/header-manage",
+        element: <HeaderManage />,
       },
       {
         path: "/employ/profile",
